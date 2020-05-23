@@ -7,11 +7,14 @@ import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthTokenService } from './services/token.service';
 import { gapiClientConfig } from './config/google-api.config';
+import { ApiWebService } from './api/api.web.service';
+import { MainComponent } from './components/main/main.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,7 @@ import { gapiClientConfig } from './config/google-api.config';
       provide: NG_GAPI_CONFIG, useValue: gapiClientConfig
     })
   ],
-  providers: [AuthTokenService],
+  providers: [AuthTokenService, ApiWebService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

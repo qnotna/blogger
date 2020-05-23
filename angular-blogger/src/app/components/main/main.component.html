@@ -1,0 +1,3 @@
+<div *ngIf="(blogs$ | async) as blogs">
+    <div *ngFor="let blog of blogs">{{ blog.name }}</div>
+</div>
