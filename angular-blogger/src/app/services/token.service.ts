@@ -1,5 +1,6 @@
 import { GoogleAuthService } from 'ng-gapi';
 import { Injectable } from '@angular/core';
+import GoogleUser = gapi.auth2.GoogleUser;
 
 @Injectable()
 export class AuthTokenService {
@@ -26,15 +27,16 @@ export class AuthTokenService {
                 auth.signIn()
                     .then(this.signInSuccessHandler)
                     .catch(this.handleError);
-            }
-        );
+                }
+            );
     }
 
-    private signInSuccessHandler(res) {
-        sessionStorage.setItem(AuthTokenService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
+    private signInSuccessHandler(user: GoogleUser) {
+        sessionStorage.setItem(AuthTokenService.SESSION_STORAGE_KEY, user.getAuthResponse().access_token);
     }
 
     private handleError(err) {
-        // console.log(err);
+        console.log(err);
     }
+
 }

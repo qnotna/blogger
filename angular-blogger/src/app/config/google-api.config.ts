@@ -5,4 +5,3 @@ export const gapiClientConfig: NgGapiClientConfig = {
     discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/blogger/v3/rest'],
     scope: ['https://www.googleapis.com/auth/blogger'].join(' ')
   };
-  
