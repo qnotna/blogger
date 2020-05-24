@@ -5,7 +5,7 @@ import { GetBlogsResponse, Blog } from './models/blogs.model';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ApiWebService {
     API_KEY = 'AIzaSyCtiSae5qplDYdvQ_i6n6eIJsJLjapNP4U';
     basePath = 'https://www.googleapis.com';
@@ -20,6 +20,7 @@ export class ApiWebService {
         this.headers = this.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);
         const options = { headers: this.headers };
         return this.http.get<any>(`${this.basePath}/blogger/v3/users/self/blogs`, options).pipe(
+            map(res => res as GetBlogsResponse),
             map(res => res.items)
         );
     }

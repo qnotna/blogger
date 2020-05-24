@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'angular-blogger';
 
   constructor(private authService: AuthTokenService) {
-    authService.signIn();
+    this.authService.signIn();
   }
+
 }

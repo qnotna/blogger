@@ -14,6 +14,6 @@ export interface Blog {
 }
 
 export interface GetBlogsResponse {
-    items: Blog[];
-    kind: string;
+    items?: Blog[];
+    kind?: string;
 }
