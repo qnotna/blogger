@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthTokenService } from './services/token.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +6,7 @@ import { AuthTokenService } from './services/token.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-blogger';
-
-  constructor(private authService: AuthTokenService) {
-    this.authService.signIn();
+  constructor() {
   }
 
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Blog } from '../../api/models/blogs.model';
 import { Observable } from 'rxjs';
+import { Blog } from 'src/app/api/models/blogs.model';
 import { ApiWebService } from 'src/app/api/api.web.service';
-import { AuthTokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-main',
@@ -22,4 +21,7 @@ export class MainComponent implements OnInit {
     this.blogs$ = this.api.getBlogsByUser();
   }
 
+  fetchBlogs() {
+    this.blogs$ = this.api.getBlogsByUser();
+  }
 }

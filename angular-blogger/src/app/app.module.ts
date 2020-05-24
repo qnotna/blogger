@@ -7,12 +7,14 @@ import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import { HttpClientModule } from '@angular/common/http';
 import { gapiClientConfig } from './config/google-api.config';
 import { MainComponent } from './components/main/main.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

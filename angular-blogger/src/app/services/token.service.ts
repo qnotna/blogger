@@ -1,34 +1,44 @@
-import { GoogleAuthService } from 'ng-gapi';
-import { Injectable } from '@angular/core';
+import { GoogleAuthService, GoogleApiService } from 'ng-gapi';
+import { Injectable, NgZone } from '@angular/core';
 import GoogleUser = gapi.auth2.GoogleUser;
+import GoogleAuth = gapi.auth2.GoogleAuth;
+import { of, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthTokenService {
     static SESSION_STORAGE_KEY = 'accessToken';
-    constructor(private authService: GoogleAuthService) {}
+    constructor(
+        private authService: GoogleAuthService,
+        private gapi: GoogleApiService,
+        private router: Router,
+        private ngZone: NgZone) {}
 
     /**
-     * returns auth token from local storage
+     * returns auth token from session storage
      */
     getToken(): string {
         const token = sessionStorage.getItem(AuthTokenService.SESSION_STORAGE_KEY);
-        if (!token) {
-            throw new Error('No token. Authentication required!');
-        }
         return token;
+    }
+
+    getTokenObs(): Observable<string> {
+        return of(this.getToken());
     }
 
     /**
      * opens up google pop-up to sign in as google user and sets auth token in local storage
      */
     signIn() {
-        this.authService.getAuth()
-            .subscribe((auth) => {
-                auth.signIn()
-                    .then(this.signInSuccessHandler)
-                    .catch(this.handleError);
-                }
-            );
+        return this.authService.getAuth()
+        .subscribe((auth: GoogleAuth) => {
+            auth.signIn()
+            .then((user: GoogleUser) => {
+                this.signInSuccessHandler(user);
+            })
+            .catch(this.handleError)
+            .then(() => this.ngZone.run(() => this.router.navigate(['/home'])));
+        });
     }
 
     private signInSuccessHandler(user: GoogleUser) {
