@@ -10,12 +10,14 @@ import { ApiWebService } from 'src/app/api/api.web.service';
 })
 export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
+  blogs: Blog[];
 
-  constructor(private api: ApiWebService) { }
+  constructor(private api: ApiWebService) {}
 
   ngOnInit() {
     // this.api.getBlogsByUser().subscribe((res: Blog[]) => {
     //   console.log(res);
+    //   this.blogs = res;
     // });
 
     this.blogs$ = this.api.getBlogsByUser();

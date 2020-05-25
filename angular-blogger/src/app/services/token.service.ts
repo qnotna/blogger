@@ -30,14 +30,18 @@ export class AuthTokenService {
      * opens up google pop-up to sign in as google user and sets auth token in local storage
      */
     signIn() {
-        return this.authService.getAuth()
+        const token = this.getToken();
+        if (token) {
+            return this.navigateToEntryPage();
+        }
+        this.authService.getAuth()
         .subscribe((auth: GoogleAuth) => {
             auth.signIn()
             .then((user: GoogleUser) => {
                 this.signInSuccessHandler(user);
             })
             .catch(this.handleError)
-            .then(() => this.ngZone.run(() => this.router.navigate(['/home'])));
+            .then(() => this.navigateToEntryPage());
         });
     }
 
@@ -47,6 +51,10 @@ export class AuthTokenService {
 
     private handleError(err) {
         console.log(err);
+    }
+
+    private navigateToEntryPage() {
+        this.ngZone.run(() => this.router.navigate(['/home']));
     }
 
 }
