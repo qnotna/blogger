@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { gapiClientConfig } from './config/google-api.config';
 import { MainComponent } from './components/main/main.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { MaterialModule } from 'src/material/material.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AuthComponent } from './components/auth/auth.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MaterialModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG, useValue: gapiClientConfig
     })
