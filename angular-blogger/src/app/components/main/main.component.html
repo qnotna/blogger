@@ -1,0 +1,5 @@
+<h3>Blogs</h3>
+<div *ngIf="(blogs$ | async) as blogs">
+    <div *ngFor="let blog of blogs">{{ blog.name }}</div>
+</div>
+<button (click)="fetchBlogs()">Click</button>
