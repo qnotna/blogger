@@ -4,7 +4,12 @@
 
 - [Setup](#setup)
     - [Credentials](#credentials)
-- [Introduction to Blogger](#introduction-to-blogger)
+- [Angular](#angular)
+    - [Code Scaffolding](#code-scaffolding)
+    - [Build](#build)
+    - [Unit Tests](#unit-tests)
+    - [Further Help](#further-help)
+- [Introduction to Blogger-API](#introduction-to-blogger-api)
 
 ## Setup
 
@@ -26,5 +31,22 @@ For this google account are two credentials given
 
 They are already used in our blogger-app, so no concern to do anything from here
 
-## Introduction to Blogger
+## Angular
+### Code scaffolding
+
+Run `ng generate component component-name` or `ng g c name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+### Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+### Unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+### Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Introduction to Blogger-API
 For working with blogs, posts, comments, ...  from blogger-api read doc [here](https://developers.google.com/blogger/docs/3.0/using#WorkingWithBlogs).
