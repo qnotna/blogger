@@ -7,7 +7,7 @@ export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(): Promise<boolean> {
-        return this.authService.getTokenObs().toPromise()
+        return this.authService.getToken$.toPromise()
             .then(token => {
                 if (token !== null) {
                     return true;

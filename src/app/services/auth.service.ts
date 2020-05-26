@@ -10,6 +10,7 @@ export class AuthService {
     static SESSION_STORAGE_KEY = 'accessToken';
     private SCOPE = 'https://www.googleapis.com/auth/blogger';
     private auth: GoogleAuth;
+    private user: GoogleUser;
     loggedIn: boolean;
 
     constructor(
@@ -21,17 +22,28 @@ export class AuthService {
         }
 
     /**
-     * returns auth token from session storage
-     */
-    getToken(): string {
+     * returns OAuth-Token from session storage
+     */    getToken(): string {
         const token = sessionStorage.getItem(AuthService.SESSION_STORAGE_KEY);
+        if (!token) {
+            throw new Error('No Token! No Authorization!');
+        }
         return token;
     }
 
-    getTokenObs(): Observable<string> {
+
+    /**
+     * returns OAuth-Token wrapped in Observable
+     */
+    get getToken$(): Observable<string> {
         return of(this.getToken());
     }
 
+    /**
+     * Sets OAuth-Token in sessionStorage,
+     * authorizes user for next page
+     * and GoogleAuth to listen to any changes when user is logging in or out
+     */
     initClient() {
         this.authService.getAuth()
             .subscribe((auth: GoogleAuth) => {
@@ -41,34 +53,39 @@ export class AuthService {
             });
     }
 
+    /**
+     * Depending if the user is signed in or logged in the user is logged out or in
+     */
     handleAuth() {
         if (this.auth.isSignedIn.get()) {
             this.auth.signOut();
         } else {
             this.auth.signIn()
                 .then((user: GoogleUser) => {
-                    this.signInSuccessHandler(user);
+                    this.user = user;
                 });
         }
     }
 
-    private signInSuccessHandler(user: GoogleUser) {
-        sessionStorage.setItem(AuthService.SESSION_STORAGE_KEY, user.getAuthResponse().access_token);
-    }
 
     private navigateTo(route: string) {
         this.ngZone.run(() => this.router.navigate([route]));
     }
 
+    /**
+     * Depending if the current user is authorized or has blogger-scope:
+     *  - OAuth-Token is set in sessionStorage and will be navigated to home or login page
+     */
     private setSignInStatus() {
         const user: GoogleUser = this.auth.currentUser.get();
         const isAuthorized = user.hasGrantedScopes(this.SCOPE);
         if (isAuthorized) {
+            sessionStorage.setItem(AuthService.SESSION_STORAGE_KEY, user.getAuthResponse().access_token);
             this.loggedIn = true;
             this.navigateTo('/home');
         } else {
             this.loggedIn = false;
-            this.navigateTo('/auth');
+            this.navigateTo('/login');
         }
     }
 
