@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/api/models/blogs.model';
 import { ApiWebService } from 'src/app/api/api.web.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +13,7 @@ export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
   blogs: Blog[];
 
-  constructor(private api: ApiWebService) {}
+  constructor(private api: ApiWebService, private authService: AuthService) {}
 
   ngOnInit() {
     // this.api.getBlogsByUser().subscribe((res: Blog[]) => {
@@ -25,5 +26,9 @@ export class MainComponent implements OnInit {
 
   fetchBlogs() {
     this.blogs$ = this.api.getBlogsByUser();
+  }
+
+  logout() {
+    this.authService.handleAuth();
   }
 }

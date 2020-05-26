@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthTokenService } from '../services/token.service';
+import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 import { GetBlogsResponse, Blog } from './models/blogs.model';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ export class ApiWebService {
 
     headers: HttpHeaders = new HttpHeaders();
 
-    constructor(private http: HttpClient, private authService: AuthTokenService) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getBlogsByUser(): Observable<Blog[]> {
         this.headers = this.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);

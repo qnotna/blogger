@@ -2,4 +2,5 @@
 <div *ngIf="(blogs$ | async) as blogs">
     <div *ngFor="let blog of blogs">{{ blog.name }}</div>
 </div>
-<button (click)="fetchBlogs()">Click</button>
+<button mat-flat-button color="warn" (click)="fetchBlogs()">Refresh</button>
+<button mat-flat-button color="warn" (click)="logout()">Logout</button>
