@@ -1,0 +1,64 @@
+// Visit http://mcg.mbitson.com/#!?mcgpalette0=%233f51b5 to generate color palettes like below 
+// Visit https://material.io/resources/color/#!/?view.left=0&view.right=0 to customize your own design themes
+
+$mat-blogger: (
+    50: #ECEFF1,
+    100: #cfd8dc,
+    200: #B0BEC5,
+    300: #90A4AE,
+    400: #78909C,
+    500: #607D8B,
+    600: #546E7A,
+    700: #455A64,
+    800: #37474F,
+    900: #263238,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+        A100: #000000,
+        A200: #000000,
+        A400: #000000,
+        A700: #000000,
+    )
+);
+
+$mat-blogger-accent: (
+    50 : #fef0e3,
+    100 : #fcd9b9,
+    200 : #fabf8b,
+    300 : #f8a55d,
+    400 : #f7923a,
+    500 : #f57f17,
+    600 : #f47714,
+    700 : #f26c11,
+    800 : #f0620d,
+    900 : #ee4f07,
+    A100 : #ffffff,
+    A200 : #ffeae3,
+    A400 : #ffc5b0,
+    A700 : #ffb296,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);

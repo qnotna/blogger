@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthTokenService } from '../services/token.service';
+import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
-import { GetBlogsResponse, Blog } from './models/blogs.model';
+import { GETBlogsResponse, Blog } from '../models/blogs.model';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ApiWebService {
@@ -14,13 +14,13 @@ export class ApiWebService {
 
     headers: HttpHeaders = new HttpHeaders();
 
-    constructor(private http: HttpClient, private authService: AuthTokenService) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     getBlogsByUser(): Observable<Blog[]> {
         this.headers = this.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);
         const options = { headers: this.headers };
         return this.http.get<any>(`${this.basePath}/blogger/v3/users/self/blogs`, options).pipe(
-            map(res => res as GetBlogsResponse),
+            map(res => res as GETBlogsResponse),
             map(res => res.items)
         );
     }
