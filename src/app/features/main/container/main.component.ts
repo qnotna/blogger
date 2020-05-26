@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Blog } from 'src/app/api/models/blogs.model';
+import { Blog } from 'src/app/models/blogs.model';
 import { ApiWebService } from 'src/app/api/api.web.service';
 import { AuthService } from 'src/app/services/auth.service';
 

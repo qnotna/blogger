@@ -13,7 +13,7 @@ export interface Blog {
     url: string;
 }
 
-export interface GetBlogsResponse {
+export interface GETBlogsResponse {
     items?: Blog[];
     kind?: string;
 }

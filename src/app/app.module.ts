@@ -6,16 +6,16 @@ import { AppComponent } from './app.component';
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import { HttpClientModule } from '@angular/common/http';
 import { gapiClientConfig } from './config/google-api.config';
-import { MainComponent } from './components/main/main.component';
-import { AuthComponent } from './components/auth/auth.component';
+import { MainComponent } from './features/main/container/main.component';
 import { MaterialModule } from 'src/material/material.module';
+import { LoginComponent } from './features/login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    AuthComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
