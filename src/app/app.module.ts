@@ -9,13 +9,17 @@ import { gapiClientConfig } from './config/google-api.config';
 import { MainComponent } from './features/main/container/main.component';
 import { MaterialModule } from 'src/material/material.module';
 import { LoginComponent } from './features/login/login.component';
+import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
+import { HeaderComponent } from './features/header/container/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    BlogOverviewComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
