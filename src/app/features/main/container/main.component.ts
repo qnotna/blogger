@@ -28,6 +28,10 @@ export class MainComponent implements OnInit {
     this.blogs$ = this.api.getBlogsByUser();
   }
 
+  onBlogChange(selectedBlogId: string) {
+    console.log(selectedBlogId);
+  }
+
   logout() {
     this.authService.handleAuth();
   }

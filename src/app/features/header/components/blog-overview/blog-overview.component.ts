@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Blog } from 'src/app/models/blogs.model';
 
 @Component({
   selector: 'app-blog-overview',
   templateUrl: './blog-overview.component.html',
-  styleUrls: ['./blog-overview.component.scss']
+  styleUrls: ['./blog-overview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogOverviewComponent implements OnInit {
+export class BlogOverviewComponent {
+
+  @Input() blogs: Blog[];
+  @Output() blogChanged = new EventEmitter<string>();
 
   constructor() { }
 
-  ngOnInit(): void {
+  onBlogChange(event: Event) {
+    this.blogChanged.emit((event.target as HTMLSelectElement).value);
   }
 
 }
