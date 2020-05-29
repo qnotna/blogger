@@ -1,0 +1,5 @@
+<mat-form-field>
+    <select matNativeControl (change)="onBlogChange($event)">
+      <option [value]="blog.id" *ngFor="let blog of blogs">{{ blog.name }}</option>
+    </select>
+</mat-form-field>
