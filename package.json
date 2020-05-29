@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/jest": "^9.0.1",
     "@angular/animations": "~8.2.14",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "~8.2.14",
@@ -21,6 +22,8 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "jest": "^26.0.1",
+    "jest-preset-angular": "^8.2.0",
     "ng-gapi": "0.0.91",
     "rxjs": "^6.4.0",
     "tslib": "^1.10.0",
@@ -46,5 +49,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "^3.5.3"
+  },
+  "jest": {
+    "verbose": true
   }
 }
