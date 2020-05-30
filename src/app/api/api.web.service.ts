@@ -1,39 +1,37 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 import { GETBlogsResponse, Blog } from '../models/blogs.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class ApiWebService {
     API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
     basePath = 'https://www.googleapis.com';
-
-    blogId = 3785371635900908274;
-
     headers: HttpHeaders = new HttpHeaders();
 
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
 
     getBlogsByUser(): Observable<Blog[]> {
-        this.headers = this.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);
-        const options = { headers: this.headers };
+        const options = { headers: this.getHeaders() };
         return this.http.get<any>(`${this.basePath}/blogger/v3/users/self/blogs`, options).pipe(
+            catchError(err => this.handleError(err)),
             map(res => res as GETBlogsResponse),
             map(res => res.items)
         );
     }
 
-    getGetPostsByBlog(blogId: number) {
-        this.headers = this.headers.set('Authorization', `Bearer ${this.authService.getToken()}`);
-        const options = { headers: this.headers };
-        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`, options);
+    getPostsByBlog(blogId: number) {
+        const options = { headers: this.getHeaders() };
+        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`, options).pipe(
+            catchError(err => this.handleError(err))
+        );
     }
 
     createPostForBlog(blogId: number, requestBody: any) {
-        this.headers.append('Authorization', `Bearer ${this.authService.getToken()}`);
-        const options = { headers: this.headers };
+        const options = { headers: this.getHeaders() };
         // let body = requestBody;
         const body = {
             kind: 'blogger#post',
@@ -43,6 +41,24 @@ export class ApiWebService {
             title: 'Post',
             content: 'With <b>exciting</b> content...'
         };
-        return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options);
+        return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options).pipe(
+            catchError(err => this.handleError(err)),
+        );
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        const errorCode = error.error.error?.code;
+        if (errorCode) {
+            switch (errorCode) {
+                case 401: return this.router.navigate(['/login']);
+            }
+        }
+        return throwError(error);
+    }
+
+    private getHeaders(): HttpHeaders {
+        return new HttpHeaders({
+            Authorization: `Bearer ${this.authService.getToken()}`
+        });
     }
 }
