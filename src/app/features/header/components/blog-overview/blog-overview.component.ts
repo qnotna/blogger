@@ -15,7 +15,9 @@ export class BlogOverviewComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.blogChanged.emit(changes?.blogs?.currentValue[0]?.id);
+    if (changes?.blogs && this.blogs) {
+      this.blogChanged.emit(changes?.blogs?.currentValue[0]?.id);
+    }
   }
 
   onBlogChange(event: Event) {
