@@ -23,11 +23,9 @@ export class AuthService {
 
     /**
      * returns OAuth-Token from session storage
-     */    getToken(): string {
+     */
+    getToken(): string {
         const token = sessionStorage.getItem(AuthService.SESSION_STORAGE_KEY);
-        if (!token) {
-            this.navigateTo('login');
-        }
         return token;
     }
 

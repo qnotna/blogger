@@ -47,13 +47,8 @@ export class ApiWebService {
     }
 
     private handleError(error: HttpErrorResponse) {
-        const errorCode = error.error.error?.code;
-        if (errorCode) {
-            switch (errorCode) {
-                case 401: return this.router.navigate(['/login']);
-            }
-        }
-        return throwError(error);
+        const errorObj = error.error.error;
+        return throwError(errorObj);
     }
 
     private getHeaders(): HttpHeaders {
