@@ -1,7 +1,15 @@
 @import 'global-utils';
 
+:host {
+    width: 300px;
+}
+
 .mat-form-field {
     font-size: $large-font-size;
     margin-left: 1em;
-    width: 300px;
+    width: 100%;
+}
+
+.mat-progress-spinner {
+    margin: 0 auto;
 }

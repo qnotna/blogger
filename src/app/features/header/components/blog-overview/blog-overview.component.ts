@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { Blog } from 'src/app/models/blogs.model';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-blog-overview',
@@ -9,19 +10,34 @@ import { Blog } from 'src/app/models/blogs.model';
 })
 export class BlogOverviewComponent implements OnChanges {
 
-  @Input() blogs: Blog[];
+  currentBlog: string;
+  selectBlogs: Blog[];
+  hasBlogs = false;
+
+  @Input() set blogs(blogs: Blog[]) {
+    this.hasBlogs = false;
+    if (blogs && blogs !== null) {
+      this.hasBlogs = true;
+      this.currentBlog = blogs[0].id;
+      this.selectBlogs = blogs;
+    }
+  }
   @Output() blogChanged = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.blogs && this.blogs) {
-      this.blogChanged.emit(changes?.blogs?.currentValue[0]?.id);
+    if (changes.blogs.currentValue) {
+      this.blogChanged.emit(changes.blogs.currentValue[0]?.id);
     }
   }
 
-  onBlogChange(event: Event) {
-    this.blogChanged.emit((event.target as HTMLSelectElement).value);
+  onBlogChange(event: MatSelectChange) {
+    this.blogChanged.emit(this.currentBlog);
+  }
+
+  get getBlogs() {
+    return this.selectBlogs;
   }
 
 }
