@@ -26,7 +26,7 @@ export class AuthService {
      */    getToken(): string {
         const token = sessionStorage.getItem(AuthService.SESSION_STORAGE_KEY);
         if (!token) {
-            throw new Error('No Token! No Authorization!');
+            this.navigateTo('login');
         }
         return token;
     }
