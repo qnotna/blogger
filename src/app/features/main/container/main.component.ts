@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
   }
 
   onBlogChange(selectedBlogId: string) {
-    console.log(selectedBlogId);
+    console.log('MainComponent > Retrieved BlogId from BlogOverview:', selectedBlogId);
   }
 
   logout() {
