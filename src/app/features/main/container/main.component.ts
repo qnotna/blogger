@@ -1,31 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Blog } from 'src/app/models/blogs.model';
-import { ApiWebService } from 'src/app/api/api.web.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { Blog } from "src/app/models/blogs.model";
+import { ApiWebService } from "src/app/api/api.web.service";
+import { AuthService } from "src/app/services/auth.service";
+import { Post } from "src/app/models/posts.model";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
-  blogs: Blog[];
+  posts$: Observable<Post[]>;
 
-  constructor(private api: ApiWebService, private authService: AuthService) {}
+  constructor(
+    private api: ApiWebService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // this.api.getBlogsByUser().subscribe((res: Blog[]) => {
-    //   console.log(res);
-    //   this.blogs = res;
-    // });
-
     this.blogs$ = this.api.getBlogsByUser();
   }
 
   fetchBlogs() {
     this.blogs$ = this.api.getBlogsByUser();
+  }
+
+  onBlogChange(selectedBlogId: string) {
+    this.router.navigate([`home/blogs/${selectedBlogId}/posts`]);
+    // this.posts$ = this.api.getGetPostsByBlog(selectedBlogId);
   }
 
   logout() {

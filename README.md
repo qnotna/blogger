@@ -6,6 +6,14 @@
     - [Credentials](#credentials)
 - [Angular](#angular)
     - [Code Scaffolding](#code-scaffolding)
+    - [Routing](#routing)
+        - [Routing Setup](#routing-setup)
+        - [Trigger Navigation Event](#trigger-navigation-event)
+        - [Retrieve Parameters](#retrieve-parameters)
+    - [Observables](#observables)
+        - [Usage](#usage)
+        - [Change retrieved resources](#change-retrieved-resources)
+        - [Use with Async Pipe](#use-with-async-pipe)
     - [Build](#build)
     - [Unit Tests](#unit-tests)
     - [Further Help](#further-help)
@@ -38,6 +46,272 @@ For this google account are two credentials given
 ### Code scaffolding
 
 Run `ng generate component component-name` or `ng g c name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+### Routing
+Read more about Angular Router Docs [here](https://angular.io/guide/router).
+#### Routing Setup
+In order to route between components in angular you need to setup:
+- app-routing.module.ts
+- route triggering (programmatically or in-template)
+
+You need to `add your component` in the `routes object`, which will be passed to the `RouterModule`. The Module will tell Angular where to when the route changes in the app.
+
+app-routing.module.ts:
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { YourComponent } from './path/to/component';
+import { YourIdComponent } from './path/to/component';
+
+
+const routes: Routes = [
+    ...,
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+    ...
+  {
+    path: 'blogs/:id/posts',
+    component: PostOverviewComponent
+  },
+  { path: '**', redirectTo: '' },
+  ...
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+```
+
+Then you need to put the `<router-outlet></router-outlet>` html tag in an angular template. This tells Angular where to `display/show your component`, if the route is triggered. In our project `app.component.ts` contains this tag and the `main.component.ts`.
+
+app.component.ts:
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<router-outlet></router-outlet>`
+})
+export class AppComponent {
+  constructor() {}
+}
+```
+#### Trigger Navigation Event
+In order to `trigger a navigate event` Angular has a `built-in router service` providing navigation and url-manipulation which can be injected in every component.
+In our project `main.component.ts` is the container component and handles all `route navigations/events`.
+
+main.component.ts:
+```ts
+import { Router } from '@angular/router';
+...
+
+@Component({
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
+})
+export class MainComponent {
+
+  constructor(private router: Router) {}
+    ...
+
+  onBlogChange(selectedBlogId: string) {
+    this.router.navigate([`/blogs/${selectedBlogId}/posts`]);
+  }
+  ...
+}
+```
+
+When blogChanged event is triggered, call onBlogChange(...).
+
+main.component.html:
+```html
+<app-header
+    ...
+    (blogChanged)="onBlogChange($event)"
+    ...
+></app-header>
+...
+```
+
+#### Retrieve Parameters
+
+If you want to retrieve the blogId in the PostOverviewComponent (where it routes after navigation is triggered, look up in app-routing.module.ts) you need to inject the ActivatedRoute class to the component receiving the paramter(s).
+
+post-overview.component.ts:
+```ts
+import { ActivatedRoute } from '@angular/router';
+...
+
+@Component({
+    ...
+})
+PostOverviewComponent implements OnInit{
+
+    constructor(private currentRoute: ActivatedRoute) {}
+
+    ngOnInit() {
+        this.currentRoute.params.subscribe((yourParams) => {
+            //... do sth w/ yourParams
+        })
+    }
+}
+```
+
+### Observables
+
+#### Usage
+Read more about RxJs Observalbes [here](https://rxjs-dev.firebaseapp.com/guide/overview).
+
+Observables are essential in order to let the app `work asynchronous`.
+As the name suggests, an observable can watch over a resource and will be `triggered if this resource is changing` - just as a newsletter.
+
+For e.g.:
+```ts
+import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+...
+
+@Component({
+    ...
+})
+export class TestObservablesComponent implements OnInit {
+    // property observable wrapping a string value;
+    obs$: Observable<string>;
+    ...
+    ngOnInit() {
+        // of operator returns an observable containing a value (could be number, object, array, ...)
+        this.obs$ = of('this is a string value');
+        // subscribing to an observable will listen and trigger it when value changes.
+        this.obs$.subscribe(
+            // subscribe takes a callback, in which you can use the retrieved value
+            (value: string) => {
+                // resolves to 'this is a string value'
+                console.log(value);
+            }
+        );
+    }
+}
+```
+
+Subscribe also takes `3 arguments`: `1st` - as seen above, a function to call when `value changes`, `2nd` - function, when `receiving error`, `3rd` - function, when observable is `completed` respectively the stream ends (So if the value changes and was emitted like above, the completed function will be called).
+```ts
+import { Component, OnInit } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+
+...
+
+@Component({
+    ...
+})
+export class TestObservablesComponent implements OnInit {
+    // property observable wrapping a string value;
+    obs$: Observable<string>;
+    ...
+    ngOnInit() {
+        // throwError operator return an error wrapped in observable
+        this.obs$ = throwError(401);
+        this.obs$
+            .subscribe(
+                // What to do when value changes
+                (value: string) => console.log(value),
+                // What to do on error, return type err depends on what you return as error
+                (err: number) => console.log(err),
+                // What to do if stream is over or value was emitted
+                () => console.log('completed')
+            );
+    }
+
+}
+```
+
+#### Change retrieved resources
+
+You can `change and manipulate the values` of observables by using the `pipe function` on them which allows you to work with `operators` within the observable.
+
+`.pipe()` acts like a `middleware` or like a layer where `every value` is gonna go through, `no matter if it's emitted or not`.
+
+Read more about RxJs operators [here]().
+
+RxJs provides many `operators` to `manipulate values`, handling errors, ... and the observable itself.
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+...
+
+@Component({
+    ...
+})
+export class TestObservablesComponent implements OnInit {
+    obs$: Observable<string>;
+    ...
+    ngOnInit() {
+        this.obs$ = of('this is a string value');
+        this.obs$
+            .pipe(
+                // map operator opens up the observable stream and retrieves the current value in a callback function
+                // the value resolves to 'this is a string value'
+                // Of course it needs to return an observable which will be then subscribed later on to output the modified value
+                map((val: string) => {
+                    return of(val, 'which was modified')
+                })
+            )
+            .subscribe(
+                // prints 'this is a string value which was modified'
+                (val: string) => console.log(val)
+            );
+    }
+}
+```
+
+#### Use with Async Pipe
+
+A cool thing to use is: Using observables w/ the async pipe in the template. The async pipe will handle the subscription and the unsubscription of the observable automatically.
+
+main.component.html:
+```html
+<app-header
+    ...
+    [blogs]="blogs$ | async"
+    ...
+></app-header>
+```
+main.component.ts:
+```ts
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Blog } from 'src/app/models/blogs.model';
+import { ApiWebService } from 'src/app/api/api.web.service';
+
+@Component({
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
+})
+export class MainComponent implements OnInit {
+  blogs$: Observable<Blog[]>;
+  ...
+
+  constructor(private api: ApiWebService) {}
+
+  ngOnInit() {
+      // the api call return an observable wrapping an array of blogs
+    this.blogs$ = this.api.getBlogsByUser();
+  }
+  ...
+```
 
 ### Build
 

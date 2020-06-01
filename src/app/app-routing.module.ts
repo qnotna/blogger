@@ -19,10 +19,12 @@ const routes: Routes = [
     path: "home",
     component: MainComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: "blogs/:blogId/posts",
-    component: PostOverviewComponent,
+    children: [
+      {
+        path: "blogs/:blogId/posts",
+        component: PostOverviewComponent,
+      },
+    ],
   },
   { path: "**", redirectTo: "" },
 ];

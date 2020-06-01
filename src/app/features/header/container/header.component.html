@@ -1,0 +1,4 @@
+<mat-toolbar color="primary">
+    <app-blog-overview (blogChanged)="blogChanged.emit($event)" [blogs]="blogs"></app-blog-overview>
+    <button class="logout-btn" mat-flat-button color="accent" (click)="onLogout()">Logout</button>
+</mat-toolbar>
