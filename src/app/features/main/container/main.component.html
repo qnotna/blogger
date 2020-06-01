@@ -1,9 +1,9 @@
 <app-header
-    (blogChanged)="onBlogChange($event)" 
-    (logout)="logout()"
-    [blogs]="blogs$ | async"
+  (blogChanged)="onBlogChange($event)"
+  (logout)="logout()"
+  [blogs]="blogs$ | async"
 ></app-header>
 
-<img src="assets/img/look_into_hand.jpg" alt="gotcha!" width="1000" height="400"/>
+<router-outlet></router-outlet>
 
 <button mat-flat-button color="primary" (click)="fetchBlogs()">Refresh</button>
