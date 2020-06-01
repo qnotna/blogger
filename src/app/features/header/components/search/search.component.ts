@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
 import { ApiWebService } from 'src/app/api/api.web.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -13,18 +14,17 @@ export class SearchComponent implements OnInit {
 
   blogs$: Observable<Blog[]>;
   blogs: Blog[];
+  @Input() blogId: string;
 
-  constructor(private api: ApiWebService, private authService: AuthService) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  input: string = "";
-
   onEnter(value: string) {
-     this.input = value; 
-     console.log(this.input)
-     //this.blogs$ = this.api.searchPostsForBlog(1,this.input);
+    console.log(value)
+    this.router.navigate([`home/blogs/${this.blogId}/posts/search`], { queryParams: { q: value } })
+    console.log(this.blogId)
   }
 
 }

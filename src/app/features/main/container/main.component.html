@@ -2,6 +2,7 @@
   (blogChanged)="onBlogChange($event)"
   (logout)="logout()"
   [blogs]="blogs$ | async"
+  [blogId]="blogId"
 ></app-header>
 
 <router-outlet></router-outlet>

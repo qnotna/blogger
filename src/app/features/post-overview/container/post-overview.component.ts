@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, combineLatest } from "rxjs";
 import { Post } from "../../../models/posts.model";
 import { ApiWebService } from "src/app/api/api.web.service";
 import { ActivatedRoute, Params } from "@angular/router";
@@ -18,8 +18,17 @@ export class PostOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentRoute.params.subscribe((params: Params) => {
-      this.posts$ = this.api.getPostsByBlog(params.blogId);
+    combineLatest([
+      this.currentRoute.params,
+      this.currentRoute.queryParams
+    ]).subscribe(([params, query]) => {
+      console.log(query.q)
+      if (query.q !== undefined) {
+        this.posts$ = this.api.searchPostsForBlog(params.blogId, query.q);
+      }
+      else{
+        this.posts$ = this.api.getPostsByBlog(params.blogId)
+      }
     });
   }
 }

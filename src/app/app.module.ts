@@ -18,7 +18,7 @@ import { LoginComponent } from "./features/login/login.component";
 import { BlogOverviewComponent } from "./features/header/components/blog-overview/blog-overview.component";
 import { HeaderComponent } from "./features/header/container/header.component";
 import { PostOverviewComponent } from "./features/post-overview/container/post-overview.component";
-import { SearchComponent } from './features/search/search.component';
+import { SearchComponent } from './features/header/components/search/search.component';
 
 @NgModule({
   declarations: [

@@ -4,6 +4,7 @@ import { MainComponent } from './features/main/container/main.component';
 import { AuthGuard } from './services/auth.guard';
 import { LoginComponent } from './features/login/login.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
+import { SearchComponent } from './features/header/components/search/search.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
         path: 'blogs/:blogId/posts',
         component: PostOverviewComponent,
       },
+      {
+        path: 'blogs/:blogId/posts/search',
+        component: PostOverviewComponent,
+      }
     ],
   },
   { path: '**', redirectTo: '' },
