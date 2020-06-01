@@ -1,6 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostOverviewComponent } from './post-overview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
+class MockService {
+  handleAuth() {}
+}
+
+class MockRouter {
+  navigate() {}
+}
 
 describe('PostOverviewComponent', () => {
   let component: PostOverviewComponent;
@@ -8,7 +20,16 @@ describe('PostOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostOverviewComponent ]
+      declarations: [ PostOverviewComponent ],
+      imports: [
+        HttpClientModule,
+        RouterTestingModule
+      ],
+      providers: [
+        ActivatedRoute,
+        { provide: AuthService, useClass: MockService },
+        { provide: Router, useClass: MockRouter }
+      ]
     })
     .compileComponents();
   }));

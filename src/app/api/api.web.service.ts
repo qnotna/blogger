@@ -35,11 +35,7 @@ export class ApiWebService {
   }
 
   getPostsByBlog(blogId: string): Observable<Post[]> {
-    this.headers = this.headers.set(
-      "Authorization",
-      `Bearer ${this.authService.getToken()}`
-    );
-    const options = { headers: this.headers };
+    const options = { headers: this.getHeaders() };
     return this.http
       .get<any>(
         `${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`,
