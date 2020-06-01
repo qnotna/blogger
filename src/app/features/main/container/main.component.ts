@@ -35,7 +35,11 @@ export class MainComponent implements OnInit {
     this.router.navigate([`home/blogs/${selectedBlogId}/posts`]);
   }
 
-  logout() {
+  onSearchPost(query: string) {
+    this.router.navigate([`home/blogs/${this.blogId}/posts/search`], { queryParams: { q: query } });
+  }
+
+  onLogout() {
     this.authService.handleAuth();
   }
 

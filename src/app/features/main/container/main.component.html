@@ -1,8 +1,8 @@
 <app-header
   (blogChanged)="onBlogChange($event)"
-  (logout)="logout()"
+  (searchPosts)="onSearchPost($event)"
+  (logout)="onLogout()"
   [blogs]="blogs$ | async"
-  [blogId]="blogId"
 ></app-header>
 
 <router-outlet></router-outlet>
