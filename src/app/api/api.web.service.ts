@@ -46,6 +46,13 @@ export class ApiWebService {
         );
     }
 
+    searchPostsForBlog(blogId: number, q: String){
+        const options = { headers: this.getHeaders() };
+        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search`, options).pipe(
+            catchError(err => this.handleError(err)),
+        );
+    }
+
     private handleError(error: HttpErrorResponse) {
         const errorObj = error.error.error;
         return throwError(errorObj);

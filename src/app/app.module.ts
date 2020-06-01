@@ -17,7 +17,10 @@ import { MainComponent } from './features/main/container/main.component';
 import { LoginComponent } from './features/login/login.component';
 import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
 import { HeaderComponent } from './features/header/container/header.component';
+import { SearchComponent } from './features/search/search.component';
 
+//Icon
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { HeaderComponent } from './features/header/container/header.component';
     MainComponent,
     LoginComponent,
     BlogOverviewComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { HeaderComponent } from './features/header/container/header.component';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatIconModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG, useValue: gapiClientConfig
     })
