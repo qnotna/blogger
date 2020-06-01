@@ -1,6 +1,7 @@
 <app-header
   (blogChanged)="onBlogChange($event)"
-  (logout)="logout()"
+  (searchPosts)="onSearchPost($event)"
+  (logout)="onLogout()"
   [blogs]="blogs$ | async"
 ></app-header>
 

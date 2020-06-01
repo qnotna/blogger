@@ -24,6 +24,10 @@ const routes: Routes = [
         path: 'blogs/:blogId/posts',
         component: PostOverviewComponent,
       },
+      {
+        path: 'blogs/:blogId/posts/search',
+        component: PostOverviewComponent,
+      }
     ],
   },
   { path: '**', redirectTo: '' },

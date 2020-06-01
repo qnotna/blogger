@@ -1,0 +1,5 @@
+<mat-form-field appearance="standard" class="searchForm">
+    <mat-label>Search</mat-label>
+    <input matInput #input (keyup.enter)="onEnter(input.value)">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>

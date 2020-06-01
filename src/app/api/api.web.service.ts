@@ -2,19 +2,19 @@ import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from "@angular/common/http";
-import { AuthService } from "../services/auth.service";
-import { Injectable } from "@angular/core";
-import { GETBlogsResponse, Blog } from "../models/blogs.model";
-import { Observable, throwError } from "rxjs";
-import { GETPostsResponse, Post } from "../models/posts.model";
-import { map, catchError } from "rxjs/operators";
-import { Router } from "@angular/router";
+} from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { Injectable } from '@angular/core';
+import { GETBlogsResponse, Blog } from '../models/blogs.model';
+import { Observable, throwError } from 'rxjs';
+import { GETPostsResponse, Post } from '../models/posts.model';
+import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ApiWebService {
-  API_KEY = "AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI";
-  basePath = "https://www.googleapis.com";
+  API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
+  basePath = 'https://www.googleapis.com';
   headers: HttpHeaders = new HttpHeaders();
 
   constructor(
@@ -51,17 +51,25 @@ export class ApiWebService {
     const options = { headers: this.getHeaders() };
     // let body = requestBody;
     const body = {
-      kind: "blogger#post",
+      kind: 'blogger#post',
       blog: {
-        id: "8070105920543249955",
+        id: '8070105920543249955',
       },
-      title: "Post",
-      content: "With <b>exciting</b> content...",
+      title: 'Post',
+      content: 'With <b>exciting</b> content...',
     };
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
       .pipe(catchError((err) => this.handleError(err)));
   }
+
+    searchPostsForBlog(blogId: number, q: string) {
+        const options = { headers: this.getHeaders() };
+        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
+          map((res) => res as GETPostsResponse),
+          map((res) => res.items)
+        );
+    }
 
   private handleError(error: HttpErrorResponse) {
     const errorObj = error.error.error;

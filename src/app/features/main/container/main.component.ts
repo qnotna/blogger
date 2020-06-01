@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
   posts$: Observable<Post[]>;
+  blogId: string;
 
   constructor(
     private api: ApiWebService,
@@ -30,10 +31,17 @@ export class MainComponent implements OnInit {
   }
 
   onBlogChange(selectedBlogId: string) {
+    this.blogId = selectedBlogId;
     this.router.navigate([`home/blogs/${selectedBlogId}/posts`]);
   }
 
-  logout() {
+  onSearchPost(query: string) {
+    this.router.navigate([`home/blogs/${this.blogId}/posts/search`], { queryParams: { q: query } });
+  }
+
+  onLogout() {
     this.authService.handleAuth();
   }
+
+
 }
