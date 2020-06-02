@@ -47,6 +47,16 @@ For this google account are two credentials given
 
 Run `ng generate component component-name` or `ng g c name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
+For `ng generate component` a `path for the component` can also be passed to the command.
+Let's say we have this scaffold:
+```
+app
+ └─ features
+      └── header
+      └── main
+```
+And you want to generate a new feature called post-overview. Then you can run `ng generate component featues/post-overview` whereas app is the rootDir.
+
 ### Routing
 Read more about Angular Router Docs [here](https://angular.io/guide/router).
 #### Routing Setup
@@ -459,7 +469,9 @@ import { MaterialModule } from 'src/material/material.module';
 export class AppModule { }
 ```
 
-Now you can use the all the related Material stuff like directives, pipes, templates, ... in your components, e.g.:
+Now you can use the all the related Material stuff like `directives, pipes, templates, ...` in your components.
+
+Use `color` attribute on mat-components and as value: `primary`, `accent` or `warn` to apply color theme on mat-components.
 ```html
 <!-- some.component.html -->
 <div>

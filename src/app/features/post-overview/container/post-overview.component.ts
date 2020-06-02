@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, combineLatest, Subscription } from 'rxjs';
 import { Post } from '../../../models/posts.model';
 import { ApiWebService } from 'src/app/api/api.web.service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,8 +9,9 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './post-overview.component.html',
   styleUrls: ['./post-overview.component.scss'],
 })
-export class PostOverviewComponent implements OnInit {
+export class PostOverviewComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
+  postSub: Subscription;
 
   constructor(
     private api: ApiWebService,
@@ -18,7 +19,8 @@ export class PostOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    combineLatest([
+    // Combine 2 Observables into 1 in order to check and make api call based on current url
+    this.postSub = combineLatest([
       this.currentRoute.params,
       this.currentRoute.queryParams
     ])
@@ -29,5 +31,9 @@ export class PostOverviewComponent implements OnInit {
         this.posts$ = this.api.getPostsByBlog(params.blogId);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.postSub.unsubscribe();
   }
 }

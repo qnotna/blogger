@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
 import { ApiWebService } from 'src/app/api/api.web.service';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
