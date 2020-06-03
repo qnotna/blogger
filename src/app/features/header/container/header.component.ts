@@ -17,8 +17,11 @@ export class HeaderComponent {
   @Output() logout = new EventEmitter<void>();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   constructor() {}
 =======
+=======
+>>>>>>> test 1
   constructor(public dialog: MatDialog) { }
 
   onLogout() {
@@ -33,5 +36,8 @@ export class HeaderComponent {
   }
 
 
+<<<<<<< HEAD
+>>>>>>> test 1
+=======
 >>>>>>> test 1
 }

@@ -19,10 +19,13 @@ import { LoginComponent } from './features/login/login.component';
 import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
 import { HeaderComponent } from './features/header/container/header.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { SearchComponent } from './features/header/components/search/search.component';
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
 =======
+=======
+>>>>>>> test 1
 import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
 
 >>>>>>> test 1
@@ -36,8 +39,12 @@ import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
     BlogOverviewComponent,
     HeaderComponent,
 <<<<<<< HEAD
+<<<<<<< HEAD
     SearchComponent,
     PostItemComponent
+=======
+    MyDialogComponent,
+>>>>>>> test 1
 =======
     MyDialogComponent,
 >>>>>>> test 1
@@ -62,6 +69,9 @@ import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
   ],
   entryComponents:[
     MyDialogComponent
+<<<<<<< HEAD
+>>>>>>> test 1
+=======
 >>>>>>> test 1
   ],
   bootstrap: [AppComponent],
