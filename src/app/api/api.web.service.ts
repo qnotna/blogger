@@ -36,7 +36,7 @@ export class ApiWebService {
         const body = {
             kind: 'blogger#post',
             blog: {
-              id: '8070105920543249955'
+              id: '8582568343226509498'
             },
             title: 'Post',
             content: 'With <b>exciting</b> content...'
