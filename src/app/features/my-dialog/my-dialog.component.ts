@@ -21,7 +21,7 @@ export class MyDialogComponent implements OnInit {
   } 
 
   onSave() {
-    this.api.createPostForBlog(8582568343226509498, null)
+    this.api.createPostForBlog(1169685908644477909, null)
     this.dialogRef.close();
   }
   onCancel(){
