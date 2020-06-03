@@ -3,9 +3,15 @@
     align-items: center;
 }
 
-.logout-btn {
-    height: 3em;
+.nav-right {
     margin-left: auto;
-    margin-right: 1em;
-    text-align: center;
+    display: flex;
+    align-items: center;
+
+    .logout-btn {
+        height: 3em;
+        margin-left: 2em;
+        margin-right: 1em;
+        text-align: center;
+    }
 }
