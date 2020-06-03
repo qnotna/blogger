@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Modules
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
@@ -17,9 +18,14 @@ import { MainComponent } from './features/main/container/main.component';
 import { LoginComponent } from './features/login/login.component';
 import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
 import { HeaderComponent } from './features/header/container/header.component';
+<<<<<<< HEAD
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { SearchComponent } from './features/header/components/search/search.component';
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
+=======
+import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
+
+>>>>>>> test 1
 
 @NgModule({
   declarations: [
@@ -29,8 +35,12 @@ import { PostItemComponent } from './features/post-overview/components/post-item
     PostOverviewComponent,
     BlogOverviewComponent,
     HeaderComponent,
+<<<<<<< HEAD
     SearchComponent,
     PostItemComponent
+=======
+    MyDialogComponent,
+>>>>>>> test 1
   ],
   imports: [
     BrowserModule,
@@ -40,9 +50,19 @@ import { PostItemComponent } from './features/post-overview/components/post-item
     BrowserAnimationsModule,
     FormsModule,
     GoogleApiModule.forRoot({
+<<<<<<< HEAD
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig,
     }),
+=======
+      provide: NG_GAPI_CONFIG, useValue: gapiClientConfig
+    }),
+    FormsModule,
+    MatDialogModule,
+  ],
+  entryComponents:[
+    MyDialogComponent
+>>>>>>> test 1
   ],
   bootstrap: [AppComponent],
 })

@@ -65,9 +65,23 @@ export class ApiWebService {
 
     searchPostsForBlog(blogId: string, q: string) {
         const options = { headers: this.getHeaders() };
+<<<<<<< HEAD
         return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
           map((res) => res as GETPostsResponse),
           map((res) => res.items)
+=======
+        // let body = requestBody;
+        const body = {
+            kind: 'blogger#post',
+            blog: {
+              id: '8582568343226509498'
+            },
+            title: 'Post',
+            content: 'With <b>exciting</b> content...'
+        };
+        return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options).pipe(
+            catchError(err => this.handleError(err)),
+>>>>>>> test 1
         );
     }
 
