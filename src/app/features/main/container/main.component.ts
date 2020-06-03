@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
-import { ApiWebService } from 'src/app/api/api.web.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Post } from 'src/app/models/posts.model';
-import { Router } from '@angular/router';
+import { MainService } from '../services/main.service';
 
 @Component({
   selector: 'app-main',
@@ -17,32 +16,27 @@ export class MainComponent implements OnInit {
   posts$: Observable<Post[]>;
   blogId: string;
 
-  constructor(
-    private api: ApiWebService,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private service: MainService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.blogs$ = this.api.getBlogsByUser();
+    this.fetchBlogs();
   }
 
   fetchBlogs() {
-    this.blogs$ = this.api.getBlogsByUser();
+    this.blogs$ = this.service.getBlogs();
   }
 
   onBlogChange(selectedBlogId: string) {
     this.blogId = selectedBlogId;
-    this.router.navigate([`home/blogs/${selectedBlogId}/posts`]);
+    this.service.handleBlogChange(selectedBlogId);
   }
 
   onSearchPost(query: string) {
-    this.router.navigate([`home/blogs/${this.blogId}/posts/search`], { queryParams: { q: query } });
+    this.service.handleSearch(this.blogId, query);
   }
 
   onLogout() {
     this.authService.handleAuth();
   }
-
 
 }
