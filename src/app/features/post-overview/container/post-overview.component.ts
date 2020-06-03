@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, combineLatest, Subscription } from 'rxjs';
 import { Post } from '../../../models/posts.model';
-import { ApiWebService } from 'src/app/api/api.web.service';
 import { ActivatedRoute } from '@angular/router';
+import { PostOverviewService } from '../services/post-overview.service';
 
 @Component({
   selector: 'app-post-overview',
@@ -14,7 +14,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   postSub: Subscription;
 
   constructor(
-    private api: ApiWebService,
+    private service: PostOverviewService,
     private currentRoute: ActivatedRoute
   ) {}
 
@@ -26,11 +26,12 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     ])
     .subscribe(([params, query]) => {
       if (query.q !== undefined) {
-        this.posts$ = this.api.searchPostsForBlog(params.blogId, query.q);
+        this.posts$ = this.service.searchPosts(params.blogId, query.q);
       } else {
-        this.posts$ = this.api.getPostsByBlog(params.blogId);
+        this.posts$ = this.service.getPosts(params.blogId);
       }
     });
+
   }
 
   onShowDetail(postId: string) {

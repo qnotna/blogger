@@ -21,6 +21,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'blogs/:blogId',
+        redirectTo: 'blogs/:blogId/posts'
+      },
+      {
         path: 'blogs/:blogId/posts',
         component: PostOverviewComponent,
       },

@@ -63,7 +63,7 @@ export class ApiWebService {
       .pipe(catchError((err) => this.handleError(err)));
   }
 
-    searchPostsForBlog(blogId: number, q: string) {
+    searchPostsForBlog(blogId: string, q: string) {
         const options = { headers: this.getHeaders() };
         return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
           map((res) => res as GETPostsResponse),
