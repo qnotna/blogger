@@ -33,6 +33,10 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     });
   }
 
+  onShowDetail(postId: string) {
+    console.log('PostOverviewComponent > Clicked Post with id:', postId);
+  }
+
   ngOnDestroy() {
     this.postSub.unsubscribe();
   }
