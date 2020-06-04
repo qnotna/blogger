@@ -32,14 +32,15 @@ export class ApiWebService {
 
     createPostForBlog(blogId: number, requestBody: any) {
         const options = { headers: this.getHeaders() };
-        const body = {
+        let body = requestBody
+       /* const body = {
             kind: 'blogger#post',
             blog: {
-              id: '1169685908644477909'
+              id: '8582568343226509498'
             },
             title: 'Post',
             content: 'With <b>exciting</b> content...'
-        };
+        };*/
         console.log('hier')
         return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/`, body, options).pipe(
             catchError(err => this.handleError(err)),
