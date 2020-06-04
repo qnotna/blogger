@@ -16,12 +16,7 @@ export class HeaderComponent {
   @Output() searchPosts = new EventEmitter<string>();
   @Output() logout = new EventEmitter<void>();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  constructor() {}
-=======
-=======
->>>>>>> test 1
+
   constructor(public dialog: MatDialog) { }
 
   onLogout() {
@@ -29,15 +24,13 @@ export class HeaderComponent {
   }
   onPostingPost(): void {
     let dialogRef = this.dialog.open(MyDialogComponent, {
+      data: {
+         blogId: this.blogId 
+      }
     });
-    dialogRef.afterClosed().subscribe(result =>{
+
+    dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog Closed')
     })
   }
-
-
-<<<<<<< HEAD
->>>>>>> test 1
-=======
->>>>>>> test 1
 }

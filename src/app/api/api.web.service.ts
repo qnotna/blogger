@@ -21,7 +21,7 @@ export class ApiWebService {
     private http: HttpClient,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   getBlogsByUser(): Observable<Blog[]> {
     const options = { headers: this.getHeaders() };
@@ -49,53 +49,20 @@ export class ApiWebService {
 
   createPostForBlog(blogId: number, requestBody: any) {
     const options = { headers: this.getHeaders() };
-    // let body = requestBody;
-    const body = {
-      kind: 'blogger#post',
-      blog: {
-        id: '8070105920543249955',
-      },
-      title: 'Post',
-      content: 'With <b>exciting</b> content...',
-    };
+    let body = requestBody;
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
-    searchPostsForBlog(blogId: string, q: string) {
-        const options = { headers: this.getHeaders() };
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
-          map((res) => res as GETPostsResponse),
-          map((res) => res.items)
-=======
-        // let body = requestBody;
-=======
->>>>>>> asdasd
-        const body = {
-            kind: 'blogger#post',
-            blog: {
-<<<<<<< HEAD
-              id: '1169685908644477909'
-=======
-              id: '8582568343226509498'
->>>>>>> test 1
-            },
-            title: 'Post',
-            content: 'With <b>exciting</b> content...'
-<<<<<<< HEAD
-        };
-        console.log('hier')
-=======
-        };*/
->>>>>>> test 1234567890
-        return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/`, body, options).pipe(
-            catchError(err => this.handleError(err)),
->>>>>>> test 1
-        );
-    }
+  searchPostsForBlog(blogId: string, q: string) {
+    const options = { headers: this.getHeaders() };
+
+    return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
+      map((res) => res as GETPostsResponse),
+      map((res) => res.items)
+    )
+  }
 
   private handleError(error: HttpErrorResponse) {
     const errorObj = error.error.error;
