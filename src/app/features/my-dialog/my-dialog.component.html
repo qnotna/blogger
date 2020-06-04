@@ -2,11 +2,11 @@
     <h2>Title des Blogs</h2>
     <mat-dialog-content>
         <p>selectedBlogId</p>
-        <input type="text" placeholder="Titel des Posts"/>
+        <input #title type="text" placeholder="Titel des Posts"/>
     </mat-dialog-content>
 </div>
     <mat-dialog-content>
-        <textarea mat-form-field cols="100" rows="40"></textarea>
+        <textarea #content mat-form-field cols="100" rows="40"></textarea>
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-button (click)="onCancel()">Cancel</button>

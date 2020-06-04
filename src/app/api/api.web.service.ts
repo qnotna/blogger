@@ -41,7 +41,6 @@ export class ApiWebService {
             title: 'Post',
             content: 'With <b>exciting</b> content...'
         };*/
-        console.log('hier')
         return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/`, body, options).pipe(
             catchError(err => this.handleError(err)),
         );
