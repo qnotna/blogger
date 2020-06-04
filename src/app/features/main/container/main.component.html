@@ -1,9 +1,16 @@
 <app-header
+<<<<<<< HEAD
   (blogChanged)="onBlogChange($event)"
   (searchPosts)="onSearchPost($event)"
   (logout)="onLogout()"
   [blogs]="blogs$ | async"
   [blogId]="blogId"
+=======
+    (blogChanged)="onBlogChange($event)" 
+    (logout)="logout()"
+    [blogs]="blogs$ | async"
+    [blogsId]="blogsId"
+>>>>>>> 1cecc69a2bed133983972665679a1aff7027c2ed
 ></app-header>
 
 <button mat-flat-button color="primary" (click)="fetchBlogs()">Refresh</button>
