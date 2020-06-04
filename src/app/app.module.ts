@@ -1,24 +1,25 @@
 // Angular Modules
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 // Modules
-import { GoogleApiModule, NG_GAPI_CONFIG } from "ng-gapi";
-import { AppRoutingModule } from "./app-routing.module";
-import { MaterialModule } from "src/material/material.module";
-import { gapiClientConfig } from "./config/google-api.config";
+import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
+import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from 'src/material/material.module';
+import { gapiClientConfig } from './config/google-api.config';
 
 // Components
-import { AppComponent } from "./app.component";
-import { MainComponent } from "./features/main/container/main.component";
-import { LoginComponent } from "./features/login/login.component";
-import { BlogOverviewComponent } from "./features/header/components/blog-overview/blog-overview.component";
-import { HeaderComponent } from "./features/header/container/header.component";
-import { PostOverviewComponent } from "./features/post-overview/container/post-overview.component";
+import { AppComponent } from './app.component';
+import { MainComponent } from './features/main/container/main.component';
+import { LoginComponent } from './features/login/login.component';
+import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
+import { HeaderComponent } from './features/header/container/header.component';
+import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { SearchComponent } from './features/header/components/search/search.component';
+import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SearchComponent } from './features/header/components/search/search.comp
     PostOverviewComponent,
     BlogOverviewComponent,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    PostItemComponent
   ],
   imports: [
     BrowserModule,
