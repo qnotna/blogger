@@ -36,7 +36,6 @@ import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
-    FormsModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG, useValue: gapiClientConfig
     }),
