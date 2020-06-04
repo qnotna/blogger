@@ -1,25 +1,36 @@
-<button mat-flat-button class="post-wrapper" (click)="showDetail.emit(post.id)">
-  <mat-card class="post-card">
-    <mat-card-header>
-      <div mat-card-avatar class="header-image" [style.background-image]="'url(' + post.author.image.url + ')'"></div>
-      <mat-card-title>{{ post.title }}</mat-card-title>
-      <mat-card-subtitle>
-        <a mat-button target="_blank" [href]="post.author.url">{{ post.author.displayName }}</a>
-      </mat-card-subtitle>
-
-    </mat-card-header>
-    <mat-card-subtitle>{{ post.published }}</mat-card-subtitle>
-    <!-- <img mat-card-image [src]=""> -->
-    <mat-card-content>
-      <div [outerHTML]="post.content"></div>
-    </mat-card-content>
+<mat-card class="post-card">
+  <!-- Header -->
+  <mat-card-header>
+    <div mat-card-avatar class="header-image" [style.background-image]="'url(' + post.author.image.url + ')'"></div>
+    <mat-card-title>
+      <button mat-flat-button class="post-wrapper" (click)="showDetail.emit(post.id)">
+        {{ post.title }}
+      </button>
+    </mat-card-title>
     <mat-card-subtitle>
-        <a mat-button target="_blank" [href]="post.url">Original Link</a>
+      <a mat-button target="_blank" [href]="post.author.url">{{ post.author.displayName }}</a>
     </mat-card-subtitle>
-    <mat-card-actions>
-      <button mat-button color="warn">Kommentare</button>
-      <button mat-button color="warn">Bearbeiten</button>
-      <button mat-button color="warn">Löschen</button>
-    </mat-card-actions>
-  </mat-card>
-</button>
+  </mat-card-header>
+
+  <!-- Date -->
+  <mat-card-subtitle>{{ post.published }}</mat-card-subtitle>
+  <!-- <img mat-card-image [src]="paste_here_first_imgUrl_from_post_using_html_parser"> -->
+
+  <!-- Post Content -->
+  <mat-card-content>
+    <div [outerHTML]="post.content"></div>
+  </mat-card-content>
+
+  <!-- Link to Original -->
+  <mat-card-subtitle>
+      <a mat-button target="_blank" [href]="post.url">Original Link</a>
+  </mat-card-subtitle>
+
+  <!-- Actions -->
+  <mat-card-actions>
+    <button mat-button color="warn">Kommentare</button>
+    <button mat-button color="warn">Bearbeiten</button>
+    <button mat-button color="warn">Löschen</button>
+  </mat-card-actions>
+
+</mat-card>

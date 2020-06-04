@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostItemComponent } from './post-item.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('PostItemComponent', () => {
   let component: PostItemComponent;
@@ -8,7 +9,8 @@ describe('PostItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostItemComponent ]
+      declarations: [ PostItemComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
