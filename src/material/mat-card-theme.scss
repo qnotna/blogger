@@ -1,0 +1,15 @@
+@mixin mat-card {
+    .mat-card-content {
+        text-align: justify;
+
+        img {
+            width: 100%;
+            object-fit: contain;
+            height: auto;
+        }
+
+    }
+    .mat-button-wrapper {
+        width: 100px;
+    }
+}
