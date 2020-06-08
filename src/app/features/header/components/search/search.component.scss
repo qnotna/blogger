@@ -1,5 +1,13 @@
 :host{
-    margin-left:auto;
+    margin: 0 2em 0 auto;
+}
+
+.search{
+    width:0px;
+    &:focus-within{
+        width:200px;
+        transition: all 0.5s ease-out;
+    }
 }
 
 input::placeholder {
