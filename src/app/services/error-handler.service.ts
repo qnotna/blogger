@@ -8,7 +8,7 @@ export class ErrorHandlerService {
 
     handleError(err: any) {
         if (err?.code === 401) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
         }
         return [];
     }

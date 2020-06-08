@@ -14,6 +14,10 @@ class MockRouter {
   navigate() {}
 }
 
+const FakeActivatedRoute = {
+  snapshot: { data: { } }
+} as ActivatedRoute;
+
 describe('PostOverviewComponent', () => {
   let component: PostOverviewComponent;
   let fixture: ComponentFixture<PostOverviewComponent>;
@@ -28,7 +32,8 @@ describe('PostOverviewComponent', () => {
       providers: [
         ActivatedRoute,
         { provide: AuthService, useClass: MockService },
-        { provide: Router, useClass: MockRouter }
+        { provide: Router, useClass: MockRouter },
+        { provide: ActivatedRoute, useValue: FakeActivatedRoute }
       ]
     })
     .compileComponents();

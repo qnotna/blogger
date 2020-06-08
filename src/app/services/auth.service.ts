@@ -18,9 +18,15 @@ export class AuthService {
         private gapi: GoogleApiService,
         private router: Router,
         private ngZone: NgZone) {
-            this.gapi.onLoad().subscribe(success => this.initClient());
         }
 
+    initAuthService() {
+        return this.gapi.onLoad();
+    }
+
+    getAuth() {
+        return this.auth;
+    }
     /**
      * returns OAuth-Token from session storage
      */
@@ -80,10 +86,10 @@ export class AuthService {
         if (isAuthorized) {
             sessionStorage.setItem(AuthService.SESSION_STORAGE_KEY, user.getAuthResponse().access_token);
             this.loggedIn = true;
-            this.navigateTo('/home');
+            this.navigateTo('home');
         } else {
             this.loggedIn = false;
-            this.navigateTo('/login');
+            this.navigateTo('login');
         }
     }
 
