@@ -21,4 +21,10 @@ export class PostOverviewService {
             catchError(err => this.errorService.handleError(err))
         );
     }
+
+    removePostFrom(blogId: string, postId: string): Observable<Post[]> {
+      return this.api.removePostFromBlogWithIds(blogId, postId).pipe(
+        catchError((error) => (this.errorService.handleError(error)))
+      );
+    }
 }

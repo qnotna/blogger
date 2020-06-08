@@ -12,6 +12,7 @@ import { PostOverviewService } from '../services/post-overview.service';
 export class PostOverviewComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
   postSub: Subscription;
+  id: string;
 
   constructor(
     private service: PostOverviewService,
@@ -28,6 +29,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
       if (query.q !== undefined) {
         this.posts$ = this.service.searchPosts(params.blogId, query.q);
       } else {
+        this.id = params.blogId;
         this.posts$ = this.service.getPosts(params.blogId);
       }
     });
@@ -36,6 +38,16 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   onShowDetail(postId: string) {
     console.log('PostOverviewComponent > Clicked Post with id:', postId);
+  }
+
+  /**
+   * Event handler for deleting posts from `post-item.component.html` event emitter
+   * Modifies posts observable
+   * @param location contains identifiers for current blog and post
+   */
+  removePostFrom({ blogId, postId }) {
+    this.service.removePostFrom(blogId, postId);
+    console.log('Remove Post', blogId, postId);
   }
 
   ngOnDestroy() {
