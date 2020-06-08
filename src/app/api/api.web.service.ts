@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class ApiWebService {
-<<<<<<< HEAD
   API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
   basePath = 'https://www.googleapis.com';
   headers: HttpHeaders = new HttpHeaders();
@@ -75,54 +74,4 @@ export class ApiWebService {
       Authorization: `Bearer ${this.authService.getToken()}`,
     });
   }
-=======
-    API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
-    basePath = 'https://www.googleapis.com';
-    headers: HttpHeaders = new HttpHeaders();
-
-    constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
-
-    getBlogsByUser(): Observable<Blog[]> {
-        const options = { headers: this.getHeaders() };
-        return this.http.get<any>(`${this.basePath}/blogger/v3/users/self/blogs`, options).pipe(
-            catchError(err => this.handleError(err)),
-            map(res => res as GETBlogsResponse),
-            map(res => res.items)
-        );
-    }
-
-    getPostsByBlog(blogId: number) {
-        const options = { headers: this.getHeaders() };
-        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`, options).pipe(
-            catchError(err => this.handleError(err))
-        );
-    }
-
-    createPostForBlog(blogId: number, requestBody: any) {
-        const options = { headers: this.getHeaders() };
-        let body = requestBody
-       /* const body = {
-            kind: 'blogger#post',
-            blog: {
-              id: '8582568343226509498'
-            },
-            title: 'Post',
-            content: 'With <b>exciting</b> content...'
-        };*/
-        return this.http.post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/`, body, options).pipe(
-            catchError(err => this.handleError(err)),
-        );
-    }
-
-    private handleError(error: HttpErrorResponse) {
-        const errorObj = error.error.error;
-        return throwError(errorObj);
-    }
-
-    private getHeaders(): HttpHeaders {
-        return new HttpHeaders({
-            Authorization: `Bearer ${this.authService.getToken()}`
-        });
-    }
->>>>>>> 1cecc69a2bed133983972665679a1aff7027c2ed
 }

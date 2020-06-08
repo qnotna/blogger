@@ -1,14 +1,24 @@
-<div>
-    <h2>Title des Blogs</h2>
-    <mat-dialog-content>
-        <p>selectedBlogId</p>
-        <input #title type="text" placeholder="Titel des Posts"/>
-    </mat-dialog-content>
-</div>
-    <mat-dialog-content>
-        <textarea #content mat-form-field cols="100" rows="40"></textarea>
-    </mat-dialog-content>
-    <mat-dialog-actions>
+<div class="container">
+    <div class="form form-stacked">
+        <input margin="5" padding="5" #title type="text" placeholder="Title" />
+        <div class="form-block">
+            <label class="label" for="board_content">Content</label>
+            <div class="form-controls">
+                <span class="button" title="Bold" (click)="addBold()"><strong>b</strong></span>
+                <span class="button" title="Emphasis" (click)="addEmphasis()"><strong><em>i</em></strong></span>
+                <span class="button" title="Strike" (click)="addStrike()"><strong><s>s</s></strong></span>
+                <span class="button" title="Underline" (click)="addUnderline()"><strong><u>u</u></strong></span>
+            </div>
+            <textarea #content placeholder="What do you want to talk about?" class="textarea-tall"
+                id="board_content"></textarea>
+
+        </div>
+        <div class="form form-stacked">
+            <label>image URL:
+                <input #image type="url" name="input" />
+            </label>
+        </div>
         <button mat-button (click)="onCancel()">Cancel</button>
         <button mat-raised-button (click)="onSave()">Save</button>
-    </mat-dialog-actions>
+    </div>
+</div>
