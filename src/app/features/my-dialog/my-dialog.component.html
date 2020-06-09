@@ -1,24 +1,32 @@
-<div class="container">
-    <div class="form form-stacked">
-        <input margin="5" padding="5" #title type="text" placeholder="Title" />
-        <div class="form-block">
-            <label class="label" for="board_content">Content</label>
-            <div class="form-controls">
-                <span class="button" title="Bold" (click)="addBold()"><strong>b</strong></span>
-                <span class="button" title="Emphasis" (click)="addEmphasis()"><strong><em>i</em></strong></span>
-                <span class="button" title="Strike" (click)="addStrike()"><strong><s>s</s></strong></span>
-                <span class="button" title="Underline" (click)="addUnderline()"><strong><u>u</u></strong></span>
-            </div>
-            <textarea #content placeholder="What do you want to talk about?" class="textarea-tall"
-                id="board_content"></textarea>
+<div class="modal-wrapper">
+    <form #form>
+        <!-- Title -->
+        <mat-form-field class="title-form-field">
+            <mat-label>Title</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                name="title" 
+                [(ngModel)]="value"
+                [formControl]="title"
+                required
+            />
+            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="title.hasError('required')">
+                Title is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Content -->
+        <ckeditor [formControl]="content" [editor]="Editor" [config]="Config" (change)="editorContent = $event.editor.getData()"></ckeditor>
+        <mat-error *ngIf="content.hasError('required') && content.touched">
+            Content is <strong>required</strong>
+        </mat-error>
 
-        </div>
-        <div class="form form-stacked">
-            <label>image URL:
-                <input #image type="url" name="input" />
-            </label>
-        </div>
-        <button mat-button (click)="onCancel()">Cancel</button>
-        <button mat-raised-button (click)="onSave()">Save</button>
-    </div>
+        <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="accent" (click)="onSave()" [disabled]="title.invalid || content.invalid">Save</button>
+    </form>
+
 </div>

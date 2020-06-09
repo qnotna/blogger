@@ -1,65 +1,37 @@
-import { Component, OnInit, Inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { Blog } from 'src/app/models/blogs.model';
-import { ApiWebService } from 'src/app/api/api.web.service';
-
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { EditorConfig } from './my-dialog.config';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-my-dialog',
   templateUrl: './my-dialog.component.html',
-  styleUrls: ['./my-dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./my-dialog.component.scss']
 })
 
 export class MyDialogComponent implements OnInit {
-  blogs$: Observable<Blog[]>;
-  blogs: Blog[];
-  @ViewChild("content", { static: true }) content;
-  @ViewChild("title", { static: true }) title;
-  @ViewChild("image", { static: true }) image;
+  Editor = ClassicEditor;
+  Config = EditorConfig;
+  title = new FormControl('', Validators.required);
+  content = new FormControl('', Validators.required);
 
-  constructor(private api: ApiWebService, public dialogRef: MatDialogRef<MyDialogComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<MyDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit(): void {
-    console.log(this.data.blogId)
+  ngOnInit() {
   }
 
   onSave() {
-    let body;
-    if (this.image.nativeElement.value == null) {
-      body = {
-        title: this.title.nativeElement.value,
-        content: this.content.nativeElement.value,
-        timestamp: new Date()
-      };
-    } else {
-      body = {
-        title: this.title.nativeElement.value,
-        content: this.content.nativeElement.value + ` <img src=\"${this.image.nativeElement.value}\"/>`,
-        timestamp: new Date()
-      };
-    }
-    console.log(body)
-    this.api.createPostForBlog(this.data.blogId, body).subscribe((response) => {
-       console.log(response)
-     })
-    this.dialogRef.close();
+    const body = {
+      title: this.title.value,
+      content: this.content.value,
+    };
+    console.log(body);
+    this.dialogRef.close(body);
   }
   onCancel() {
     this.dialogRef.close();
-  }
-  addBold(){
-    this.content.nativeElement.value =  this.content.nativeElement.value + "<b></b>"
-  }
-  addEmphasis(){
-    this.content.nativeElement.value =  this.content.nativeElement.value + "<i></i>"
-  }
-  addStrike(){
-    this.content.nativeElement.value =  this.content.nativeElement.value + "<s></s>"
-  }
-  addUnderline(){
-    this.content.nativeElement.value =  this.content.nativeElement.value + "<u></u>"
   }
 }

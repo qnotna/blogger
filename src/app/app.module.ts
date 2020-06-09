@@ -3,15 +3,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Modules
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from 'src/material/material.module';
 import { gapiClientConfig } from './config/google-api.config';
-import { NgxEditorModule } from 'ngx-editor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 // Components
@@ -44,15 +43,15 @@ import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CKEditorModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig,
     }),
-    FormsModule,
-    MatDialogModule,
-    NgxEditorModule,
   ],
-  entryComponents:[
+  entryComponents: [
     MyDialogComponent
   ],
   bootstrap: [AppComponent],
