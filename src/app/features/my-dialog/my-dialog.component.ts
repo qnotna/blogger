@@ -28,7 +28,6 @@ export class MyDialogComponent implements OnInit {
       title: this.title.value,
       content: this.content.value,
     };
-    console.log(body);
     this.dialogRef.close(body);
   }
   onCancel() {

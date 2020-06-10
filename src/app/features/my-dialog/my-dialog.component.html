@@ -20,7 +20,7 @@
         </mat-form-field>
     
         <!-- Content -->
-        <ckeditor [formControl]="content" [editor]="Editor" [config]="Config" (change)="editorContent = $event.editor.getData()"></ckeditor>
+        <ckeditor [formControl]="content" [editor]="Editor" [config]="Config"></ckeditor>
         <mat-error *ngIf="content.hasError('required') && content.touched">
             Content is <strong>required</strong>
         </mat-error>
