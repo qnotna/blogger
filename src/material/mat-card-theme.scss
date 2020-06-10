@@ -1,4 +1,19 @@
-@mixin mat-card {
+@import '~@angular/material/theming';
+
+@mixin mat-card($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .mat-card {
+        // pass 2nd argument for explicit color-value reflected in blogger-card-theme.scss
+        background-color: mat-color($primary, 200);
+
+        .mat-card-header .mat-card-title .mat-flat-button {
+            background-color: mat-color($primary, 200);
+            color: mat-color($accent, 800)
+        }
+    }
     .mat-card-content {
         text-align: justify;
 
