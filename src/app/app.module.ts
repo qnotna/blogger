@@ -22,6 +22,10 @@ import { PostOverviewComponent } from './features/post-overview/container/post-o
 import { SearchComponent } from './features/header/components/search/search.component';
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
+import { registerLocaleData } from '@angular/common';
+
+import localeDe from '@angular/common/locales/de';
+
 
 @NgModule({
   declarations: [
@@ -54,4 +58,8 @@ import { PostDialogComponent } from './features/post-overview/components/post-di
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeDe, 'de-DE');
+  }
+}
