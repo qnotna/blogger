@@ -1,26 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Post } from 'src/app/models/posts.model';
 import { MainService } from '../services/main.service';
-import { MyDialogComponent } from '../../my-dialog/my-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
   posts$: Observable<Post[]>;
   blogId: string;
-  dialogSub: Subscription;
 
-  constructor(private service: MainService, private authService: AuthService, private dialog: MatDialog) {}
+  constructor(private service: MainService, private authService: AuthService) {}
 
   ngOnInit() {
     this.fetchBlogs();
@@ -41,23 +36,6 @@ export class MainComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.handleAuth();
-  }
-
-  onPostingPost(): void {
-    const dialogRef = this.dialog.open(MyDialogComponent, {
-      data: {
-         blogId: this.blogId
-      }
-    });
-
-    this.dialogSub = dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Closed >', result);
-      // API-call add post
-    });
-  }
-
-  ngOnDestroy() {
-    this.dialogSub.unsubscribe();
   }
 
 }
