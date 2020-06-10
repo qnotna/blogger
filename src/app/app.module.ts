@@ -21,7 +21,7 @@ import { HeaderComponent } from './features/header/container/header.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { SearchComponent } from './features/header/components/search/search.component';
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
-import { PostDialogComponent } from './features/post-dialog/post-dialog.component';
+import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
 
 @NgModule({
   declarations: [

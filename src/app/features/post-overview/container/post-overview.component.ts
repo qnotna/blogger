@@ -4,7 +4,7 @@ import { Post } from '../../../models/posts.model';
 import { ActivatedRoute } from '@angular/router';
 import { PostOverviewService } from '../services/post-overview.service';
 import { MatDialog } from '@angular/material/dialog';
-import { PostDialogComponent } from '../../post-dialog/post-dialog.component';
+import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
