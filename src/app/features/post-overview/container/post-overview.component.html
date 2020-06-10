@@ -1,4 +1,4 @@
-<button class="logout-btn" mat-flat-button color="accent" (click)="onPostingPost()">posting post</button>
+<button class="post-add-btn" mat-fab color="accent" (click)="onPostingPost()"><mat-icon>add</mat-icon></button>
 <button class="refresh-posts-btn" mat-flat-button color="accent" (click)="fetchPosts()">Refresh Posts</button>
 
 <div class="spinner" *ngIf="isLoading$ | async">
