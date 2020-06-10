@@ -10,6 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { GETPostsResponse, Post } from '../models/posts.model';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { PostRequestBody } from '../models/post-request-body.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiWebService {
@@ -21,7 +22,7 @@ export class ApiWebService {
     private http: HttpClient,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   getBlogsByUser(): Observable<Blog[]> {
     const options = { headers: this.getHeaders() };
@@ -47,29 +48,22 @@ export class ApiWebService {
       );
   }
 
-  createPostForBlog(blogId: number, requestBody: any) {
+  createPostForBlog(blogId: string, requestBody: PostRequestBody) {
     const options = { headers: this.getHeaders() };
-    // let body = requestBody;
-    const body = {
-      kind: 'blogger#post',
-      blog: {
-        id: '8070105920543249955',
-      },
-      title: 'Post',
-      content: 'With <b>exciting</b> content...',
-    };
+    const body = requestBody;
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
       .pipe(catchError((err) => this.handleError(err)));
   }
 
-    searchPostsForBlog(blogId: string, q: string) {
-        const options = { headers: this.getHeaders() };
-        return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
-          map((res) => res as GETPostsResponse),
-          map((res) => res.items)
-        );
-    }
+  searchPostsForBlog(blogId: string, q: string) {
+    const options = { headers: this.getHeaders() };
+
+    return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
+      map((res) => res as GETPostsResponse),
+      map((res) => res.items)
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     const errorObj = error.error.error;
