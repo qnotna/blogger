@@ -67,7 +67,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
-    this.createPostSub.unsubscribe();
-    this.dialogSub.unsubscribe();
+    this.createPostSub?.unsubscribe();
+    this.dialogSub?.unsubscribe();
   }
 }
