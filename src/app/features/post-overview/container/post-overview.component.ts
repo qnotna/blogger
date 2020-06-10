@@ -4,7 +4,7 @@ import { Post } from '../../../models/posts.model';
 import { ActivatedRoute } from '@angular/router';
 import { PostOverviewService } from '../services/post-overview.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MyDialogComponent } from '../../my-dialog/my-dialog.component';
+import { PostDialogComponent } from '../../post-dialog/post-dialog.component';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -50,7 +50,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   }
 
   onPostingPost(): void {
-    const dialogRef = this.dialog.open(MyDialogComponent, {
+    const dialogRef = this.dialog.open(PostDialogComponent, {
       data: { blogId: this.blogId }
     });
 

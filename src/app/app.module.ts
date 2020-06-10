@@ -12,7 +12,6 @@ import { MaterialModule } from 'src/material/material.module';
 import { gapiClientConfig } from './config/google-api.config';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
-
 // Components
 import { AppComponent } from './app.component';
 import { MainComponent } from './features/main/container/main.component';
@@ -22,8 +21,7 @@ import { HeaderComponent } from './features/header/container/header.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { SearchComponent } from './features/header/components/search/search.component';
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
-import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
-
+import { PostDialogComponent } from './features/post-dialog/post-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +33,7 @@ import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
     HeaderComponent,
     SearchComponent,
     PostItemComponent,
-    MyDialogComponent,
+    PostDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +50,7 @@ import { MyDialogComponent } from './features/my-dialog/my-dialog.component';
     }),
   ],
   entryComponents: [
-    MyDialogComponent
+    PostDialogComponent
   ],
   bootstrap: [AppComponent],
 })
