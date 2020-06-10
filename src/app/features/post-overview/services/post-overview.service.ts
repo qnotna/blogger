@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiWebService } from 'src/app/api/api.web.service';
 import { Observable } from 'rxjs';
-import { catchError, finalize, delay } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { Post } from 'src/app/models/posts.model';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
@@ -16,7 +16,6 @@ export class PostOverviewService {
     getPosts(id: string): Observable<Post[]> {
         this.isLoading$.next(true);
         return this.api.getPostsByBlog(id).pipe(
-            // delay(100000),
             catchError(err => this.errorService.handleError(err)),
             finalize(() => this.isLoading$.next(false))
         );

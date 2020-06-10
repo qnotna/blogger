@@ -14,8 +14,4 @@ export class HeaderComponent {
   @Output() logout = new EventEmitter<void>();
 
   constructor() { }
-
-  onLogout() {
-    this.logout.emit();
-  }
 }
