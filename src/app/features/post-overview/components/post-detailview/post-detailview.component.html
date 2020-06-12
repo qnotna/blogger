@@ -1,0 +1,25 @@
+<mat-card class="post-card">
+  <div *ngIf="post$ | async as post">
+    <!-- Header -->
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>
+        <button mat-flat-button class="post-title-wrapper">
+          {{ post.title }}
+        </button>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h3>{{ post.author.displayName }}</h3>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <!-- Date -->
+    <mat-card-subtitle>{{
+      post.published | date: "fullDate":"":"de-DE"
+    }}</mat-card-subtitle>
+    <!-- <img mat-card-image [src]="paste_here_first_imgUrl_from_post_using_html_parser"> -->
+
+    <!-- Actions -->
+    <mat-card-subtitle>{{ post.content }}</mat-card-subtitle>
+  </div>
+</mat-card>

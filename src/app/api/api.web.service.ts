@@ -2,27 +2,27 @@ import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
-import { Injectable } from '@angular/core';
-import { GETBlogsResponse, Blog } from '../models/blogs.model';
-import { Observable, throwError } from 'rxjs';
-import { GETPostsResponse, Post } from '../models/posts.model';
-import { map, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { PostRequestBody } from '../models/post-request-body.model';
+} from "@angular/common/http";
+import { AuthService } from "../services/auth.service";
+import { Injectable } from "@angular/core";
+import { GETBlogsResponse, Blog } from "../models/blogs.model";
+import { Observable, throwError } from "rxjs";
+import { GETPostsResponse, GETPostResponse, Post } from "../models/posts.model";
+import { map, catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { PostRequestBody } from "../models/post-request-body.model";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class ApiWebService {
-  API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
-  basePath = 'https://www.googleapis.com';
+  API_KEY = "AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI";
+  basePath = "https://www.googleapis.com";
   headers: HttpHeaders = new HttpHeaders();
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   getBlogsByUser(): Observable<Blog[]> {
     const options = { headers: this.getHeaders() };
@@ -48,6 +48,16 @@ export class ApiWebService {
       );
   }
 
+  getPostById(blogId: string, postId: string): Observable<Post> {
+    const options = { headers: this.getHeaders() };
+    return this.http
+      .get<any>(
+        `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`,
+        options
+      )
+      .pipe(map((res) => res as Post));
+  }
+
   createPostForBlog(blogId: string, requestBody: PostRequestBody) {
     const options = { headers: this.getHeaders() };
     const body = requestBody;
@@ -59,10 +69,15 @@ export class ApiWebService {
   searchPostsForBlog(blogId: string, q: string) {
     const options = { headers: this.getHeaders() };
 
-    return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
-      map((res) => res as GETPostsResponse),
-      map((res) => res.items)
-    );
+    return this.http
+      .get(
+        `${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`,
+        options
+      )
+      .pipe(
+        map((res) => res as GETPostsResponse),
+        map((res) => res.items)
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
