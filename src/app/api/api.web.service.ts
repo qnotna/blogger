@@ -7,7 +7,7 @@ import { AuthService } from "../services/auth.service";
 import { Injectable } from "@angular/core";
 import { GETBlogsResponse, Blog } from "../models/blogs.model";
 import { Observable, throwError } from "rxjs";
-import { GETPostsResponse, GETPostResponse, Post } from "../models/posts.model";
+import { GETPostsResponse, Post } from "../models/posts.model";
 import { map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { PostRequestBody } from "../models/post-request-body.model";

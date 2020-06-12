@@ -2,14 +2,24 @@
   <div *ngIf="post$ | async as post">
     <!-- Header -->
     <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
+      <div
+        mat-card-avatar
+        class="header-image"
+        [style.background-image]="'url(' + post.author.image.url + ')'"
+      ></div>
       <mat-card-title>
-        <button mat-flat-button class="post-title-wrapper">
+        <button
+          mat-flat-button
+          class="post-title-wrapper"
+          (click)="showDetail.emit(post.id)"
+        >
           {{ post.title }}
         </button>
       </mat-card-title>
       <mat-card-subtitle>
-        <h3>{{ post.author.displayName }}</h3>
+        <a mat-button target="_blank" [href]="post.author.url">{{
+          post.author.displayName
+        }}</a>
       </mat-card-subtitle>
     </mat-card-header>
 
@@ -19,7 +29,13 @@
     }}</mat-card-subtitle>
     <!-- <img mat-card-image [src]="paste_here_first_imgUrl_from_post_using_html_parser"> -->
 
+    <!-- Content -->
+    <mat-card-subtitle [innerHTML]="post.content"></mat-card-subtitle>
+
     <!-- Actions -->
-    <mat-card-subtitle>{{ post.content }}</mat-card-subtitle>
+    <mat-card-actions>
+      <button mat-button color="warn">Bearbeiten</button>
+      <button mat-button color="warn">Löschen</button>
+    </mat-card-actions>
   </div>
 </mat-card>
