@@ -65,6 +65,16 @@ export class ApiWebService {
     );
   }
 
+
+  //maybe rework
+  editPostForBlog(blogId: string, postId: string, requestBody: PostRequestBody){
+    const options = { headers: this.getHeaders() };
+    const body = requestBody;
+    return this.http
+      .patch(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}`, body, options)
+      .pipe(catchError((err) => this.handleError(err)));
+  }
+
   private handleError(error: HttpErrorResponse) {
     const errorObj = error.error.error;
     return throwError(errorObj);
