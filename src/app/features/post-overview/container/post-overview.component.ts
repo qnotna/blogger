@@ -56,8 +56,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
    * @param location contains identifiers for current blog and post
    */
   removePostFrom({ blogId, postId }) {
-    this.service.removePostFrom(blogId, postId);
-    console.log('Remove Post', blogId, postId);
+    this.service.removePostFrom(blogId, postId).subscribe(_ => this.fetchPosts());
   }
 
   onPostingPost(): void {

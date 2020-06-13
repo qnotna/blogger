@@ -27,11 +27,3 @@ export interface Post {
 export interface GETPostsResponse {
   items?: Post[];
 }
-
-/**
- * HTTP DELETE response representation
- * Has optional post response object
- */
-export interface DELETEPostResponse {
-  post?: Post;
-}

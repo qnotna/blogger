@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Post } from 'src/app/models/posts.model';
+import { DeleteRequestBody } from 'src/app/models/post-request-body.model';
 
 @Component({
   selector: 'app-post-item',
@@ -10,8 +11,8 @@ export class PostItemComponent {
 
   @Input() post: Post;
   @Output() showDetail = new EventEmitter<string>();
+  @Output() notifyParent = new EventEmitter<DeleteRequestBody>();
 
-  @Output() notifyParent = new EventEmitter<{}>();
   /**
    * Emit remove event to parent
    * @param postId post identifier
@@ -21,6 +22,6 @@ export class PostItemComponent {
       blogId: this.post.blog.id,
       postId: this.post.id
     });
-  };
+  }
 
 }

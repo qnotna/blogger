@@ -7,9 +7,8 @@ import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 import { GETBlogsResponse, Blog } from '../models/blogs.model';
 import { Observable, throwError } from 'rxjs';
-import { GETPostsResponse, DELETEPostResponse, Post } from '../models/posts.model';
-import { map, catchError, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { GETPostsResponse, Post } from '../models/posts.model';
+import { map, catchError } from 'rxjs/operators';
 import { PostRequestBody } from '../models/post-request-body.model';
 
 @Injectable({ providedIn: 'root' })
@@ -20,8 +19,7 @@ export class ApiWebService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) { }
 
   getBlogsByUser(): Observable<Blog[]> {
@@ -59,6 +57,7 @@ export class ApiWebService {
   searchPostsForBlog(blogId: string, q: string) {
     const options = { headers: this.getHeaders() };
     return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
+      catchError((err) => this.handleError(err)),
       map((res) => res as GETPostsResponse),
       map((res) => res.items)
     );
@@ -69,14 +68,13 @@ export class ApiWebService {
    * @param blogId id to identify the post's blog
    * @param postId id to identify the post
    */
-  removePostFromBlogWithIds(blogId: string, postId: string) {
+  removePostFromBlogWithIds(blogId: string, postId: string): any {
     const url = `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`;
     const options = {
       headers: this.getHeaders()
     };
     return this.http.delete(url, options).pipe(
-      map((result) => (result as DELETEPostResponse)),
-      map((result) => (result.post))
+      catchError((err) => this.handleError(err))
     );
   }
 
