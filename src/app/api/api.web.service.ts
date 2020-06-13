@@ -43,6 +43,7 @@ export class ApiWebService {
         options
       )
       .pipe(
+        catchError((err) => this.handleError(err)),
         map((res) => res as GETPostsResponse),
         map((res) => res.items)
       );
@@ -55,7 +56,10 @@ export class ApiWebService {
         `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`,
         options
       )
-      .pipe(map((res) => res as Post));
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as Post)
+      );
   }
 
   createPostForBlog(blogId: string, requestBody: PostRequestBody) {
@@ -75,6 +79,7 @@ export class ApiWebService {
         options
       )
       .pipe(
+        catchError((err) => this.handleError(err)),
         map((res) => res as GETPostsResponse),
         map((res) => res.items)
       );
