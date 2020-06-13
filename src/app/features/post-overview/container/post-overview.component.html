@@ -5,8 +5,11 @@
     <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" ></mat-progress-spinner>
 </div>
 <mat-list *ngIf="posts$ | async as posts">
-    <app-post-item 
-    *ngFor="let post of posts" 
+  <app-post-item
+    *ngFor="let post of posts"
     [post]="post"
-    (showDetail)="onShowDetail($event)"></app-post-item>
+    (showDetail)="onShowDetail($event)"
+    (notifyParent)='removePostFrom($event)'
+    >
+  </app-post-item>
 </mat-list>
