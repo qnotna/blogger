@@ -4,6 +4,7 @@ import { MainComponent } from './features/main/container/main.component';
 import { LoginComponent } from './features/login/login.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { AuthGuard } from './services/auth.guard';
+import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'blogs/:blogId/posts/search',
         component: PostOverviewComponent,
+      },
+      {
+        path: 'blogs/:blogId/posts/:postId/detail',
+        component: PostDetailviewComponent,
       }
     ],
   },

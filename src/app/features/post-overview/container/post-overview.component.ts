@@ -45,11 +45,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   }
 
   onShowDetail(postId: string) {
-    let post$: Observable<Post>;
-    post$ = this.service.getPostById(postId, this.blogId);
-    const dialogRef = this.dialog.open(PostDetailviewComponent, {
-      data: { post: post$ },
-    });
+    this.service.handleShowDetail(this.blogId, postId);
   }
 
   onPostingPost(): void {

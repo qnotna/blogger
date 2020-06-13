@@ -8,13 +8,7 @@
         [style.background-image]="'url(' + post.author.image.url + ')'"
       ></div>
       <mat-card-title>
-        <button
-          mat-flat-button
-          class="post-title-wrapper"
-          (click)="showDetail.emit(post.id)"
-        >
           {{ post.title }}
-        </button>
       </mat-card-title>
       <mat-card-subtitle>
         <a mat-button target="_blank" [href]="post.author.url">{{

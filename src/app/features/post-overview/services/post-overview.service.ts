@@ -6,6 +6,7 @@ import { Post } from "src/app/models/posts.model";
 import { ErrorHandlerService } from "src/app/services/error-handler.service";
 import { PostRequestBody } from "src/app/models/post-request-body.model";
 import { BehaviorSubject } from "rxjs";
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: "root" })
 export class PostOverviewService {
@@ -13,6 +14,7 @@ export class PostOverviewService {
 
   constructor(
     private api: ApiWebService,
+    private router: Router,
     private errorService: ErrorHandlerService
   ) {}
 
@@ -44,5 +46,9 @@ export class PostOverviewService {
     return this.api
       .createPostForBlog(blogId, body)
       .pipe(catchError((err) => this.errorService.handleError(err)));
+  }
+
+  handleShowDetail(blogId: string, postId: string) {
+    this.router.navigate([`home/blogs/${blogId}/posts/${postId}/detail`]);
   }
 }

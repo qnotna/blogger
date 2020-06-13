@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Post } from "../../../../models/posts.model";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Observable } from "rxjs";
+import { ActivatedRoute, Params } from '@angular/router';
+import { PostOverviewService } from '../../services/post-overview.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-post-detailview",
@@ -9,11 +10,13 @@ import { Observable } from "rxjs";
   styleUrls: ["./post-detailview.component.scss"],
 })
 export class PostDetailviewComponent implements OnInit {
-  post$: Post;
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  post$: Observable<Post>;
+  
+  constructor(private currentRoute: ActivatedRoute, private service: PostOverviewService) {}
 
   ngOnInit(): void {
-    this.post$ = this.data.post;
+    this.currentRoute.params.subscribe((params: Params) => {
+      this.post$ = this.service.getPostById(params.postId, params.blogId);
+    });
   }
 }
