@@ -1,5 +1,5 @@
-<mat-card class="post-card">
-  <div *ngIf="post$ | async as post">
+<mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="isLoading$ | async"></mat-progress-spinner>
+<mat-card class="post-card" *ngIf="post$ | async as post">
     <!-- Header -->
     <mat-card-header>
       <div
@@ -21,7 +21,6 @@
     <mat-card-subtitle>{{
       post.published | date: "fullDate":"":"de-DE"
     }}</mat-card-subtitle>
-    <!-- <img mat-card-image [src]="paste_here_first_imgUrl_from_post_using_html_parser"> -->
 
     <!-- Content -->
     <mat-card-subtitle [innerHTML]="post.content"></mat-card-subtitle>
@@ -31,5 +30,4 @@
       <button mat-button color="warn">Bearbeiten</button>
       <button mat-button color="warn">Löschen</button>
     </mat-card-actions>
-  </div>
 </mat-card>
