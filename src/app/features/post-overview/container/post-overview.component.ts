@@ -38,6 +38,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
       if (query.q !== undefined) {
         this.posts$ = this.service.searchPosts(params.blogId, query.q);
       } else {
+        this.blogId = params.blogId;
         this.posts$ = this.service.getPosts(params.blogId);
       }
     });
@@ -45,6 +46,15 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   onShowDetail(postId: string) {
     this.service.handleShowDetail(this.blogId, postId);
+  }
+
+  /**
+   * Event handler for deleting posts from `post-item.component.html` event emitter
+   * Modifies posts observable
+   * @param location contains identifiers for current blog and post
+   */
+  removePostFrom({ blogId, postId }) {
+    this.service.removePostFrom(blogId, postId).subscribe(_ => this.fetchPosts());
   }
 
   onPostingPost(): void {

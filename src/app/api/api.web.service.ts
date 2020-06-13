@@ -9,7 +9,6 @@ import { GETBlogsResponse, Blog } from '../models/blogs.model';
 import { Observable, throwError } from 'rxjs';
 import { GETPostsResponse, Post } from '../models/posts.model';
 import { map, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { PostRequestBody } from '../models/post-request-body.model';
 
 @Injectable({ providedIn: 'root' })
@@ -20,9 +19,8 @@ export class ApiWebService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+    private authService: AuthService
+  ) { }
 
   getBlogsByUser(): Observable<Blog[]> {
     const options = { headers: this.getHeaders() };
@@ -72,17 +70,26 @@ export class ApiWebService {
 
   searchPostsForBlog(blogId: string, q: string) {
     const options = { headers: this.getHeaders() };
+    return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
+      catchError((err) => this.handleError(err)),
+      map((res) => res as GETPostsResponse),
+      map((res) => res.items)
+    );
+  }
 
-    return this.http
-      .get(
-        `${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`,
-        options
-      )
-      .pipe(
-        catchError((err) => this.handleError(err)),
-        map((res) => res as GETPostsResponse),
-        map((res) => res.items)
-      );
+  /**
+   * Removes a specified post from the corresponding blog
+   * @param blogId id to identify the post's blog
+   * @param postId id to identify the post
+   */
+  removePostFromBlogWithIds(blogId: string, postId: string): any {
+    const url = `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`;
+    const options = {
+      headers: this.getHeaders()
+    };
+    return this.http.delete(url, options).pipe(
+      catchError((err) => this.handleError(err))
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -55,4 +55,10 @@ export class PostOverviewService {
   handleShowDetail(blogId: string, postId: string) {
     this.router.navigate([`home/blogs/${blogId}/posts/${postId}/detail`]);
   }
+
+  removePostFrom(blogId: string, postId: string): any {
+    return this.api.removePostFromBlogWithIds(blogId, postId).pipe(
+      catchError((error) => (this.errorService.handleError(error)))
+    );
+  }
 }
