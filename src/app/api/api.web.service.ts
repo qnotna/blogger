@@ -65,8 +65,6 @@ export class ApiWebService {
     );
   }
 
-
-  //maybe rework
   editPostForBlog(blogId: string, postId: string, requestBody: PostRequestBody){
     const options = { headers: this.getHeaders() };
     const body = requestBody;
