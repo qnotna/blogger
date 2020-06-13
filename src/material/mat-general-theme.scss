@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin mat-general($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    body {
+        // pass 2nd argument for explicit color-value reflected in blogger-card-theme.scss
+        background-color: mat-color($primary, 50);
+    }
+}

@@ -1,0 +1,24 @@
+@import 'global-utils';
+
+form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.title-form-field {
+		width: 100%;
+	}
+
+	button {
+		width: 50%;
+	}
+
+	mat-error {
+		align-self: flex-start;
+	}
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 300px;
+}

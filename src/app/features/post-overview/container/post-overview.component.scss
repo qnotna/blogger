@@ -1,6 +1,29 @@
 .mat-list {
-    // width: 80%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+}
+
+.spinner {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-add-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 4em;
+    margin-right: 4em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

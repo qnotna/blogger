@@ -10,6 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { GETPostsResponse, DELETEPostResponse, Post } from '../models/posts.model';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { PostRequestBody } from '../models/post-request-body.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiWebService {
@@ -47,17 +48,9 @@ export class ApiWebService {
       );
   }
 
-  createPostForBlog(blogId: number, requestBody: any) {
+  createPostForBlog(blogId: string, requestBody: PostRequestBody) {
     const options = { headers: this.getHeaders() };
-    // let body = requestBody;
-    const body = {
-      kind: 'blogger#post',
-      blog: {
-        id: '8070105920543249955',
-      },
-      title: 'Post',
-      content: 'With <b>exciting</b> content...',
-    };
+    const body = requestBody;
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
       .pipe(catchError((err) => this.handleError(err)));

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,8 +8,7 @@ import { MainService } from '../services/main.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;

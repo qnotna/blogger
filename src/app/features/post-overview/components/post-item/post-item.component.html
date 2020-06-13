@@ -3,7 +3,7 @@
   <mat-card-header>
     <div mat-card-avatar class="header-image" [style.background-image]="'url(' + post.author.image.url + ')'"></div>
     <mat-card-title>
-      <button mat-flat-button class="post-wrapper" (click)="showDetail.emit(post.id)">
+      <button mat-flat-button class="post-title-wrapper" (click)="showDetail.emit(post.id)">
         {{ post.title }}
       </button>
     </mat-card-title>
@@ -13,18 +13,8 @@
   </mat-card-header>
 
   <!-- Date -->
-  <mat-card-subtitle>{{ post.published }}</mat-card-subtitle>
+  <mat-card-subtitle>{{ post.published | date: 'fullDate' : '' : 'de-DE' }}</mat-card-subtitle>
   <!-- <img mat-card-image [src]="paste_here_first_imgUrl_from_post_using_html_parser"> -->
-
-  <!-- Post Content -->
-  <mat-card-content>
-    <div [outerHTML]="post.content"></div>
-  </mat-card-content>
-
-  <!-- Link to Original -->
-  <mat-card-subtitle>
-      <a mat-button target="_blank" [href]="post.url">Original Link</a>
-  </mat-card-subtitle>
 
   <!-- Actions -->
   <mat-card-actions>
