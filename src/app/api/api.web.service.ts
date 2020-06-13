@@ -2,20 +2,20 @@ import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from "@angular/common/http";
-import { AuthService } from "../services/auth.service";
-import { Injectable } from "@angular/core";
-import { GETBlogsResponse, Blog } from "../models/blogs.model";
-import { Observable, throwError } from "rxjs";
-import { GETPostsResponse, Post } from "../models/posts.model";
-import { map, catchError } from "rxjs/operators";
-import { Router } from "@angular/router";
-import { PostRequestBody } from "../models/post-request-body.model";
+} from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { Injectable } from '@angular/core';
+import { GETBlogsResponse, Blog } from '../models/blogs.model';
+import { Observable, throwError } from 'rxjs';
+import { GETPostsResponse, Post } from '../models/posts.model';
+import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { PostRequestBody } from '../models/post-request-body.model';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ApiWebService {
-  API_KEY = "AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI";
-  basePath = "https://www.googleapis.com";
+  API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
+  basePath = 'https://www.googleapis.com';
   headers: HttpHeaders = new HttpHeaders();
 
   constructor(

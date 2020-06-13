@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { ApiWebService } from "src/app/api/api.web.service";
-import { Observable } from "rxjs";
-import { catchError, finalize } from "rxjs/operators";
-import { Post } from "src/app/models/posts.model";
-import { ErrorHandlerService } from "src/app/services/error-handler.service";
-import { PostRequestBody } from "src/app/models/post-request-body.model";
-import { BehaviorSubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { ApiWebService } from 'src/app/api/api.web.service';
+import { Observable } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
+import { Post } from 'src/app/models/posts.model';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { PostRequestBody } from 'src/app/models/post-request-body.model';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class PostOverviewService {
   isLoading$ = new BehaviorSubject<boolean>(true);
 
@@ -43,9 +43,13 @@ export class PostOverviewService {
   }
 
   createPost(blogId: string, body: PostRequestBody): Observable<Post> {
+    this.isLoading$.next(true);
     return this.api
       .createPostForBlog(blogId, body)
-      .pipe(catchError((err) => this.errorService.handleError(err)));
+      .pipe(
+        catchError((err) => this.errorService.handleError(err)),
+        finalize(() => this.isLoading$.next(false))
+      );
   }
 
   handleShowDetail(blogId: string, postId: string) {

@@ -1,17 +1,16 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Observable, combineLatest, Subscription } from "rxjs";
-import { Post } from "../../../models/posts.model";
-import { ActivatedRoute } from "@angular/router";
-import { PostOverviewService } from "../services/post-overview.service";
-import { MatDialog } from "@angular/material/dialog";
-import { PostDialogComponent } from "../components/post-dialog/post-dialog.component";
-import { BehaviorSubject } from "rxjs";
-import { PostDetailviewComponent } from "../components/post-detailview/post-detailview.component";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, combineLatest, Subscription } from 'rxjs';
+import { Post } from '../../../models/posts.model';
+import { ActivatedRoute } from '@angular/router';
+import { PostOverviewService } from '../services/post-overview.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: "app-post-overview",
-  templateUrl: "./post-overview.component.html",
-  styleUrls: ["./post-overview.component.scss"],
+  selector: 'app-post-overview',
+  templateUrl: './post-overview.component.html',
+  styleUrls: ['./post-overview.component.scss'],
 })
 export class PostOverviewComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
