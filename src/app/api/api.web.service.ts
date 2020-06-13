@@ -41,8 +41,22 @@ export class ApiWebService {
         options
       )
       .pipe(
+        catchError((err) => this.handleError(err)),
         map((res) => res as GETPostsResponse),
         map((res) => res.items)
+      );
+  }
+
+  getPostById(blogId: string, postId: string): Observable<Post> {
+    const options = { headers: this.getHeaders() };
+    return this.http
+      .get<any>(
+        `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`,
+        options
+      )
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as Post)
       );
   }
 

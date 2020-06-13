@@ -6,4 +6,4 @@ export interface PostRequestBody {
 export interface DeleteRequestBody {
     blogId: string;
     postId: string;
-};
+}

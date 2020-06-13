@@ -32,9 +32,8 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     // Combine 2 Observables into 1 in order to check and make api call based on current url
     this.routeSub = combineLatest([
       this.currentRoute.params,
-      this.currentRoute.queryParams
-    ])
-    .subscribe(([params, query]) => {
+      this.currentRoute.queryParams,
+    ]).subscribe(([params, query]) => {
       this.blogId = params.blogId;
       if (query.q !== undefined) {
         this.posts$ = this.service.searchPosts(params.blogId, query.q);
@@ -43,11 +42,10 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
         this.posts$ = this.service.getPosts(params.blogId);
       }
     });
-
   }
 
   onShowDetail(postId: string) {
-    console.log('PostOverviewComponent > Clicked Post with id:', postId);
+    this.service.handleShowDetail(this.blogId, postId);
   }
 
   /**
@@ -61,12 +59,14 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   onPostingPost(): void {
     const dialogRef = this.dialog.open(PostDialogComponent, {
-      data: { blogId: this.blogId }
+      data: { blogId: this.blogId },
     });
 
-    this.dialogSub = dialogRef.afterClosed().subscribe(body => {
+    this.dialogSub = dialogRef.afterClosed().subscribe((body) => {
       if (body) {
-        this.createPostSub = this.service.createPost(this.blogId, body).subscribe((createdPost: Post) => this.fetchPosts());
+        this.createPostSub = this.service
+          .createPost(this.blogId, body)
+          .subscribe((createdPost: Post) => this.fetchPosts());
       }
     });
   }
