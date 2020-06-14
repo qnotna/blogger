@@ -6,6 +6,7 @@ import { PostOverviewService } from '../services/post-overview.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post-overview',
@@ -15,6 +16,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PostOverviewComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
   isLoading$: BehaviorSubject<boolean>;
+  noContent$: BehaviorSubject<boolean>;
   blogId: string;
 
   routeSub: Subscription;
@@ -29,6 +31,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading$ = this.service.isLoading$;
+    this.noContent$ = this.service.noContent$;
     // Combine 2 Observables into 1 in order to check and make api call based on current url
     this.routeSub = combineLatest([
       this.currentRoute.params,

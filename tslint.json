@@ -87,5 +87,8 @@
   },
   "rulesDirectory": [
     "codelyzer"
+  ],
+  "indent": [
+    true, "tabs", 1
   ]
 }

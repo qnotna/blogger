@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiWebService } from 'src/app/api/api.web.service';
 import { Observable } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 import { Post } from 'src/app/models/posts.model';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
@@ -10,16 +10,25 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root'})
 export class PostOverviewService {
     isLoading$ = new BehaviorSubject<boolean>(true);
+    noContent$ = new BehaviorSubject<boolean>(false);
 
     constructor(private api: ApiWebService, private errorService: ErrorHandlerService) {}
 
-    getPosts(id: string): Observable<Post[]> {
-        this.isLoading$.next(true);
-        return this.api.getPostsByBlog(id).pipe(
-            catchError(err => this.errorService.handleError(err)),
-            finalize(() => this.isLoading$.next(false))
-        );
-    }
+  getPosts(id: string): Observable<Post[]> {
+    this.isLoading$.next(true);
+    return this.api.getPostsByBlog(id).pipe(
+      catchError(err => this.errorService.handleError(err)),
+      map((res) => {
+        if (!res) {
+          this.noContent$.next(true);
+          return [];
+        }
+        this.noContent$.next(false);
+        return res;
+      }),
+      finalize(() => this.isLoading$.next(false))
+    );
+  }
 
     searchPosts(id: string, query: string): Observable<Post[]> {
         this.isLoading$.next(true);
