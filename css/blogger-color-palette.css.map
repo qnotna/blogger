@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "../src/material/blogger-color-palette.scss"
-    ],
-    "names": [],
-    "file": "blogger-color-palette.css"
-}
