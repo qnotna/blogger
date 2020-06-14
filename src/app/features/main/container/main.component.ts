@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { Post } from 'src/app/models/posts.model';
 import { MainService } from '../services/main.service';
 
 @Component({
@@ -12,29 +11,28 @@ import { MainService } from '../services/main.service';
 })
 export class MainComponent implements OnInit {
   blogs$: Observable<Blog[]>;
-  posts$: Observable<Post[]>;
   blogId: string;
 
   constructor(private service: MainService, private authService: AuthService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchBlogs();
   }
 
-  fetchBlogs() {
+  fetchBlogs(): void {
     this.blogs$ = this.service.getBlogs();
   }
 
-  onBlogChange(selectedBlogId: string) {
+  onBlogChange(selectedBlogId: string): void {
     this.blogId = selectedBlogId;
     this.service.handleBlogChange(selectedBlogId);
   }
 
-  onSearchPost(query: string) {
+  onSearchPost(query: string): void {
     this.service.handleSearch(this.blogId, query);
   }
 
-  onLogout() {
+  onLogout(): void {
     this.authService.handleAuth();
   }
 
