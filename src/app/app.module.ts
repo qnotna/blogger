@@ -22,10 +22,10 @@ import { PostOverviewComponent } from './features/post-overview/container/post-o
 import { SearchComponent } from './features/header/components/search/search.component';
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
-import { registerLocaleData } from '@angular/common';
-
-import localeDe from '@angular/common/locales/de';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 
 
 @NgModule({
@@ -39,7 +39,7 @@ import { PostDetailviewComponent } from './features/post-overview/components/pos
     SearchComponent,
     PostItemComponent,
     PostDialogComponent,
-    PostDetailviewComponent,
+    PostDetailviewComponent
   ],
   imports: [
     BrowserModule,
