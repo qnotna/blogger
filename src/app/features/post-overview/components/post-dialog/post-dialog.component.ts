@@ -22,7 +22,7 @@ export class PostDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<PostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title = new FormControl('', Validators.required);
     this.content = new FormControl('', Validators.required);
     if (this.data.post) {
@@ -32,7 +32,7 @@ export class PostDialogComponent implements OnInit {
     }
   }
 
-  onSave() {
+  onSave(): void {
     const body: PostRequestBody = {
       title: this.title.value,
       content: this.content.value,
@@ -42,7 +42,7 @@ export class PostDialogComponent implements OnInit {
     }
     this.dialogRef.close(body);
   }
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 }

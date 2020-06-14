@@ -13,7 +13,7 @@ export class SearchComponent {
 
   constructor() {}
 
-  onSearch(value: string) {
+  onSearch(value: string): void {
     this.searchPosts.emit(value);
   }
 

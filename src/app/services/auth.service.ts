@@ -20,11 +20,11 @@ export class AuthService {
         private ngZone: NgZone) {
         }
 
-    initAuthService() {
+    initAuthService(): Observable<boolean> {
         return this.gapi.onLoad();
     }
 
-    getAuth() {
+    getAuth(): GoogleAuth {
         return this.auth;
     }
     /**
@@ -48,7 +48,7 @@ export class AuthService {
      * authorizes user for next page
      * and GoogleAuth to listen to any changes when user is logging in or out
      */
-    initClient() {
+    initClient(): void {
         this.authService.getAuth()
             .subscribe((auth: GoogleAuth) => {
                 this.auth = auth;
@@ -60,7 +60,7 @@ export class AuthService {
     /**
      * Depending if the user is signed in or logged in the user is logged out or in
      */
-    handleAuth() {
+    handleAuth(): void {
         if (this.auth.isSignedIn.get()) {
             this.auth.signOut();
         } else {
@@ -72,7 +72,7 @@ export class AuthService {
     }
 
 
-    private navigateTo(route: string) {
+    private navigateTo(route: string): void {
         this.ngZone.run(() => this.router.navigate([route]));
     }
 
@@ -80,7 +80,7 @@ export class AuthService {
      * Depending if the current user is authorized or has blogger-scope:
      *  - OAuth-Token is set in sessionStorage and will be navigated to home or login page
      */
-    private setSignInStatus() {
+    private setSignInStatus(): void {
         const user: GoogleUser = this.auth.currentUser.get();
         const isAuthorized = user.hasGrantedScopes(this.SCOPE);
         if (isAuthorized) {
