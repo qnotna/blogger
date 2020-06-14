@@ -13,15 +13,18 @@
             background-color: mat-color($primary, 200);
             color: mat-color($accent, 800)
         }
-    }
-    .mat-card-content {
-        text-align: justify;
-
         img {
             width: 100%;
             object-fit: contain;
             height: auto;
         }
+
+        .mat-flat-button {
+            white-space: unset;
+        }
+    }
+    .mat-card-content {
+        text-align: justify;
 
     }
     .mat-button-wrapper {
