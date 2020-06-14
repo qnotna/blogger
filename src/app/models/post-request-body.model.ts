@@ -3,3 +3,8 @@ export interface PostRequestBody {
     content: string;
     postId?: string;
 }
+
+export interface DeleteRequestBody {
+    blogId: string;
+    postId: string;
+}

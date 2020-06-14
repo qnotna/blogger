@@ -28,7 +28,7 @@ const FakePost: Post = {
       totalItems: 'string',
       selfLink: 'string',
     }
-}
+};
 
 describe('PostItemComponent', () => {
   let component: PostItemComponent;

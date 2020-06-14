@@ -25,6 +25,7 @@ import { PostDialogComponent } from './features/post-overview/components/post-di
 import { registerLocaleData } from '@angular/common';
 
 import localeDe from '@angular/common/locales/de';
+import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import localeDe from '@angular/common/locales/de';
     SearchComponent,
     PostItemComponent,
     PostDialogComponent,
+    PostDetailviewComponent,
   ],
   imports: [
     BrowserModule,

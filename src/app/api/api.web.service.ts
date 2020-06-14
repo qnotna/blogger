@@ -44,6 +44,19 @@ export class ApiWebService {
       );
   }
 
+  getPostById(blogId: string, postId: string): Observable<Post> {
+    const options = { headers: this.getHeaders() };
+    return this.http
+      .get<any>(
+        `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`,
+        options
+      )
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as Post)
+      );
+  }
+
   createPostForBlog(blogId: string, requestBody: PostRequestBody) {
     const options = { headers: this.getHeaders() };
     const body = requestBody;
@@ -73,6 +86,19 @@ export class ApiWebService {
       .pipe(
         catchError((err) => this.handleError(err))
       );
+  }
+
+  /**
+   * Removes a specified post from the corresponding blog
+   * @param blogId id to identify the post's blog
+   * @param postId id to identify the post
+   */
+  removePostFromBlogWithIds(blogId: string, postId: string): Observable<any> {
+    const url = `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`;
+    const options = { headers: this.getHeaders() };
+    return this.http.delete(url, options).pipe(
+      catchError((err) => this.handleError(err))
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
