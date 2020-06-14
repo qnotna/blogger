@@ -19,11 +19,8 @@
   <!-- Actions -->
   <mat-card-actions>
     <button mat-button color="warn">Kommentare</button>
-    <button mat-button color="warn">Bearbeiten</button>
-    <button
-      mat-button color='warn'
-      (click)='deleteSelf()'
-    >Löschen</button>
+    <button mat-button color="warn" (click)="openEdit.emit(post)">Bearbeiten</button>
+    <button mat-button color='warn' (click)='onDelete()'>Löschen</button>
   </mat-card-actions>
 
 </mat-card>

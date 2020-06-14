@@ -6,6 +6,7 @@ import { PostOverviewService } from '../services/post-overview.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
 import { BehaviorSubject } from 'rxjs';
+import { DeleteRequestBody } from 'src/app/models/post-request-body.model';
 
 @Component({
   selector: 'app-post-overview',
@@ -20,6 +21,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   routeSub: Subscription;
   dialogSub: Subscription;
   createPostSub: Subscription;
+  editPostSub: Subscription;
 
   constructor(
     private service: PostOverviewService,
@@ -53,8 +55,20 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
    * Modifies posts observable
    * @param location contains identifiers for current blog and post
    */
-  removePostFrom({ blogId, postId }) {
-    this.service.removePostFrom(blogId, postId).subscribe(_ => this.fetchPosts());
+  removePostFrom(body: DeleteRequestBody) {
+    this.service.removePostFrom(body.blogId, body.postId).subscribe(_ => this.fetchPosts());
+  }
+
+  onOpenEdit(post: Post) {
+    const dialogRef = this.dialog.open(PostDialogComponent, {
+      data: { post }
+    });
+
+    this.dialogSub = dialogRef.afterClosed().subscribe(body => {
+      if (body) {
+        this.editPostSub = this.service.editPost(this.blogId, body.postId, body).subscribe((editedPost: Post) => this.fetchPosts());
+      }
+    });
   }
 
   onPostingPost(): void {
@@ -79,5 +93,6 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     this.routeSub.unsubscribe();
     this.createPostSub?.unsubscribe();
     this.dialogSub?.unsubscribe();
+    this.editPostSub?.unsubscribe();
   }
 }

@@ -52,11 +52,19 @@ export class PostOverviewService {
       );
   }
 
+  editPost(blogId: string, postId: string, body: PostRequestBody): Observable<Post> {
+    this.isLoading$.next(true);
+    return this.api.editPostForBlog(blogId, postId, body).pipe(
+        catchError(err => this.errorService.handleError(err)),
+        finalize(() => this.isLoading$.next(false))
+    );
+  }
+
   handleShowDetail(blogId: string, postId: string) {
     this.router.navigate([`home/blogs/${blogId}/posts/${postId}/detail`]);
   }
 
-  removePostFrom(blogId: string, postId: string): any {
+  removePostFrom(blogId: string, postId: string): Observable<any> {
     return this.api.removePostFromBlogWithIds(blogId, postId).pipe(
       catchError((error) => (this.errorService.handleError(error)))
     );

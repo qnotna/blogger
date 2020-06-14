@@ -7,13 +7,9 @@
                 matInput 
                 type="text" 
                 name="title" 
-                [(ngModel)]="value"
                 [formControl]="title"
                 required
             />
-            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                <mat-icon>close</mat-icon>
-            </button>
             <mat-error *ngIf="title.hasError('required')">
                 Title is <strong>required</strong>
             </mat-error>

@@ -8,20 +8,20 @@ import { DeleteRequestBody } from 'src/app/models/post-request-body.model';
   styleUrls: ['./post-item.component.scss']
 })
 export class PostItemComponent {
-
   @Input() post: Post;
   @Output() showDetail = new EventEmitter<string>();
-  @Output() notifyParent = new EventEmitter<DeleteRequestBody>();
+  @Output() openEdit = new EventEmitter<Post>();
+  @Output() deletePost = new EventEmitter<DeleteRequestBody>();
 
   /**
    * Emit remove event to parent
    * @param postId post identifier
    */
-  deleteSelf() {
-    this.notifyParent.emit({
+  onDelete() {
+    this.deletePost.emit({
       blogId: this.post.blog.id,
       postId: this.post.id
-    });
+    } as DeleteRequestBody);
   }
 
 }

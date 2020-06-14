@@ -36,10 +36,7 @@ export class ApiWebService {
   getPostsByBlog(blogId: string): Observable<Post[]> {
     const options = { headers: this.getHeaders() };
     return this.http
-      .get<any>(
-        `${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`,
-        options
-      )
+      .get<any>(`${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`, options)
       .pipe(
         catchError((err) => this.handleError(err)),
         map((res) => res as GETPostsResponse),
@@ -65,16 +62,30 @@ export class ApiWebService {
     const body = requestBody;
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
-      .pipe(catchError((err) => this.handleError(err)));
+      .pipe(
+        catchError((err) => this.handleError(err))
+      );
   }
 
   searchPostsForBlog(blogId: string, q: string) {
     const options = { headers: this.getHeaders() };
-    return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
-      catchError((err) => this.handleError(err)),
-      map((res) => res as GETPostsResponse),
-      map((res) => res.items)
-    );
+    return this.http
+      .get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options)
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as GETPostsResponse),
+        map((res) => res.items)
+      );
+  }
+
+  editPostForBlog(blogId: string, postId: string, requestBody: PostRequestBody) {
+    const options = { headers: this.getHeaders() };
+    const body = requestBody;
+    return this.http
+      .patch(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}`, body, options)
+      .pipe(
+        catchError((err) => this.handleError(err))
+      );
   }
 
   /**
@@ -82,11 +93,9 @@ export class ApiWebService {
    * @param blogId id to identify the post's blog
    * @param postId id to identify the post
    */
-  removePostFromBlogWithIds(blogId: string, postId: string): any {
+  removePostFromBlogWithIds(blogId: string, postId: string): Observable<any> {
     const url = `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`;
-    const options = {
-      headers: this.getHeaders()
-    };
+    const options = { headers: this.getHeaders() };
     return this.http.delete(url, options).pipe(
       catchError((err) => this.handleError(err))
     );
