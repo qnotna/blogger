@@ -16,7 +16,6 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
   isLoading$: BehaviorSubject<boolean>;
   blogId: string;
-  postId: string;
 
   routeSub: Subscription;
   dialogSub: Subscription;
@@ -51,14 +50,14 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     console.log('PostOverviewComponent > Clicked Post with id:', postId);
   }
 
-  onOpenEdit(post: Post){
+  onOpenEdit(post: Post) {
     const dialogRef = this.dialog.open(PostDialogComponent, {
       data: { post }
     });
 
     this.dialogSub = dialogRef.afterClosed().subscribe(body => {
       if (body) {
-        this.editPostSub = this.service.editPost(this.blogId,body.postId, body).subscribe((editedPost: Post) => this.fetchPosts());
+        this.editPostSub = this.service.editPost(this.blogId, body.postId, body).subscribe((editedPost: Post) => this.fetchPosts());
       }
     });
   }
@@ -83,5 +82,6 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     this.routeSub.unsubscribe();
     this.createPostSub?.unsubscribe();
     this.dialogSub?.unsubscribe();
+    this.editPostSub?.unsubscribe();
   }
 }

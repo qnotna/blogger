@@ -35,8 +35,7 @@ export class PostOverviewService {
         );
     }
 
-    //maybe rework
-    editPost(blogId: string, postId: string, body: PostRequestBody): Observable<Post>{
+    editPost(blogId: string, postId: string, body: PostRequestBody): Observable<Post> {
         return this.api.editPostForBlog(blogId, postId, body).pipe(
             catchError(err => this.errorService.handleError(err))
         );
