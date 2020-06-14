@@ -11,16 +11,14 @@
 
         .mat-card-header .mat-card-title .mat-flat-button {
             background-color: mat-color($primary, 200);
-            color: mat-color($accent, 800)
+            color: mat-color($accent, 800);
+            white-space: unset;
+            width: auto;
         }
         img {
             width: 100%;
             object-fit: contain;
             height: auto;
-        }
-
-        .mat-flat-button {
-            white-space: unset;
         }
     }
     .mat-card-content {
