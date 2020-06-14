@@ -1,6 +1,7 @@
 @import 'global-utils';
 
 form {
+	overflow: auto;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -20,5 +21,9 @@ form {
 }
 
 :host ::ng-deep .ck-editor__editable_inline {
+	min-width: 400px;
+	max-width: 700px;
+	
     min-height: 300px;
+    max-height: 500px;
 }
