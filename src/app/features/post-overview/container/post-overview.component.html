@@ -5,9 +5,9 @@
     <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" ></mat-progress-spinner>
 </div>
 
-<div *ngIf='(noContent$ | async) || (noResults$ | async)'>
-  <app-no-posts (notifyParent)='reloadAfterSearch()'></app-no-posts>
-</div>
+<app-no-posts
+  *ngIf='(noContent$ | async) || (noResults$ | async)'
+  (notifyParent)='reloadAfterSearch()'></app-no-posts>
 
 <mat-list *ngIf="posts$ | async as posts">
   <app-post-item

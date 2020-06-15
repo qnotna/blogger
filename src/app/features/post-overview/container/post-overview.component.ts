@@ -36,7 +36,6 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.service.isLoading$;
     this.noContent$ = this.service.noContent$;
     this.noResults$ = this.service.noResults$;
-    // Combine 2 Observables into 1 in order to check and make api call based on current url
     this.routeSub = combineLatest([
       this.currentRoute.params,
       this.currentRoute.queryParams,

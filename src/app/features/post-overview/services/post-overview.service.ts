@@ -33,13 +33,13 @@ export class PostOverviewService {
     return this.api.getPostsByBlog(blogId)
       .pipe(
         catchError((err) => this.errorService.handleError(err)),
-        map((result) => {
-          if (!result) {
+        map((posts: Post[]) => {
+          if (!posts) {
             this.noContent$.next(true);
             return [];
           }
           this.noContent$.next(false);
-          return result;
+          return posts;
         }),
         finalize(() => this.isLoading$.next(false))
       );
@@ -69,13 +69,13 @@ export class PostOverviewService {
     return this.api.searchPostsForBlog(blogId, query)
       .pipe(
         catchError((err) => this.errorService.handleError(err)),
-        map((result) => {
-          if (!result) {
+        map((posts: Post[]) => {
+          if (!posts) {
             this.noResults$.next(true);
             return [];
           }
           this.noResults$.next(false);
-          return result;
+          return posts;
         }),
         finalize(() => this.isLoading$.next(false))
       );
