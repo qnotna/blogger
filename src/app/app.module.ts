@@ -23,6 +23,7 @@ import { SearchComponent } from './features/header/components/search/search.comp
 import { PostItemComponent } from './features/post-overview/components/post-item/post-item.component';
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
 import { registerLocaleData } from '@angular/common';
+import { NoPostsComponent } from './features/post-overview/no-posts/no-posts.component';
 
 import localeDe from '@angular/common/locales/de';
 
@@ -38,6 +39,7 @@ import localeDe from '@angular/common/locales/de';
     SearchComponent,
     PostItemComponent,
     PostDialogComponent,
+    NoPostsComponent,
   ],
   imports: [
     BrowserModule,

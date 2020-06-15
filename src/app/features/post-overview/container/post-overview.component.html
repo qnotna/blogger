@@ -4,10 +4,11 @@
 <div class="spinner" *ngIf="isLoading$ | async">
     <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" ></mat-progress-spinner>
 </div>
-<div class='no-posts' *ngIf='noContent$ | async'>
-  <h1>Keine Posts für diesen Blog vorhanden</h1>
-  <p>Erstelle einen neuen Post in diesem Blog, damit dieser hier erscheint.</p>
+
+<div *ngIf='(noContent$ | async) || (noResults$ | async)'>
+  <app-no-posts></app-no-posts>
 </div>
+
 <mat-list *ngIf="posts$ | async as posts">
   <app-post-item
     *ngFor="let post of posts"

@@ -11,32 +11,42 @@ import { BehaviorSubject } from 'rxjs';
 export class PostOverviewService {
     isLoading$ = new BehaviorSubject<boolean>(true);
     noContent$ = new BehaviorSubject<boolean>(false);
+    noResults$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private api: ApiWebService, private errorService: ErrorHandlerService) {}
+  constructor(private api: ApiWebService, private errorService: ErrorHandlerService) { }
 
   getPosts(id: string): Observable<Post[]> {
     this.isLoading$.next(true);
     return this.api.getPostsByBlog(id).pipe(
       catchError(err => this.errorService.handleError(err)),
-      map((res) => {
-        if (!res) {
+      map((result) => {
+        if (!result) {
           this.noContent$.next(true);
           return [];
         }
         this.noContent$.next(false);
-        return res;
+        return result;
       }),
       finalize(() => this.isLoading$.next(false))
     );
   }
 
-    searchPosts(id: string, query: string): Observable<Post[]> {
-        this.isLoading$.next(true);
-        return this.api.searchPostsForBlog(id, query).pipe(
-            catchError(err => this.errorService.handleError(err)),
-            finalize(() => this.isLoading$.next(false))
-        );
-    }
+  searchPosts(id: string, query: string): Observable<Post[]> {
+    this.isLoading$.next(true);
+    return this.api.searchPostsForBlog(id, query).pipe(
+      catchError(err => this.errorService.handleError(err)),
+      map((result) => {
+        if (!result) {
+          console.log('nothing found matching', query);
+          this.noResults$.next(true);
+          return [];
+        }
+        this.noResults$.next(false);
+        return result;
+      }),
+      finalize(() => this.isLoading$.next(false))
+    );
+  }
 
     createPost(blogId: string, body: PostRequestBody): Observable<Post> {
         return this.api.createPostForBlog(blogId, body).pipe(
