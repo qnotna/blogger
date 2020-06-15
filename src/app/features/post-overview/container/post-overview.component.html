@@ -14,7 +14,6 @@
     *ngFor="let post of posts"
     [post]="post"
     (showDetail)="onShowDetail($event)"
-    (notifyParent)='removePostFrom($event)'
-    >
-  </app-post-item>
+    (openEdit)="onOpenEdit($event)"
+    (deletePost)="removePostFrom($event)"></app-post-item>
 </mat-list>

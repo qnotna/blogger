@@ -12,6 +12,4 @@ export class HeaderComponent {
   @Output() blogChanged = new EventEmitter<string>();
   @Output() searchPosts = new EventEmitter<string>();
   @Output() logout = new EventEmitter<void>();
-
-  constructor() { }
 }

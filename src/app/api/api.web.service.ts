@@ -36,31 +36,58 @@ export class ApiWebService {
   getPostsByBlog(blogId: string): Observable<Post[]> {
     const options = { headers: this.getHeaders() };
     return this.http
-      .get<any>(
-        `${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`,
-        options
-      )
+      .get<any>(`${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`, options)
       .pipe(
+        catchError((err) => this.handleError(err)),
         map((res) => res as GETPostsResponse),
         map((res) => res.items)
       );
   }
 
-  createPostForBlog(blogId: string, requestBody: PostRequestBody) {
+  getPostById(blogId: string, postId: string): Observable<Post> {
+    const options = { headers: this.getHeaders() };
+    return this.http
+      .get<any>(
+        `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`,
+        options
+      )
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as Post)
+      );
+  }
+
+  createPostForBlog(blogId: string, requestBody: PostRequestBody): Observable<Post> {
     const options = { headers: this.getHeaders() };
     const body = requestBody;
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
-      .pipe(catchError((err) => this.handleError(err)));
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map(createdPost => createdPost as Post)
+      );
   }
 
-  searchPostsForBlog(blogId: string, q: string) {
+  searchPostsForBlog(blogId: string, q: string): Observable<Post[]> {
     const options = { headers: this.getHeaders() };
-    return this.http.get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options).pipe(
-      catchError((err) => this.handleError(err)),
-      map((res) => res as GETPostsResponse),
-      map((res) => res.items)
-    );
+    return this.http
+      .get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options)
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as GETPostsResponse),
+        map((res) => res.items)
+      );
+  }
+
+  editPostForBlog(blogId: string, requestBody: PostRequestBody): Observable<Post> {
+    const options = { headers: this.getHeaders() };
+    const body = requestBody;
+    return this.http
+      .patch(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/${body.postId}`, body, options)
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map(editedPost => editedPost as Post)
+      );
   }
 
   /**
@@ -68,17 +95,15 @@ export class ApiWebService {
    * @param blogId id to identify the post's blog
    * @param postId id to identify the post
    */
-  removePostFromBlogWithIds(blogId: string, postId: string): any {
+  removePostFromBlogWithIds(blogId: string, postId: string): Observable<any> {
     const url = `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`;
-    const options = {
-      headers: this.getHeaders()
-    };
+    const options = { headers: this.getHeaders() };
     return this.http.delete(url, options).pipe(
       catchError((err) => this.handleError(err))
     );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     const errorObj = error.error.error;
     return throwError(errorObj);
   }

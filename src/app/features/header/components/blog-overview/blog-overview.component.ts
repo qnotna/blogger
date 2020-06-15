@@ -32,11 +32,11 @@ export class BlogOverviewComponent implements OnChanges {
     }
   }
 
-  onBlogChange(event: MatSelectChange) {
+  onBlogChange(event: MatSelectChange): void {
     this.blogChanged.emit(this.currentBlog);
   }
 
-  get getBlogs() {
+  get getBlogs(): Blog[] {
     return this.selectBlogs;
   }
 

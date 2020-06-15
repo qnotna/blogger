@@ -2,11 +2,15 @@
   <!-- Header -->
   <mat-card-header>
     <div mat-card-avatar class="header-image" [style.background-image]="'url(' + post.author.image.url + ')'"></div>
+
+    <!-- Title -->
     <mat-card-title>
       <button mat-flat-button class="post-title-wrapper" (click)="showDetail.emit(post.id)">
         {{ post.title }}
       </button>
     </mat-card-title>
+
+    <!-- Author Link -->
     <mat-card-subtitle>
       <a mat-button target="_blank" [href]="post.author.url">{{ post.author.displayName }}</a>
     </mat-card-subtitle>
@@ -14,16 +18,17 @@
 
   <!-- Date -->
   <mat-card-subtitle>{{ post.published | date: 'fullDate' : '' : 'de-DE' }}</mat-card-subtitle>
-  <!-- <img mat-card-image [src]="paste_here_first_imgUrl_from_post_using_html_parser"> -->
+
+  <!-- Image -->
+  <figure class="img-container">
+    <img mat-card-image [src]="getFirstImgFromContent(post.content)">
+  </figure>
 
   <!-- Actions -->
   <mat-card-actions>
     <button mat-button color="warn">Kommentare</button>
-    <button mat-button color="warn">Bearbeiten</button>
-    <button
-      mat-button color='warn'
-      (click)='deleteSelf()'
-    >Löschen</button>
+    <button mat-button color="warn" (click)="openEdit.emit(post)">Bearbeiten</button>
+    <button mat-button color='warn' (click)='onDelete()'>Löschen</button>
   </mat-card-actions>
 
 </mat-card>

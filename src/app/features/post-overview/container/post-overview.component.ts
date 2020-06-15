@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, combineLatest, Subscription } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import { Post } from '../../../models/posts.model';
-import { ActivatedRoute } from '@angular/router';
 import { PostOverviewService } from '../services/post-overview.service';
-import { MatDialog } from '@angular/material/dialog';
-import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
 import { BehaviorSubject } from 'rxjs';
+import { DeleteRequestBody, PostRequestBody } from 'src/app/models/post-request-body.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-overview',
@@ -22,13 +21,17 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   routeSub: Subscription;
   dialogSub: Subscription;
   createPostSub: Subscription;
+  editPostSub: Subscription;
 
   constructor(
     private service: PostOverviewService,
-    private currentRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private currentRoute: ActivatedRoute
   ) {}
 
+  /**
+   * Combines two route Observables into one Observable, wrapping route params and queryParams
+   * Can be subscribed to and both params are accessible in one Subscription
+   */
   ngOnInit(): void {
     this.isLoading$ = this.service.isLoading$;
     this.noContent$ = this.service.noContent$;
@@ -36,14 +39,13 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     // Combine 2 Observables into 1 in order to check and make api call based on current url
     this.routeSub = combineLatest([
       this.currentRoute.params,
-      this.currentRoute.queryParams
+      this.currentRoute.queryParams,
     ])
     .subscribe(([params, query]) => {
       this.blogId = params.blogId;
       if (query.q !== undefined) {
         this.posts$ = this.service.searchPosts(params.blogId, query.q);
       } else {
-        this.blogId = params.blogId;
         this.posts$ = this.service.getPosts(params.blogId);
         this.noResults$.next(false);
       }
@@ -51,27 +53,28 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   }
 
-  onShowDetail(postId: string) {
-    console.log('PostOverviewComponent > Clicked Post with id:', postId);
+  onShowDetail(postId: string): void {
+    this.service.handleShowDetail(this.blogId, postId);
   }
 
-  /**
-   * Event handler for deleting posts from `post-item.component.html` event emitter
-   * Modifies posts observable
-   * @param location contains identifiers for current blog and post
-   */
-  removePostFrom({ blogId, postId }) {
-    this.service.removePostFrom(blogId, postId).subscribe(_ => this.fetchPosts());
+  removePostFrom(body: DeleteRequestBody): void {
+    this.service.removePostFrom(body.blogId, body.postId).subscribe(_ => this.fetchPosts());
+  }
+
+  onOpenEdit(post: Post): void {
+    const dialogRef = this.service.openDialog(post);
+    this.dialogSub = dialogRef.afterClosed().subscribe((body: PostRequestBody) => {
+      if (body) {
+        this.editPostSub = this.service.editPost(this.blogId, body).subscribe((editedPost: Post) => this.fetchPosts());
+      }
+    });
   }
 
   onPostingPost(): void {
-    const dialogRef = this.dialog.open(PostDialogComponent, {
-      data: { blogId: this.blogId }
-    });
-
-    this.dialogSub = dialogRef.afterClosed().subscribe(body => {
+    const dialogRef = this.service.openDialog(this.blogId);
+    this.dialogSub = dialogRef.afterClosed().subscribe((body: PostRequestBody) => {
       if (body) {
-        this.createPostSub = this.service.createPost(this.blogId, body).subscribe((createdPost: Post) => this.fetchPosts());
+        this.createPostSub = this.service.createPost(this.blogId, body).subscribe((editedPost: Post) => this.fetchPosts());
       }
     });
   }
@@ -82,12 +85,13 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   reloadAfterSearch(): void {
     this.noResults$.next(false);
-    this.fetchPosts();
+    this.service.navigateTo(`/home/blogs/${this.blogId}/posts`);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.routeSub.unsubscribe();
     this.createPostSub?.unsubscribe();
     this.dialogSub?.unsubscribe();
+    this.editPostSub?.unsubscribe();
   }
 }

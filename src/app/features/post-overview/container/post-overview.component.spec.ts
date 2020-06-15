@@ -3,8 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostOverviewComponent } from './post-overview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockRoute } from 'src/app/testing/mock-route.stub';
 
 class MockService {
   handleAuth() {}
@@ -13,10 +14,6 @@ class MockService {
 class MockRouter {
   navigate() {}
 }
-
-const FakeActivatedRoute = {
-  snapshot: { data: { } }
-} as ActivatedRoute;
 
 describe('PostOverviewComponent', () => {
   let component: PostOverviewComponent;
@@ -33,7 +30,7 @@ describe('PostOverviewComponent', () => {
         ActivatedRoute,
         { provide: AuthService, useClass: MockService },
         { provide: Router, useClass: MockRouter },
-        { provide: ActivatedRoute, useValue: FakeActivatedRoute }
+        { provide: ActivatedRoute, useValue: MockRoute }
       ]
     })
     .compileComponents();
