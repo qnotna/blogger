@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiWebService } from 'src/app/api/api.web.service';
 import { Observable } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 import { Post } from 'src/app/models/posts.model';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
@@ -14,6 +14,8 @@ import { DialogData } from 'src/app/models/dialog-data.model';
 @Injectable({ providedIn: 'root' })
 export class PostOverviewService {
   isLoading$ = new BehaviorSubject<boolean>(true);
+  noContent$ = new BehaviorSubject<boolean>(false);
+  noResults$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private api: ApiWebService,
@@ -31,6 +33,14 @@ export class PostOverviewService {
     return this.api.getPostsByBlog(blogId)
       .pipe(
         catchError((err) => this.errorService.handleError(err)),
+        map((posts: Post[]) => {
+          if (!posts) {
+            this.noContent$.next(true);
+            return [];
+          }
+          this.noContent$.next(false);
+          return posts;
+        }),
         finalize(() => this.isLoading$.next(false))
       );
   }
@@ -59,6 +69,14 @@ export class PostOverviewService {
     return this.api.searchPostsForBlog(blogId, query)
       .pipe(
         catchError((err) => this.errorService.handleError(err)),
+        map((posts: Post[]) => {
+          if (!posts) {
+            this.noResults$.next(true);
+            return [];
+          }
+          this.noResults$.next(false);
+          return posts;
+        }),
         finalize(() => this.isLoading$.next(false))
       );
   }
@@ -127,6 +145,10 @@ export class PostOverviewService {
   renderData(prop: any): DialogData {
     const dialogData: DialogData = (typeof(prop) === 'object') ? { post: prop } : { blogId: prop };
     return dialogData;
+  }
+
+  navigateTo(path: string) {
+    this.router.navigate([path]);
   }
 
 }

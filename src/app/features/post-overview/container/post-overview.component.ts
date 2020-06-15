@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 export class PostOverviewComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
   isLoading$: BehaviorSubject<boolean>;
+  noContent$: BehaviorSubject<boolean>;
+  noResults$: BehaviorSubject<boolean>;
   blogId: string;
 
   routeSub: Subscription;
@@ -32,7 +34,8 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.isLoading$ = this.service.isLoading$;
-
+    this.noContent$ = this.service.noContent$;
+    this.noResults$ = this.service.noResults$;
     this.routeSub = combineLatest([
       this.currentRoute.params,
       this.currentRoute.queryParams,
@@ -43,6 +46,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
         this.posts$ = this.service.searchPosts(params.blogId, query.q);
       } else {
         this.posts$ = this.service.getPosts(params.blogId);
+        this.noResults$.next(false);
       }
     });
 
@@ -76,6 +80,11 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   fetchPosts(): void {
     this.posts$ = this.service.getPosts(this.blogId);
+  }
+
+  reloadAfterSearch(): void {
+    this.noResults$.next(false);
+    this.service.navigateTo(`/home/blogs/${this.blogId}/posts`);
   }
 
   ngOnDestroy(): void {
