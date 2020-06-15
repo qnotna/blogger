@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { PostOverviewService } from '../services/post-overview.service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -12,9 +12,13 @@ export class NoPostsComponent implements OnInit {
   noResults$: BehaviorSubject<boolean>;
   isLoading$: BehaviorSubject<boolean>;
 
+  @Output() notifyParent = new EventEmitter<void>();
+
   imageUrl: string;
   title: string;
   message: string;
+
+  showButton: boolean;
 
   constructor(
     private service: PostOverviewService
@@ -23,17 +27,23 @@ export class NoPostsComponent implements OnInit {
   ngOnInit(): void {
     this.noContent$ = this.service.noContent$;
     this.noResults$ = this.service.noResults$;
-    this.isLoading$ = this.service.isLoading$;
+    // this.isLoading$ = this.service.isLoading$;
 
     if (this.noResults$.getValue() === true) {
       this.imageUrl = 'https://img.icons8.com/color/96/000000/search.png';
       this.title = 'Nothing matching your search was found in this blog';
       this.message = 'Did you type in your query correctly?';
+      this.showButton = true;
     }
     if (this.noContent$.getValue() === true) {
       this.imageUrl = 'https://img.icons8.com/fluent/96/000000/typewriter-with-paper.png';
       this.title = 'This blog does not contain any posts';
       this.message = 'Create a post in this blog to make it appear here.';
+      this.showButton = false;
     }
+  }
+
+  onContinueReading(): void {
+    this.notifyParent.emit();
   }
 }

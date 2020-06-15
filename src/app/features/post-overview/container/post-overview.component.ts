@@ -80,6 +80,11 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     this.posts$ = this.service.getPosts(this.blogId);
   }
 
+  reloadAfterSearch(): void {
+    this.noResults$.next(false);
+    this.fetchPosts();
+  }
+
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.createPostSub?.unsubscribe();
