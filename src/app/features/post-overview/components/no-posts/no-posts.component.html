@@ -1,0 +1,11 @@
+<div class='no-posts' *ngIf="noContent || noResults">
+  <img [alt]='config.title' [src]='config.imageUrl'/>
+  <h1>{{ config.title }}</h1>
+  <p>{{ config.message }}</p>
+  <button
+    mat-flat-button
+    *ngIf='config.showButton'
+    (click)='notifyParent.emit($event)'
+  >Continue reading</button>
+</div>
+

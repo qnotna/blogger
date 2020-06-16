@@ -6,7 +6,8 @@
 </div>
 
 <app-no-posts
-  *ngIf='(noContent$ | async) || (noResults$ | async)'
+  [noContent]="noContent$ | async"
+  [noResults]="noResults$ | async"
   (notifyParent)='reloadAfterSearch()'></app-no-posts>
 
 <mat-list *ngIf="posts$ | async as posts">
