@@ -2,6 +2,7 @@
 @import 'blogger-color-palette.scss';
 @import 'mat-card-theme.scss';
 @import 'mat-general-theme.scss';
+@import 'mat-select-theme.scss';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -31,3 +32,4 @@ $mat-typography: mat-typography-config($font-family: 'sans-serif, Lato');
 
 @include mat-card($blogger-app-theme);
 @include mat-general($blogger-app-theme);
+@include mat-select();

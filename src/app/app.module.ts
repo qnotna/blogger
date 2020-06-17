@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 
 // Modules
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
@@ -24,10 +26,7 @@ import { PostItemComponent } from './features/post-overview/components/post-item
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
 import { NoPostsComponent } from './features/post-overview/components/no-posts/no-posts.component';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
-
-import { registerLocaleData } from '@angular/common';
-import localeDe from '@angular/common/locales/de';
-
+import { BlogOverviewItemComponent } from './features/header/components/blog-overview-item/blog-overview-item.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,8 @@ import localeDe from '@angular/common/locales/de';
     PostItemComponent,
     PostDialogComponent,
     NoPostsComponent,
-    PostDetailviewComponent
+    PostDetailviewComponent,
+    BlogOverviewItemComponent
   ],
   imports: [
     BrowserModule,

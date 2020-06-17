@@ -1,0 +1,5 @@
+@mixin mat-select {
+    .mat-select-panel .mat-option {
+        line-height: unset !important;
+    }
+}
