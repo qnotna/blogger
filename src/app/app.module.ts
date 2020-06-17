@@ -24,10 +24,11 @@ import { PostItemComponent } from './features/post-overview/components/post-item
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
 import { NoPostsComponent } from './features/post-overview/components/no-posts/no-posts.component';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
+import { ParticleComponent } from './features/login/particles/particle/particle.component';
+import { ParticleSystemComponent } from './features/login/particles/particle-system/particle-system.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
-
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import localeDe from '@angular/common/locales/de';
     PostItemComponent,
     PostDialogComponent,
     NoPostsComponent,
-    PostDetailviewComponent
+    PostDetailviewComponent,
+    ParticleComponent,
+    ParticleSystemComponent
   ],
   imports: [
     BrowserModule,
