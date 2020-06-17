@@ -8,6 +8,8 @@ import { Blog } from 'src/app/models/blogs.model';
 })
 export class BlogOverviewComponent {
 
+  @Input() blog: Blog;
+
   currentBlog: Blog;
   selectBlogs: Blog[];
   hasBlogs = false;
