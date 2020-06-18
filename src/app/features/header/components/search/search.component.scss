@@ -1,11 +1,22 @@
+@import "global-utils";
+
 :host {
     margin-left: auto;
 }
 
-.search-form {
-    width: 100%;
-}
+.form {
+    transition: width .2s ease;
+    font-size: $large-font-size;
+    margin-right: 2em;
+    width: 10px;
 
-input::placeholder {
-    color: #fafafa;
+    &:focus-within {
+        transition: width .4s ease-in-out;
+        width: 200px;
+    }
+
+
+    input::placeholder {
+        color: #fafafa;
+    }
 }

@@ -1,11 +1,22 @@
-@import '~@angular/material/theming';
-
 @mixin mat-select($theme) {
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
-    $warn: map-get($theme, warn);
-
-    .mat-select-value-text {
-        color: #fafafa;
+    .mat-form-field-appearance-legacy {
+      .mat-form-field-infix {
+        padding: 0;
+        border-top: none;
+      }
+      
+      .mat-form-field-underline {
+        background-color: #ffffff;
+        height: 0 !important;
+      }
+    
+      .mat-form-field-wrapper {
+        padding: 0;
+      }
+    
+      .mat-form-field-ripple {
+        display: none;
+      }
     }
-}
+  
+  }
