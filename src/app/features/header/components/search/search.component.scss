@@ -7,11 +7,16 @@
 .form {
     transition: width .2s ease;
     font-size: $large-font-size;
-    margin-right: 1em;
+    margin-right: 2em;
     width: 10px;
 
     &:focus-within {
         transition: width .4s ease-in-out;
         width: 200px;
+    }
+
+
+    input::placeholder {
+        color: #fafafa;
     }
 }

@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 
 // Modules
 import { GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
@@ -25,9 +27,7 @@ import { PostDialogComponent } from './features/post-overview/components/post-di
 import { NoPostsComponent } from './features/post-overview/components/no-posts/no-posts.component';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
 import { ParticleComponent } from './features/login/particle/particle.component';
-
-import { registerLocaleData } from '@angular/common';
-import localeDe from '@angular/common/locales/de';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import localeDe from '@angular/common/locales/de';
     PostDialogComponent,
     NoPostsComponent,
     PostDetailviewComponent,
+    ShortenPipe,
     ParticleComponent
   ],
   imports: [

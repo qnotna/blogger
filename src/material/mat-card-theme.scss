@@ -15,10 +15,16 @@
             white-space: unset;
             width: auto;
         }
+
         img {
             width: 100%;
+            max-height: 500px;
             object-fit: contain;
             height: auto;
+        }
+
+        .mat-card-subtitle {
+                color: #fafafa;
         }
     }
     .mat-card-content {
