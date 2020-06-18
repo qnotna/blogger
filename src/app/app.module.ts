@@ -27,6 +27,7 @@ import { PostDetailviewComponent } from './features/post-overview/components/pos
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import localeDe from '@angular/common/locales/de';
     PostItemComponent,
     PostDialogComponent,
     NoPostsComponent,
-    PostDetailviewComponent
+    PostDetailviewComponent,
+    ShortenPipe
   ],
   imports: [
     BrowserModule,

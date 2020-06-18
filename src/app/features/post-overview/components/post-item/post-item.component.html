@@ -18,6 +18,9 @@
 
   <!-- Date -->
   <mat-card-subtitle>{{ post.published | date: 'fullDate' : '' : 'de-DE' }}</mat-card-subtitle>
+  
+  <!-- Content -->
+  <mat-card-content> {{ post.content | shorten: 300: '...' }}</mat-card-content>
 
   <!-- Actions -->
   <mat-card-actions>
