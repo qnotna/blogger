@@ -17,7 +17,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // Components
 import { AppComponent } from './app.component';
 import { MainComponent } from './features/main/container/main.component';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/login/container/login.component';
 import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
 import { HeaderComponent } from './features/header/container/header.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
@@ -27,6 +27,7 @@ import { PostDialogComponent } from './features/post-overview/components/post-di
 import { NoPostsComponent } from './features/post-overview/components/no-posts/no-posts.component';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
 import { BlogOverviewItemComponent } from './features/header/components/blog-overview-item/blog-overview-item.component';
+import { ParticleComponent } from './features/login/particle/particle.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { BlogOverviewItemComponent } from './features/header/components/blog-ove
     PostDialogComponent,
     NoPostsComponent,
     PostDetailviewComponent,
-    BlogOverviewItemComponent
+    BlogOverviewItemComponent,
+    ParticleComponent
   ],
   imports: [
     BrowserModule,

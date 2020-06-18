@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './features/main/container/main.component';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/login/container/login.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { AuthGuard } from './services/auth.guard';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';

@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
 @import 'blogger-color-palette.scss';
 @import 'mat-card-theme.scss';
+@import 'mat-select-theme.scss';
 @import 'mat-general-theme.scss';
 @import 'mat-select-theme.scss';
 // Plus imports for other components in your app.
@@ -31,5 +32,5 @@ $mat-typography: mat-typography-config($font-family: 'sans-serif, Lato');
 @include angular-material-typography($mat-typography);
 
 @include mat-card($blogger-app-theme);
+@include mat-select($blogger-app-theme);
 @include mat-general($blogger-app-theme);
-@include mat-select();

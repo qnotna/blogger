@@ -1,5 +1,25 @@
-@mixin mat-select {
+@mixin mat-select($theme) {
+    .mat-form-field-appearance-legacy {
+      .mat-form-field-infix {
+        padding: 0;
+        border-top: none;
+      }
+      
+      .mat-form-field-underline {
+        background-color: #ffffff;
+        height: 0 !important;
+      }
+    
+      .mat-form-field-wrapper {
+        padding: 0;
+      }
+    
+      .mat-form-field-ripple {
+        display: none;
+      }
+    }
+
     .mat-select-panel .mat-option {
         line-height: unset !important;
     }
-}
+  }
