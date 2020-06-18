@@ -15,7 +15,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // Components
 import { AppComponent } from './app.component';
 import { MainComponent } from './features/main/container/main.component';
-import { LoginComponent } from './features/login/login.component';
+import { LoginComponent } from './features/login/container/login.component';
 import { BlogOverviewComponent } from './features/header/components/blog-overview/blog-overview.component';
 import { HeaderComponent } from './features/header/container/header.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
@@ -24,8 +24,7 @@ import { PostItemComponent } from './features/post-overview/components/post-item
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
 import { NoPostsComponent } from './features/post-overview/components/no-posts/no-posts.component';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
-import { ParticleComponent } from './features/login/particles/particle/particle.component';
-import { ParticleSystemComponent } from './features/login/particles/particle-system/particle-system.component';
+import { ParticleComponent } from './features/login/particle/particle.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
@@ -43,8 +42,7 @@ import localeDe from '@angular/common/locales/de';
     PostDialogComponent,
     NoPostsComponent,
     PostDetailviewComponent,
-    ParticleComponent,
-    ParticleSystemComponent
+    ParticleComponent
   ],
   imports: [
     BrowserModule,

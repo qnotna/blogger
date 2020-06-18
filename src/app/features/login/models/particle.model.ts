@@ -9,15 +9,16 @@ export interface Location {
 }
 
 export interface Style {
-  fontSize: string;
-  color: string;
+  width: string;
+  height: string;
+  // color: string;
   opacity: number;
   top: string;
   left: string;
 }
 
 export default interface Particle {
-  char: string;
+  src: string;
   size: number;
   location: Location;
   color: Color;

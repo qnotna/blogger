@@ -1,21 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import Particle, { Color, Location } from '../ParticleModel';
+import { Injectable } from '@angular/core';
+import Particle, { Location, Color } from '../models/particle.model';
+import particleSystemConfig from '../config/particle-system.config';
 
-@Component({
-  selector: 'app-particle-system',
-  templateUrl: './particle-system.component.html',
-  styleUrls: ['./particle-system.component.scss']
-})
-export class ParticleSystemComponent implements OnInit {
-  particles: Array<Particle>;
-  private mouseStack: Array<Location>;
+@Injectable({ providedIn: 'root' })
+export class ParticleSystemService {
+  private mouseStack: Location[] = [];
+  particles: Particle[] = [];
   deltaMouse: Location;
 
-  ngOnInit(): void {
-    this.particles = [];
-    this.mouseStack = [];
-    this.initParticlesWithSize(50, 10, 25);
-  }
+  constructor() { }
 
   /**
    * Event handler for mouse movement detection on canvas.
@@ -26,7 +19,7 @@ export class ParticleSystemComponent implements OnInit {
       x: event.clientX,
       y: event.clientY
     } as Location;
-    this.deltaMouse = this.delta(mouse);
+    this.delta(mouse);
   }
 
   /**
@@ -34,7 +27,7 @@ export class ParticleSystemComponent implements OnInit {
    * Always keep only the latest mouse coordinates delta in stack.
    * @param next Next caught mouse location
    */
-  delta(next: Location) {
+  delta(next: Location): void {
     this.mouseStack.push({
       x: next.x,
       y: next.y,
@@ -42,7 +35,7 @@ export class ParticleSystemComponent implements OnInit {
     if (this.mouseStack.length > 1) {
       const previous = this.mouseStack[0];
       this.mouseStack.splice(0, 1);
-      return {
+      this.deltaMouse = {
         x: previous.x - next.x,
         y: previous.y - next.y
       } as Location;
@@ -63,7 +56,7 @@ export class ParticleSystemComponent implements OnInit {
 
   /**
    * Creates the style for each particle randomly:
-   * - char:   0       ... charset.length,
+   * - src:    0       ... charset.length,
    * - size:   minSize ... maxSize,
    * - x, y:   0       ... canvas size,
    * - alpha:  0       ... 0.5,
@@ -73,19 +66,18 @@ export class ParticleSystemComponent implements OnInit {
    * @param maxSize maximum particle size in pt
    */
   createParticle(minSize, maxSize): Particle {
-    let charset = 'AÄÀÁÂÆÃÅĀBCÇĆČDEÉÈÊËĖFGHHIÎÏÍĪÌJKLMNÑŃOÖÔÒÓÕŒØŌPQRSŚŠTUÜÛÙÚŪVWXYŸZß';
-    charset += charset.toLowerCase();
-    charset += '說文解字注从日在茻中會意茻亦聲औकखगघङचαβγδεζηθλμνξπρσφψω';
+    const { icons, colors } = particleSystemConfig;
     return {
-      char: charset.charAt(Math.floor(Math.random() * charset.length)),
+      // char: charset.charAt(Math.floor(Math.random() * charset.length)),
+      src: icons[Math.floor(Math.random() * icons.length)],
       size: Math.floor(Math.random() * maxSize) + minSize,
       location: {
-        x: Math.round(Math.random() * window.innerWidth),
-        y: Math.round(Math.random() * window.innerHeight)
+        x: Math.round(Math.random() * window.innerWidth - 50),
+        y: Math.round(Math.random() * window.innerHeight - 50)
       } as Location,
       color: {
-        hex: Math.random() < 1 / 5 ? 'darkOrange' : 'white',
-        alpha: Math.random()
+        hex: colors[Math.floor(Math.random() * colors.length)],
+        alpha: Math.random() + 0.5
       } as Color
     } as Particle;
   }

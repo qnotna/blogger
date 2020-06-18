@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import Particle, { Color, Location, Style } from '../ParticleModel';
+import Particle, { Color, Location, Style } from '../models/particle.model';
 
 @Component({
   selector: 'app-particle',
@@ -7,7 +7,7 @@ import Particle, { Color, Location, Style } from '../ParticleModel';
   styleUrls: ['./particle.component.scss']
 })
 export class ParticleComponent implements Particle, OnInit, OnChanges {
-  @Input() char: string;
+  @Input() src: string;
   @Input() size: number;
   @Input() color: Color;
   @Input() location: Location;
@@ -16,7 +16,7 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
   @Input() deltaMouse: Location;
 
   ngOnInit(): void {
-    console.log('hallo');
+    this.src = `https://img.icons8.com/${this.color.hex}/${this.src}`
     this.draw();
   }
 
@@ -33,8 +33,9 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
    * Checks if the mouse position has changed to increase performance.
    * @param delta mouse position difference (movement vector)
    */
-  update(delta: Location): void {
-    if (delta) {
+  public update(delta: Location): void {
+    const noDelta = { x: 0, y: 0 } as Location;
+    if (delta && delta !== noDelta) {
       this.location.x += delta.x * this.color.alpha / 5;
       this.location.y += delta.y * this.color.alpha / 5;
       this.draw();
@@ -45,14 +46,15 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
    * Draws the particle on the canvas.
    * Checks if the particle is visible to increase performance
    */
-  draw(): void {
+  private draw(): void {
     if (this.isVisible()) {
       this.style = {
-        fontSize: `${this.size}pt`,
-        color: this.color.hex,
+        width: `${this.size}px`,
+        height: `${this.size}px`,
+        // color: this.color.hex,
         opacity: this.color.alpha,
-        left: `${this.location.x}pt`,
-        top: `${this.location.y}pt`
+        left: `${this.location.x}px`,
+        top: `${this.location.y}px`
       } as Style;
     }
   }
@@ -61,7 +63,7 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
    * Checks particle visibility.
    * @returns whether the particle is visible on the x-Axis
    */
-  public isVisibleX(): boolean {
+  private isVisibleX(): boolean {
     return this.location.x + 2 * this.size > 0 && this.location.x - 2 * this.size < window.innerWidth;
   }
 
@@ -69,7 +71,7 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
    * Checks particle visibility.
    * @returns whether the particle is visible on the y-Axis
    */
-  public isVisibleY(): boolean {
+  private isVisibleY(): boolean {
     return this.location.y + 2 * this.size > 0 && this.location.y - 2 * this.size < window.innerHeight;
   }
 

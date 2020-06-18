@@ -1,10 +1,18 @@
 .login {
 
   &_container {
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
     position: relative;
   }
+
+  &_canvas {
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+  }
+
 
   &_card {
     top: calc(50% - 7.5em);
@@ -14,6 +22,7 @@
     width: 30em;
     height: 15em;
     text-align: center;
+    background-color: #426570;
 
     img {
       position: absolute;
@@ -33,11 +42,11 @@
     }
 
     h1 {
-      color: white;
+      font-family: monospace;
     }
 
-    p {
-      color: #D0D0D0;
+    h1, p {
+      color: #fafafa;
     }
   }
 }
