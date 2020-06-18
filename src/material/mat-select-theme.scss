@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin mat-select($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .mat-select-value-text {
+        color: #fafafa;
+    }
+}

@@ -35,4 +35,8 @@ export class PostItemComponent {
     return images[0] ? (images[0] as HTMLImageElement).src : '../../.././../../assets/img/placeholder.gif';
   }
 
+  onComment() {
+    alert(`Don't touch this dude!`);
+  }
+
 }
