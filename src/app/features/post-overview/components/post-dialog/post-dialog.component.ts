@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { EditorConfig } from './post-dialog.config';
-import { FormControl, Validators } from '@angular/forms';
+import { EditorConfig, EmptyPost } from './post-dialog.config';
+import { FormControl } from '@angular/forms';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
 
 @Component({
@@ -14,6 +14,7 @@ import { PostRequestBody } from 'src/app/models/post-request-body.model';
 export class PostDialogComponent implements OnInit {
   Editor = ClassicEditor;
   Config = EditorConfig;
+  EmptyPost = EmptyPost;
   title: FormControl;
   content: FormControl;
   editMode = false;
@@ -23,19 +24,19 @@ export class PostDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.title = new FormControl('', Validators.required);
-    this.content = new FormControl('', Validators.required);
+    this.title = new FormControl('');
+    this.content = new FormControl('');
     if (this.data.post) {
       this.editMode = true;
-      this.title = new FormControl(this.data.post.title, Validators.required);
-      this.content = new FormControl(this.data.post.content, Validators.required);
+      this.title = new FormControl(this.data.post.title);
+      this.content = new FormControl(this.data.post.content);
     }
   }
 
   onSave(): void {
     const body: PostRequestBody = {
-      title: this.title.value,
-      content: this.content.value,
+      title: this.title.value ? this.title.value : this.EmptyPost.title,
+      content: this.content.value ? this.content.value : this.EmptyPost.content,
     };
     if (this.editMode) {
       body.postId = this.data.post.id;

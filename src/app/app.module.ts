@@ -28,6 +28,7 @@ import { NoPostsComponent } from './features/post-overview/components/no-posts/n
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
 import { BlogOverviewItemComponent } from './features/header/components/blog-overview-item/blog-overview-item.component';
 import { ParticleComponent } from './features/login/particle/particle.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ParticleComponent } from './features/login/particle/particle.component'
     NoPostsComponent,
     PostDetailviewComponent,
     BlogOverviewItemComponent,
+    ShortenPipe,
     ParticleComponent
   ],
   imports: [

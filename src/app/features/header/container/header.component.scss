@@ -1,3 +1,5 @@
+@import 'global-utils';
+
 :host {
     position: sticky;
     top: 0;
@@ -6,15 +8,21 @@
     align-items: center;
 }
 
-.nav-right {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
+.toolbar {
+    justify-content: space-between;
 
+    .nav-right {
+        display: flex;
+        align-items: center;
+        
+        .logout-btn {
+            margin-left: 1em;
+        }
+    }
+}
+
+@media only screen and (min-width: $md) {
     .logout-btn {
-        height: 3em;
-        margin-left: 2em;
         margin-right: 1em;
-        text-align: center;
     }
 }

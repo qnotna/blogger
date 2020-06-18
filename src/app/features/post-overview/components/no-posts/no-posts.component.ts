@@ -9,6 +9,7 @@ import { renderNoPostsConfig, NoPostsConfig } from './no-posts.config';
 export class NoPostsComponent implements OnChanges {
   @Input() noContent: boolean;
   @Input() noResults: boolean;
+  @Input() onSearchPage: boolean;
   @Output() notifyParent = new EventEmitter<void>();
   config: NoPostsConfig;
 

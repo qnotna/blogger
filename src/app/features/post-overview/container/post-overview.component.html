@@ -1,5 +1,4 @@
 <button class="post-add-btn" mat-fab color="accent" (click)="onPostingPost()"><mat-icon>add</mat-icon></button>
-<button class="refresh-posts-btn" mat-flat-button color="accent" (click)="fetchPosts()">Refresh Posts</button>
 
 <div class="spinner" *ngIf="isLoading$ | async">
     <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" ></mat-progress-spinner>
@@ -8,6 +7,7 @@
 <app-no-posts
   [noContent]="noContent$ | async"
   [noResults]="noResults$ | async"
+  [onSearchPage]="onSearchPage$ | async"
   (notifyParent)='reloadAfterSearch()'></app-no-posts>
 
 <mat-list *ngIf="posts$ | async as posts">

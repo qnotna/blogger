@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@mixin mat-modal($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .mat-dialog-container .mat-button {
+        line-height: unset;
+        min-width: auto;
+        padding: 0;
+    }
+}
