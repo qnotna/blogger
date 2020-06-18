@@ -10,14 +10,15 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class BlogOverviewComponent implements OnInit {
 
-  form: FormGroup;
   currentBlog: Blog;
   selectBlogs: Blog[];
+  matSelect: FormControl;
 
   @Input() set blog(blog: Blog) {
     if (blog !== null) {
       this.currentBlog = blog;
-      // this.form.get('matSelect').setValue(blog)
+      const toSelect = this.selectBlogs.find((b: Blog) => b.id === blog.id);
+      this.matSelect.patchValue(toSelect);
     }
   }
 
@@ -31,9 +32,7 @@ export class BlogOverviewComponent implements OnInit {
   @Output() blogChanged = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      matSelect: new FormControl()
-    });
+    this.matSelect = new FormControl('');
   }
 
   onBlogChange(event: MatSelectChange): void {
@@ -44,26 +43,5 @@ export class BlogOverviewComponent implements OnInit {
   get loadedBlogs() {
     return this.selectBlogs && this.currentBlog;
   }
-
-  // @Input() blog: Blog;
-
-  // currentBlog: Blog;
-  // selectBlogs: Blog[];
-  // hasBlogs = false;
-
-  // @Output() blogChanged = new EventEmitter<string>();
-  // @Input() set blogs(blogs: Blog[]) {
-  //   this.hasBlogs = false;
-  //   if (blogs && blogs !== null) {
-  //     this.hasBlogs = true;
-  //     this.blogChanged.emit(blogs[0].id);
-  //     this.currentBlog = blogs[0];
-  //     this.selectBlogs = blogs;
-  //   }
-  // }
-
-  // onBlogChange(): void {
-  //   this.blogChanged.emit(this.currentBlog.id);
-  // }
 
 }

@@ -1,33 +1,17 @@
-<form [formGroup]="form" *ngIf="loadedBlogs">
-  <mat-form-field>
-    {{currentBlog.name}}
-    <mat-select formControlName="matSelect" (selectionChange)="onBlogChange($event)">
-  
-      <mat-select-trigger>
-        <app-blog-overview-item [blogName]="currentBlog.name" [blogUpdated]="currentBlog.updated"></app-blog-overview-item>
-      </mat-select-trigger>
-  
-      <mat-option [value]="blog" *ngFor="let blog of selectBlogs">
-        <app-blog-overview-item [blogName]="blog.name" [blogUpdated]="blog.updated"></app-blog-overview-item>
-      </mat-option>
-      
-    </mat-select>
-  </mat-form-field>
-</form>
+<mat-form-field *ngIf="loadedBlogs">
+  <mat-select [formControl]="matSelect" (selectionChange)="onBlogChange($event)">
 
-
-<!-- <mat-form-field *ngIf="hasBlogs">
-  <mat-select [(ngModel)]="currentBlog" (selectionChange)="onBlogChange()">
-
+    <!-- Selected blog -->
     <mat-select-trigger>
       <app-blog-overview-item [blogName]="currentBlog.name" [blogUpdated]="currentBlog.updated"></app-blog-overview-item>
     </mat-select-trigger>
 
+    <!-- Possible options -->
     <mat-option [value]="blog" *ngFor="let blog of selectBlogs">
       <app-blog-overview-item [blogName]="blog.name" [blogUpdated]="blog.updated"></app-blog-overview-item>
     </mat-option>
     
   </mat-select>
-</mat-form-field> -->
+</mat-form-field>
 
 <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="!(loadedBlogs)"></mat-progress-spinner>
