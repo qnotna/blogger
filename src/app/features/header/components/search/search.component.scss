@@ -1,7 +1,11 @@
-:host{
-    margin-left:auto;
+:host {
+    margin-left: auto;
+}
+
+.search-form {
+    width: 100%;
 }
 
 input::placeholder {
-    color: white;
+    color: #fafafa;
 }
