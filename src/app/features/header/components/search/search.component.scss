@@ -5,11 +5,13 @@
 }
 
 .form {
+    transition: width .2s ease;
     font-size: $large-font-size;
-    margin:0 2em 0 2em;
-    width: 0px;
+    margin-right: 1em;
+    width: 10px;
+
     &:focus-within {
-        transition: .5s ease-in-out;
+        transition: width .4s ease-in-out;
         width: 200px;
     }
 }
