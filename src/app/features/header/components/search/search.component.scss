@@ -1,7 +1,15 @@
-:host{
-    margin-left:auto;
+@import "global-utils";
+
+:host {
+    margin-left: auto;
 }
 
-input::placeholder {
-    color: white;
+.form {
+    font-size: $large-font-size;
+    margin:0 2em 0 2em;
+    width: 0px;
+    &:focus-within {
+        transition: .5s ease-in-out;
+        width: 200px;
+    }
 }
