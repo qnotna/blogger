@@ -3,18 +3,16 @@
   &_container {
     width: 100vw;
     height: 100vh;
-  }
-
-  &_canvas {
-    width: 100%;
-    height: 100%;
-    background-color: black;
+    position: relative;
   }
 
   &_card {
-    position: relative;
-    max-width: 50%;
-    margin: 25%;
+    top: calc(50% - 7.5em);
+    left: calc(50% - 15em);
+    position: absolute;
+    z-index: 1;
+    width: 30em;
+    height: 15em;
     text-align: center;
 
     img {
@@ -39,7 +37,7 @@
     }
 
     p {
-      color: #c8c8c8;
+      color: #D0D0D0;
     }
   }
 }

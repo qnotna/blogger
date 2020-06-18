@@ -1,1 +1,9 @@
-<p>particle-system works!</p>
+<div class="login_canvas" (mousemove)="onMouseMove($event)">
+  <app-particle *ngFor="let particle of particles"
+    [char]="particle.char"
+    [size]="particle.size"
+    [color]="particle.color"
+    [location]="particle.location"
+    [deltaMouse]="deltaMouse"
+  ></app-particle>
+</div>
