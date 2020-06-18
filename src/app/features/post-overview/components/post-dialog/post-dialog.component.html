@@ -1,4 +1,5 @@
 <div class="modal-wrapper">
+    <button mat-button class="close-btn" (click)="onCancel()"><mat-icon>close</mat-icon></button>
     <form #form>
         <!-- Title -->
         <mat-form-field class="title-form-field">
@@ -8,21 +9,14 @@
                 type="text" 
                 name="title" 
                 [formControl]="title"
-                required
             />
-            <mat-error *ngIf="title.hasError('required')">
-                Title is <strong>required</strong>
-            </mat-error>
         </mat-form-field>
     
         <!-- Content -->
         <ckeditor [formControl]="content" [editor]="Editor" [config]="Config"></ckeditor>
-        <mat-error *ngIf="content.hasError('required') && content.touched">
-            Content is <strong>required</strong>
-        </mat-error>
 
-        <button mat-button color="warn" (click)="onCancel()">Cancel</button>
-        <button mat-raised-button color="accent" (click)="onSave()" [disabled]="title.invalid || content.invalid">Save</button>
+        <!-- Actions -->
+        <button mat-raised-button class="save-btn" color="accent" (click)="onSave()">Save</button>
     </form>
 
 </div>

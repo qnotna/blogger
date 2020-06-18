@@ -140,6 +140,7 @@ export class PostOverviewService {
    */
   openDialog(prop: string | Post): MatDialogRef<PostDialogComponent> {
     const dialogConfig: MatDialogConfig = {
+      autoFocus: false,
       data: this.renderData(prop)
     };
     return this.dialog.open(PostDialogComponent, dialogConfig);
