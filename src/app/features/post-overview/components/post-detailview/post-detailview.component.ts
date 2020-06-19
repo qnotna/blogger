@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Output,
-  EventEmitter,
-  Input,
-} from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Post } from "../../../../models/posts.model";
 import { ActivatedRoute, Params } from "@angular/router";
 import { PostOverviewService } from "../../services/post-overview.service";
@@ -24,50 +17,54 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
   routeSub: Subscription;
   dialogSub: Subscription;
   editPostSub: Subscription;
+  deleteSub: Subscription;
 
   constructor(
     private currentRoute: ActivatedRoute,
-    private service: PostOverviewService
+    private postOverviewService: PostOverviewService
   ) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.service.isLoading$;
+    this.isLoading$ = this.postOverviewService.isLoading$;
     this.routeSub = this.currentRoute.params.subscribe((params: Params) => {
-      this.post$ = this.service.getPostById(params.postId, params.blogId);
+      this.post$ = this.postOverviewService.getPostById(
+        params.postId,
+        params.blogId
+      );
     });
   }
 
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
+    this.dialogSub?.unsubscribe();
+    this.editPostSub?.unsubscribe();
+    this.deleteSub?.unsubscribe();
   }
 
-  onDelete(): void {
-    this.routeSub = this.currentRoute.params.subscribe((params: Params) => {
-      this.service
-        .removePostFrom(params.blogId, params.postId)
-        .subscribe((_) =>
-          this.service.navigateTo(`/home/blogs/${params.blogId}`)
-        );
-    });
+  onDelete(post: Post): void {
+    this.deleteSub = this.postOverviewService
+      .removePostFrom(post.blog.id, post.id)
+      .subscribe((_) =>
+        this.postOverviewService.navigateTo(`/home/blogs/${post.blog.id}/posts`)
+      );
   }
 
   onEdit(post: Post): void {
-    this.routeSub = this.currentRoute.params.subscribe((params: Params) => {
-      const dialogRef = this.service.openDialog(post);
-      this.dialogSub = dialogRef
-        .afterClosed()
-        .subscribe((body: PostRequestBody) => {
-          if (body) {
-            this.editPostSub = this.service
-              .editPost(params.blogId, body)
-              .subscribe(
-                (editedPost: Post) => this.ngOnInit()
-                /* this.service.navigateTo(
-                  `/home/blogs/${params.blogId}/posts/${params.postId}/detail`
-                ) */
-              );
-          }
-        });
-    });
+    const dialogRef = this.postOverviewService.openDialog(post);
+    this.dialogSub = dialogRef
+      .afterClosed()
+      .subscribe((body: PostRequestBody) => {
+        if (body) {
+          this.editPostSub = this.postOverviewService
+            .editPost(post.blog.id, body)
+            .subscribe(
+              (editedPost: Post) =>
+                (this.post$ = this.postOverviewService.getPostById(
+                  post.id,
+                  post.blog.id
+                ))
+            );
+        }
+      });
   }
 }
