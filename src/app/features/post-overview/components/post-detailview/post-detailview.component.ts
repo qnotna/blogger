@@ -10,8 +10,7 @@ import { Post } from "../../../../models/posts.model";
 import { ActivatedRoute, Params } from "@angular/router";
 import { PostOverviewService } from "../../services/post-overview.service";
 import { Observable, Subscription, BehaviorSubject } from "rxjs";
-/* import { EventEmitter } from 'protractor'; */
-import { DeleteRequestBody } from "src/app/models/post-request-body.model";
+import { PostRequestBody } from "src/app/models/post-request-body.model";
 
 @Component({
   selector: "app-post-detailview",
@@ -20,8 +19,11 @@ import { DeleteRequestBody } from "src/app/models/post-request-body.model";
 })
 export class PostDetailviewComponent implements OnInit, OnDestroy {
   post$: Observable<Post>;
-  routeSub: Subscription;
   isLoading$: BehaviorSubject<boolean>;
+
+  routeSub: Subscription;
+  dialogSub: Subscription;
+  editPostSub: Subscription;
 
   constructor(
     private currentRoute: ActivatedRoute,
@@ -46,6 +48,26 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
         .subscribe((_) =>
           this.service.navigateTo(`/home/blogs/${params.blogId}`)
         );
+    });
+  }
+
+  onEdit(post: Post): void {
+    this.routeSub = this.currentRoute.params.subscribe((params: Params) => {
+      const dialogRef = this.service.openDialog(post);
+      this.dialogSub = dialogRef
+        .afterClosed()
+        .subscribe((body: PostRequestBody) => {
+          if (body) {
+            this.editPostSub = this.service
+              .editPost(params.blogId, body)
+              .subscribe(
+                (editedPost: Post) => this.ngOnInit()
+                /* this.service.navigateTo(
+                  `/home/blogs/${params.blogId}/posts/${params.postId}/detail`
+                ) */
+              );
+          }
+        });
     });
   }
 }
