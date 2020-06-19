@@ -26,6 +26,7 @@ import { PostItemComponent } from './features/post-overview/components/post-item
 import { PostDialogComponent } from './features/post-overview/components/post-dialog/post-dialog.component';
 import { NoPostsComponent } from './features/post-overview/components/no-posts/no-posts.component';
 import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
+import { BlogOverviewItemComponent } from './features/header/components/blog-overview-item/blog-overview-item.component';
 import { ParticleComponent } from './features/login/particle/particle.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 
@@ -42,6 +43,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
     PostDialogComponent,
     NoPostsComponent,
     PostDetailviewComponent,
+    BlogOverviewItemComponent,
     ShortenPipe,
     ParticleComponent
   ],
