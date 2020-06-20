@@ -1,6 +1,17 @@
-<mat-form-field *ngIf="hasBlogs">
-  <mat-select [(ngModel)]="currentBlog" (selectionChange)="onBlogChange($event)">
-    <mat-option [value]="blog.id" *ngFor="let blog of getBlogs">{{ blog.name }}</mat-option>
+<mat-form-field *ngIf="loadedBlogs">
+  <mat-select [formControl]="matSelect" (selectionChange)="onBlogChange($event)">
+
+    <!-- Selected blog -->
+    <mat-select-trigger>
+      <app-blog-overview-item [blogName]="currentBlog.name" [blogUpdated]="currentBlog.updated"></app-blog-overview-item>
+    </mat-select-trigger>
+
+    <!-- Possible options -->
+    <mat-option [value]="blog" *ngFor="let blog of selectBlogs">
+      <app-blog-overview-item [blogName]="blog.name" [blogUpdated]="blog.updated"></app-blog-overview-item>
+    </mat-option>
+    
   </mat-select>
 </mat-form-field>
-<mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="!hasBlogs"></mat-progress-spinner>
+
+<mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="!(loadedBlogs)"></mat-progress-spinner>

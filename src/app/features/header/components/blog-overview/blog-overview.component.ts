@@ -1,43 +1,47 @@
-import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Blog } from 'src/app/models/blogs.model';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-blog-overview',
   templateUrl: './blog-overview.component.html',
-  styleUrls: ['./blog-overview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./blog-overview.component.scss']
 })
-export class BlogOverviewComponent implements OnChanges {
+export class BlogOverviewComponent implements OnInit {
 
-  currentBlog: string;
+  currentBlog: Blog;
   selectBlogs: Blog[];
-  hasBlogs = false;
+  matSelect: FormControl;
+
+  @Input() set blog(blog: Blog) {
+    if (blog !== null) {
+      this.currentBlog = blog;
+      const toSelect = this.selectBlogs.find((b: Blog) => b.id === blog.id);
+      this.matSelect.patchValue(toSelect);
+    }
+  }
 
   @Input() set blogs(blogs: Blog[]) {
-    this.hasBlogs = false;
-    if (blogs && blogs !== null) {
-      this.hasBlogs = true;
-      this.currentBlog = blogs[0].id;
+    if (blogs !== null) {
+      this.blogChanged.emit(blogs[0].id);
       this.selectBlogs = blogs;
     }
   }
+
   @Output() blogChanged = new EventEmitter<string>();
 
-  constructor() {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.blogs.currentValue) {
-      this.blogChanged.emit(changes.blogs.currentValue[0]?.id);
-    }
+  ngOnInit(): void {
+    this.matSelect = new FormControl('');
   }
 
   onBlogChange(event: MatSelectChange): void {
-    this.blogChanged.emit(this.currentBlog);
+    this.currentBlog = event.value as Blog;
+    this.blogChanged.emit(this.currentBlog.id);
   }
 
-  get getBlogs(): Blog[] {
-    return this.selectBlogs;
+  get loadedBlogs() {
+    return this.selectBlogs && this.currentBlog;
   }
 
 }

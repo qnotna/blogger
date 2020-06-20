@@ -37,7 +37,6 @@ email: bobby.brown.baker@gmail.com
 pw: angular20
 
 For this google account are two credentials given
-- `API-key`: AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI
 - `OAuth-Client-Id`: 938430199904-pd8up38blda9839p5h6er0n2dk4afhi5.apps.googleusercontent.com
 
 `They are already used in our blogger-app, so no concern to do anything from here.`

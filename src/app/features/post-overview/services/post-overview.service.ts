@@ -16,6 +16,7 @@ export class PostOverviewService {
   isLoading$ = new BehaviorSubject<boolean>(true);
   noContent$ = new BehaviorSubject<boolean>(false);
   noResults$ = new BehaviorSubject<boolean>(false);
+  onSearchPage$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private api: ApiWebService,
@@ -38,6 +39,7 @@ export class PostOverviewService {
             this.noContent$.next(true);
             return [];
           }
+          this.onSearchPage$.next(false);
           this.noContent$.next(false);
           return posts;
         }),
@@ -74,6 +76,7 @@ export class PostOverviewService {
             this.noResults$.next(true);
             return [];
           }
+          this.onSearchPage$.next(true);
           this.noResults$.next(false);
           return posts;
         }),
@@ -137,6 +140,7 @@ export class PostOverviewService {
    */
   openDialog(prop: string | Post): MatDialogRef<PostDialogComponent> {
     const dialogConfig: MatDialogConfig = {
+      autoFocus: false,
       data: this.renderData(prop)
     };
     return this.dialog.open(PostDialogComponent, dialogConfig);

@@ -1,10 +1,7 @@
-<mat-progress-spinner
-  strokeWitdh="5"
-  diameter="50"
-  mode="indeterminate"
-  color="accent"
-  *ngIf="isLoading$ | async"
-></mat-progress-spinner>
+<div class="spinner" *ngIf="isLoading$ | async">
+  <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" ></mat-progress-spinner>
+</div>
+
 <mat-card class="post-card" *ngIf="post$ | async as post">
   <!-- Header -->
   <mat-card-header>
@@ -28,8 +25,8 @@
     post.published | date: "fullDate":"":"de-DE"
   }}</mat-card-subtitle>
 
-  <!-- Content -->
-  <mat-card-subtitle [innerHTML]="post.content"></mat-card-subtitle>
+    <!-- Content -->
+    <mat-card-content [innerHTML]="post.content"></mat-card-content>
 
   <!-- Actions -->
   <mat-card-actions>

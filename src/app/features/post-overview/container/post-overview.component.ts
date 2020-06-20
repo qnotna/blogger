@@ -16,6 +16,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   isLoading$: BehaviorSubject<boolean>;
   noContent$: BehaviorSubject<boolean>;
   noResults$: BehaviorSubject<boolean>;
+  onSearchPage$: BehaviorSubject<boolean>;
   blogId: string;
 
   routeSub: Subscription;
@@ -36,6 +37,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.service.isLoading$;
     this.noContent$ = this.service.noContent$;
     this.noResults$ = this.service.noResults$;
+    this.onSearchPage$ = this.service.onSearchPage$;
     this.routeSub = combineLatest([
       this.currentRoute.params,
       this.currentRoute.queryParams,
@@ -46,7 +48,6 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
         this.posts$ = this.service.searchPosts(params.blogId, query.q);
       } else {
         this.posts$ = this.service.getPosts(params.blogId);
-        this.noResults$.next(false);
       }
     });
 

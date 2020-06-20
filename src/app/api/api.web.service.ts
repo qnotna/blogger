@@ -33,6 +33,16 @@ export class ApiWebService {
       );
   }
 
+  getBlogById(blogId: string): Observable<Blog> {
+    const options = { headers: this.getHeaders() };
+    return this.http
+      .get<any>(`${this.basePath}/blogger/v3/blogs/${blogId}`, options)
+      .pipe(
+        catchError((err) => this.handleError(err)),
+        map((res) => res as Blog)
+      );
+  }
+
   getPostsByBlog(blogId: string): Observable<Post[]> {
     const options = { headers: this.getHeaders() };
     return this.http

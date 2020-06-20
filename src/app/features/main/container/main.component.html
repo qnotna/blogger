@@ -3,9 +3,8 @@
   (searchPosts)="onSearchPost($event)"
   (logout)="onLogout()"
   [blogs]="blogs$ | async"
+  [blog]="blog$ | async"
 ></app-header>
-
-<button mat-flat-button color="primary" (click)="fetchBlogs()">Refresh</button>
 
 <router-outlet></router-outlet>
 

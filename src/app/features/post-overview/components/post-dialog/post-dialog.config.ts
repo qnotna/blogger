@@ -5,3 +5,8 @@ export const EditorConfig = {
         'https://cksource.com/weuy2g4ryt278ywiue/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
     }
 };
+
+export const EmptyPost = {
+    title: '[No Title]',
+    content: '[No Content]'
+};

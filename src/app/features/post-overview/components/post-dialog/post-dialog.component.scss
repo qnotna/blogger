@@ -1,5 +1,16 @@
 @import 'global-utils';
 
+.modal-wrapper {
+	position: relative;
+	.close-btn {
+		z-index: 99;
+		position: absolute;
+		top: -10px;
+		right: -10px;
+		align-self: flex-end;
+	}
+}
+
 form {
 	overflow: auto;
 	width: 100%;
@@ -11,12 +22,9 @@ form {
 		width: 100%;
 	}
 
-	button {
+	.save-btn {
+		margin-top: $large-margin;
 		width: 50%;
-	}
-
-	mat-error {
-		align-self: flex-start;
 	}
 }
 
