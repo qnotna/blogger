@@ -14,6 +14,7 @@ export class BlogOverviewComponent implements OnInit {
   selectBlogs: Blog[];
   matSelect: FormControl;
 
+  @Input() noBlogs: boolean;
   @Input() set blog(blog: Blog) {
     if (blog !== null) {
       this.currentBlog = blog;
@@ -23,8 +24,8 @@ export class BlogOverviewComponent implements OnInit {
   }
 
   @Input() set blogs(blogs: Blog[]) {
-    if (blogs !== null) {
-      this.blogChanged.emit(blogs[0].id);
+    if (blogs !== null && blogs !== undefined) {
+      this.blogChanged.emit(blogs[0]?.id);
       this.selectBlogs = blogs;
     }
   }

@@ -1,10 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription, combineLatest } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Post } from '../../../models/posts.model';
 import { PostOverviewService } from '../services/post-overview.service';
 import { BehaviorSubject } from 'rxjs';
 import { DeleteRequestBody, PostRequestBody } from 'src/app/models/post-request-body.model';
 import { ActivatedRoute } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { MatDialogRef } from '@angular/material/dialog';
+import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
 
 @Component({
   selector: 'app-post-overview',
@@ -17,12 +20,8 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   noContent$: BehaviorSubject<boolean>;
   noResults$: BehaviorSubject<boolean>;
   onSearchPage$: BehaviorSubject<boolean>;
-  blogId: string;
-
-  routeSub: Subscription;
-  dialogSub: Subscription;
-  createPostSub: Subscription;
-  editPostSub: Subscription;
+  private dialogRef: MatDialogRef<PostDialogComponent>;
+  private blogId: string;
 
   constructor(
     private service: PostOverviewService,
@@ -38,10 +37,11 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     this.noContent$ = this.service.noContent$;
     this.noResults$ = this.service.noResults$;
     this.onSearchPage$ = this.service.onSearchPage$;
-    this.routeSub = combineLatest([
+    combineLatest([
       this.currentRoute.params,
       this.currentRoute.queryParams,
     ])
+    .pipe(untilDestroyed(this))
     .subscribe(([params, query]) => {
       this.blogId = params.blogId;
       if (query.q !== undefined) {
@@ -62,20 +62,26 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   }
 
   onOpenEdit(post: Post): void {
-    const dialogRef = this.service.openDialog(post);
-    this.dialogSub = dialogRef.afterClosed().subscribe((body: PostRequestBody) => {
+    this.dialogRef = this.service.openDialog(post);
+    this.dialogRef.afterClosed().subscribe((body: PostRequestBody) => {
       if (body) {
-        this.editPostSub = this.service.editPost(this.blogId, body).subscribe((editedPost: Post) => this.fetchPosts());
+        this.service.editPost(this.blogId, body)
+          .pipe(untilDestroyed(this))
+          .subscribe((editedPost: Post) => this.fetchPosts());
       }
     });
   }
 
   onPostingPost(): void {
-    const dialogRef = this.service.openDialog(this.blogId);
-    this.dialogSub = dialogRef.afterClosed().subscribe((body: PostRequestBody) => {
-      if (body) {
-        this.createPostSub = this.service.createPost(this.blogId, body).subscribe((editedPost: Post) => this.fetchPosts());
-      }
+    this.dialogRef = this.service.openDialog(this.blogId);
+    this.dialogRef.afterClosed()
+      .pipe(untilDestroyed(this))
+      .subscribe((body: PostRequestBody) => {
+        if (body) {
+          this.service.createPost(this.blogId, body)
+            .pipe(untilDestroyed(this))
+            .subscribe((editedPost: Post) => this.fetchPosts());
+        }
     });
   }
 
@@ -89,9 +95,9 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeSub.unsubscribe();
-    this.createPostSub?.unsubscribe();
-    this.dialogSub?.unsubscribe();
-    this.editPostSub?.unsubscribe();
+    this.isLoading$.next(false);
+    this.noContent$.next(false);
+    this.noResults$.next(false);
+    this.onSearchPage$.next(false);
   }
 }

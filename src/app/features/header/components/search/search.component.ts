@@ -11,6 +11,7 @@ export class SearchComponent implements OnInit {
 
   @ViewChild('input', {static: true}) input: ElementRef;
   @Input() blogId: string;
+  @Input() noBlogs: boolean;
   @Output() searchPosts = new EventEmitter<string>();
   searchInput: FormControl;
 

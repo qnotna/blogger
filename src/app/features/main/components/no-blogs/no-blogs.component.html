@@ -1,0 +1,5 @@
+<div class="no-blogs" *ngIf="noBlogs">
+    <img [alt]="config.message" [src]="config.imageUrl"/>
+    {{ config.message }}
+    <a mat-flat-button target="_blank" href="https://www.blogger.com/about"> {{ config.buttonText }}</a>
+</div>
