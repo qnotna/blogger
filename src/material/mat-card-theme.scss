@@ -16,6 +16,10 @@
             width: auto;
         }
 
+        .mat-card-header-text{
+            margin:0;
+        }
+
         img {
             width: 100%;
             max-height: 500px;
@@ -29,6 +33,7 @@
     }
     .mat-card-content {
         text-align: justify;
+        min-height: 70px;
 
     }
     .mat-button-wrapper {

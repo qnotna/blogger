@@ -1,7 +1,18 @@
+@import "global-utils";
+
 .mat-list {
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+    flex-wrap: wrap;
+    width:80%;
+    margin: auto;
+}
+
+
+@media(max-width: $lg){
+    .mat-list{
+        flex-direction: column;
+        width:90%;
+    }
 }
 
 .spinner {

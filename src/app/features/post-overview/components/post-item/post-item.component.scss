@@ -1,15 +1,32 @@
+@import '~@angular/material/theming';
+
 :host {
-    width: 50%;
     margin: 20px auto;
+    flex: 1 0 35%;
+    padding: 0px 20px;
+}
+
+
+
+
+
+.post-card{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.47);
+    transition: .2s ease-in-out;
+    &:hover{
+        transform: translateY(-5px);
+    }
+
+}
+
+
+.post-card-content{
+    cursor: pointer;
 }
 
 .post-title-wrapper {
     width: 100%;
     padding: 0;
-    text-align: justify;
-    a {
-        text-decoration: none;
-    }
 }
 
 .img-container {
@@ -22,4 +39,9 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    float:left;
+}
+
+.header-text{
+    padding-left: 4em;
 }
