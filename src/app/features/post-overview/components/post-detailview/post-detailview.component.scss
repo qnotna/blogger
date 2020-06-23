@@ -1,26 +1,49 @@
-@import 'global-utils';
+@import "global-utils";
+@import "~@angular/material/theming";
 
 .post-card {
-    width: 100%;
-    margin: auto;
+  width: 100%;
+  margin: 20px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.47);
+}
+
+.post-title-wrapper {
+  width: 100%;
+  padding: 0;
+}
+
+.header-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  float: left;
+}
+
+.header-text {
+  padding-left: 4em;
+}
+
+.mat-button {
+  margin: 0px !important;
+  padding: 0px !important;
 }
 
 .spinner {
-    position: absolute;
-    z-index: 100;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (min-width: $md) {
-    .post-card {
-        width: 70%;
-        margin: auto;
-        margin-top: $large-margin;
-    }
+  .post-card {
+    width: 70%;
+    margin: auto;
+    margin-top: $large-margin;
+  }
 }

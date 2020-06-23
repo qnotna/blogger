@@ -41,6 +41,10 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
     this.deleteSub?.unsubscribe();
   }
 
+  onComment() {
+    alert(`Don't touch this dude!`);
+  }
+
   onDelete(post: Post): void {
     this.deleteSub = this.postOverviewService
       .removePostFrom(post.blog.id, post.id)
