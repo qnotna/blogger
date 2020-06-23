@@ -2,14 +2,14 @@
 @import "~@angular/material/theming";
 
 .post-card {
-  width: auto;
-  margin: 20px;
+  width: 70%;
+  margin: $large-margin auto $xl-margin auto;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.47);
-}
 
-.post-title-wrapper {
-  width: 100%;
-  padding: 0;
+    @media only screen and (max-width: $md) {
+        width: 100%;
+        margin: auto;
+    }
 }
 
 .header-image {
@@ -19,13 +19,10 @@
   float: left;
 }
 
-.header-text {
-  padding-left: 4em;
-}
-
-.mat-button {
-  margin: 0px !important;
-  padding: 0px !important;
+.header-text{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .spinner {
@@ -38,11 +35,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media only screen and (axn-width: $md) {
-  .post-card {
-    width: 100%;
-    margin: auto;
-  }
 }

@@ -10,11 +10,15 @@
 <mat-card class="post-card" *ngIf="post$ | async as post">
   <!-- Header -->
   <mat-card-header>
+
+    <!-- Title -->
     <mat-card-title>
       <h1 class="post-title-wrapper">
         {{ post.title }}
       </h1>
     </mat-card-title>
+
+    <!-- Author -->
     <mat-card-subtitle>
       <div
         mat-card-avatar
@@ -22,12 +26,11 @@
         [style.background-image]="'url(' + post.author.image.url + ')'"
       ></div>
       <div class="header-text">
-        von
-        <a mat-button target="_blank" [href]="post.author.url"
-          ><b>{{ post.author.displayName }}</b>
-          <!-- Date -->
+        <a mat-button target="_blank" [href]="post.author.url">
+          <b>{{ post.author.displayName }}</b>
         </a>
-        am {{ post.published | date: "fullDate":"":"de-DE" }}
+        <!-- Date -->
+        {{ post.published | date: "fullDate":"":"de-DE" }}
       </div>
     </mat-card-subtitle>
   </mat-card-header>

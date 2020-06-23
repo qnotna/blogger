@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="loadedBlogs">
+<mat-form-field *ngIf="loadedBlogs" class="blog-overview-field">
   <mat-select [formControl]="matSelect" (selectionChange)="onBlogChange($event)">
 
     <!-- Selected blog -->
