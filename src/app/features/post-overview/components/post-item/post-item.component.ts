@@ -38,7 +38,7 @@ export class PostItemComponent {
     div.innerHTML = content;
     const images: HTMLCollection = div.getElementsByTagName('img');
     return images[0] ?
-      (images[0] as HTMLImageElement).src 
+      (images[0] as HTMLImageElement).src
     : '';
   }
 

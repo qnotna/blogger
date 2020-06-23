@@ -14,4 +14,5 @@
   </mat-select>
 </mat-form-field>
 
-<mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="!(loadedBlogs)"></mat-progress-spinner>
+<div class="no-blogs-error" *ngIf="noBlogs"> Keine Blogs verfügbar </div>
+<mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="!(loadedBlogs) && !noBlogs"></mat-progress-spinner>

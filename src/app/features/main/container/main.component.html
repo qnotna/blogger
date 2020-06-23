@@ -4,7 +4,10 @@
   (logout)="onLogout()"
   [blogs]="blogs$ | async"
   [blog]="blog$ | async"
+  [noBlogs]="noBlogs$ | async"
 ></app-header>
+
+<app-no-blogs [noBlogs]="noBlogs$ | async"></app-no-blogs>
 
 <router-outlet></router-outlet>
 

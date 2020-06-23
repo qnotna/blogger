@@ -3,15 +3,14 @@
     <mat-card-header>  
       <mat-card-title>
         <h1 class="post-title-wrapper">
-          {{ post.title }}
+          {{ post.title | shorten: 70: '...'}}
         </h1>
       </mat-card-title>
       <mat-card-subtitle>
         <div mat-card-avatar class="header-image" [style.background-image]="'url(' + post.author.image.url + ')'"></div>
         <div class="header-text"> 
-          von
-          <a mat-button target="_blank" [href]="post.author.url"><b>{{ post.author.displayName }}</b></a>
-          am {{ post.published | date: 'fullDate' : '' : 'de-DE' }}
+          <a mat-button target="_blank" [href]="post.author.url" (click)="$event.stopPropagation()"><b>{{ post.author.displayName }}</b></a>
+          <a disabled="true">{{ post.published | date: 'fullDate' : '' : 'de-DE' }}</a>
         </div>
       </mat-card-subtitle>
     </mat-card-header> 
