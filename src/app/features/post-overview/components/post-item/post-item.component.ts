@@ -23,11 +23,7 @@ export class PostItemComponent {
       postId: this.post.id
     } as DeleteRequestBody);
   }
-
-  onComment() {
-    alert(`Don't touch this dude!`);
-  }
-
+  
   /**
    * parses html content and searches for img-tags, accessing and returning src attribute
    * if no img is found a placeholder will be returned
