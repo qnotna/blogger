@@ -1,38 +1,50 @@
 <div class="spinner" *ngIf="isLoading$ | async">
-  <mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" ></mat-progress-spinner>
+  <mat-progress-spinner
+    strokeWitdh="5"
+    diameter="50"
+    mode="indeterminate"
+    color="accent"
+  ></mat-progress-spinner>
 </div>
 
 <mat-card class="post-card" *ngIf="post$ | async as post">
   <!-- Header -->
   <mat-card-header>
-    <div
-      mat-card-avatar
-      class="header-image"
-      [style.background-image]="'url(' + post.author.image.url + ')'"
-    ></div>
+
+    <!-- Title -->
     <mat-card-title>
-      {{ post.title }}
+      <h1 class="post-title-wrapper">
+        {{ post.title }}
+      </h1>
     </mat-card-title>
+
+    <!-- Author -->
     <mat-card-subtitle>
-      <a mat-button target="_blank" [href]="post.author.url">{{
-        post.author.displayName
-      }}</a>
+      <div
+        mat-card-avatar
+        class="header-image"
+        [style.background-image]="'url(' + post.author.image.url + ')'"
+      ></div>
+      <div class="header-text">
+        <a mat-button target="_blank" [href]="post.author.url">
+          <b>{{ post.author.displayName }}</b>
+        </a>
+        <!-- Date -->
+        {{ post.published | date: "fullDate":"":"de-DE" }}
+      </div>
     </mat-card-subtitle>
   </mat-card-header>
 
-  <!-- Date -->
-  <mat-card-subtitle>{{
-    post.published | date: "fullDate":"":"de-DE"
-  }}</mat-card-subtitle>
-
-    <!-- Content -->
-    <mat-card-content [innerHTML]="post.content"></mat-card-content>
+  <!-- Content -->
+  <mat-card-content [innerHTML]="post.content"></mat-card-content>
 
   <!-- Actions -->
   <mat-card-actions>
     <button mat-button color="warn" (click)="onEdit(post)">
-      Bearbeiten
+      <mat-icon>edit</mat-icon>
     </button>
-    <button mat-button color="warn" (click)="onDelete(post)">Löschen</button>
+    <button mat-button color="warn" (click)="onDelete(post)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

@@ -19,11 +19,6 @@
     cursor: pointer;
 }
 
-.post-title-wrapper {
-    width: 100%;
-    padding: 0;
-}
-
 .img-container {
     width: 100%;
     display: flex;
@@ -41,9 +36,4 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.mat-card-actions .mat-button {
-    margin: 0px;
-    padding: 0px;
 }

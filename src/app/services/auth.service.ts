@@ -27,7 +27,7 @@ export class AuthService {
   getAuth(): GoogleAuth {
     return this.auth;
   }
-  
+
   /**
    * returns OAuth-Token from session storage
    */
