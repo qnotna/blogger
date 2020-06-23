@@ -5,7 +5,7 @@ import { DeleteRequestBody } from 'src/app/models/post-request-body.model';
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
-  styleUrls: ['./post-item.component.scss']
+  styleUrls: ['./post-item.component.scss'],
 })
 export class PostItemComponent {
   @Input() post: Post;
@@ -20,10 +20,10 @@ export class PostItemComponent {
   onDelete(): void {
     this.deletePost.emit({
       blogId: this.post.blog.id,
-      postId: this.post.id
+      postId: this.post.id,
     } as DeleteRequestBody);
   }
-  
+
   /**
    * parses html content and searches for img-tags, accessing and returning src attribute
    * if no img is found a placeholder will be returned

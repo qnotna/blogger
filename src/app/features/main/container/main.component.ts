@@ -9,7 +9,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnDestroy {
   blogs$: Observable<Blog[]>;
@@ -17,12 +17,13 @@ export class MainComponent implements OnInit, OnDestroy {
   private blogId: string;
   noBlogs$: BehaviorSubject<boolean>;
 
-  constructor(private mainService: MainService, private authService: AuthService
-    ) {}
+  constructor(private mainService: MainService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.fetchBlogs();
     this.noBlogs$ = this.mainService.noBlogs$;
+
+    // Subscribes to parameter changes on blogId, updating select in blog-overview.component
     this.mainService.getRouteChange()
       .pipe(untilDestroyed(this))
       .subscribe(({ urlAfterRedirects }: NavigationEnd) => {

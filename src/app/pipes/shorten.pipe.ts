@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'shorten'
+  name: 'shorten',
 })
 export class ShortenPipe implements PipeTransform {
   defaultMaxLength = 300;
@@ -15,7 +15,8 @@ export class ShortenPipe implements PipeTransform {
     textArea.innerHTML = content;
 
     const plainText = textArea.value ? String(textArea.value).replace(/<[^>]+>/gm, '') : '';
-    const shortenedText = (plainText.length > maxLength) ? plainText.substring(0, maxLength) + suffix : plainText;
+    const shortenedText = (plainText.length > maxLength)
+    ? plainText.substring(0, maxLength) + suffix : plainText;
 
     return shortenedText;
   }

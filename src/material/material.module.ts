@@ -22,7 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatInputModule,
@@ -34,7 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+  ],
 })
 export class MaterialModule { }

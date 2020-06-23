@@ -11,13 +11,12 @@ export interface Location {
 export interface Style {
   width: string;
   height: string;
-  // color: string;
   opacity: number;
   top: string;
   left: string;
 }
 
-export default interface Particle {
+export interface Particle {
   src: string;
   size: number;
   location: Location;

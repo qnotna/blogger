@@ -11,9 +11,9 @@ describe('PostDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostDialogComponent ],
-      imports: [ ReactiveFormsModule, CKEditorModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      declarations: [PostDialogComponent],
+      imports: [ReactiveFormsModule, CKEditorModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));

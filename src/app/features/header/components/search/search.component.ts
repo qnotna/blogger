@@ -1,15 +1,24 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  OnInit,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit {
 
-  @ViewChild('input', {static: true}) input: ElementRef;
+  @ViewChild('input', { static: true }) input: ElementRef;
   @Input() blogId: string;
   @Input() noBlogs: boolean;
   @Output() searchPosts = new EventEmitter<string>();

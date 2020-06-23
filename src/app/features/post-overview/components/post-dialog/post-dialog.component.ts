@@ -1,23 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { EditorConfig, EmptyPost } from './post-dialog.config';
+import { editorConfig, emptyPost } from './post-dialog.config';
 import { FormControl } from '@angular/forms';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
 
 @Component({
   selector: 'app-post-dialog',
   templateUrl: './post-dialog.component.html',
-  styleUrls: ['./post-dialog.component.scss']
+  styleUrls: ['./post-dialog.component.scss'],
 })
 
 export class PostDialogComponent implements OnInit {
-  Editor = ClassicEditor;
-  Config = EditorConfig;
-  EmptyPost = EmptyPost;
+  editor = ClassicEditor;
+  config = editorConfig;
   title: FormControl;
   content: FormControl;
-  editMode = false;
+  private emptyPost = emptyPost;
+  private editMode = false;
 
   constructor(
     public dialogRef: MatDialogRef<PostDialogComponent>,
@@ -35,14 +35,15 @@ export class PostDialogComponent implements OnInit {
 
   onSave(): void {
     const body: PostRequestBody = {
-      title: this.title.value ? this.title.value : this.EmptyPost.title,
-      content: this.content.value ? this.content.value : this.EmptyPost.content,
+      title: this.title.value ? this.title.value : this.emptyPost.title,
+      content: this.content.value ? this.content.value : this.emptyPost.content,
     };
     if (this.editMode) {
       body.postId = this.data.post.id;
     }
     this.dialogRef.close(body);
   }
+
   onCancel(): void {
     this.dialogRef.close();
   }

@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ApiWebService } from 'src/app/api/api.web.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { Post } from 'src/app/models/posts.model';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
-import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialogConfig, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PostDialogComponent } from '../components/post-dialog/post-dialog.component';
 import { DialogData } from 'src/app/models/dialog-data.model';
 
 @Injectable({ providedIn: 'root' })
-export class PostOverviewService {
+export class PostService {
   isLoading$ = new BehaviorSubject<boolean>(true);
   noContent$ = new BehaviorSubject<boolean>(false);
   noResults$ = new BehaviorSubject<boolean>(false);
@@ -33,7 +32,7 @@ export class PostOverviewService {
     this.isLoading$.next(true);
     return this.api.getPostsByBlog(blogId)
       .pipe(
-        catchError((err) => this.errorService.handleError(err)),
+        catchError(err => this.errorService.handleError(err)),
         map((posts: Post[]) => {
           if (!posts) {
             this.noContent$.next(true);
@@ -43,7 +42,7 @@ export class PostOverviewService {
           this.noContent$.next(false);
           return posts;
         }),
-        finalize(() => this.isLoading$.next(false))
+        finalize(() => this.isLoading$.next(false)),
       );
   }
 
@@ -56,8 +55,8 @@ export class PostOverviewService {
     this.isLoading$.next(true);
     return this.api.getPostById(blogId, postId)
       .pipe(
-        catchError((err) => this.errorService.handleError(err)),
-        finalize(() => this.isLoading$.next(false))
+        catchError(err => this.errorService.handleError(err)),
+        finalize(() => this.isLoading$.next(false)),
       );
   }
 
@@ -70,7 +69,7 @@ export class PostOverviewService {
     this.isLoading$.next(true);
     return this.api.searchPostsForBlog(blogId, query)
       .pipe(
-        catchError((err) => this.errorService.handleError(err)),
+        catchError(err => this.errorService.handleError(err)),
         map((posts: Post[]) => {
           if (!posts) {
             this.noResults$.next(true);
@@ -80,21 +79,22 @@ export class PostOverviewService {
           this.noResults$.next(false);
           return posts;
         }),
-        finalize(() => this.isLoading$.next(false))
+        finalize(() => this.isLoading$.next(false)),
       );
   }
 
   /**
    * POST - Creates Post for specific Blog, returns created Post wrapped in Observable
    * @param blogId blog id for blog for which the post will be created
-   * @param body body of type PostRequestBody contains title and content to be passed as request body to api call
+   * @param body body of type PostRequestBody contains title
+   * and content to be passed as request body to api call
    */
   createPost(blogId: string, body: PostRequestBody): Observable<Post> {
     this.isLoading$.next(true);
     return this.api.createPostForBlog(blogId, body)
       .pipe(
-        catchError((err) => this.errorService.handleError(err)),
-        finalize(() => this.isLoading$.next(false))
+        catchError(err => this.errorService.handleError(err)),
+        finalize(() => this.isLoading$.next(false)),
       );
   }
 
@@ -109,7 +109,7 @@ export class PostOverviewService {
     return this.api.editPostForBlog(blogId, body)
       .pipe(
           catchError(err => this.errorService.handleError(err)),
-          finalize(() => this.isLoading$.next(false))
+          finalize(() => this.isLoading$.next(false)),
       );
   }
 
@@ -121,7 +121,7 @@ export class PostOverviewService {
   removePostFrom(blogId: string, postId: string): Observable<any> {
     return this.api.removePostFromBlogWithIds(blogId, postId)
       .pipe(
-        catchError((error) => (this.errorService.handleError(error)))
+        catchError(error => (this.errorService.handleError(error))),
       );
   }
 
@@ -141,7 +141,7 @@ export class PostOverviewService {
   openDialog(prop: string | Post): MatDialogRef<PostDialogComponent> {
     const dialogConfig: MatDialogConfig = {
       autoFocus: false,
-      data: this.renderData(prop)
+      data: this.renderData(prop),
     };
     return this.dialog.open(PostDialogComponent, dialogConfig);
   }

@@ -1,12 +1,12 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Blog } from 'src/app/models/blogs.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-blog-overview',
   templateUrl: './blog-overview.component.html',
-  styleUrls: ['./blog-overview.component.scss']
+  styleUrls: ['./blog-overview.component.scss'],
 })
 export class BlogOverviewComponent implements OnInit {
 
@@ -15,6 +15,10 @@ export class BlogOverviewComponent implements OnInit {
   matSelect: FormControl;
 
   @Input() noBlogs: boolean;
+
+  /**
+   * updates selected blog based on id in given selectBlogs, when navigating between blogs
+   */
   @Input() set blog(blog: Blog) {
     if (blog !== null) {
       this.currentBlog = blog;
@@ -23,6 +27,10 @@ export class BlogOverviewComponent implements OnInit {
     }
   }
 
+  /**
+   * emits first blog in retrieved blogs to trigger onBlogChange() in main.component,
+   * routing to post-overview.component
+   */
   @Input() set blogs(blogs: Blog[]) {
     if (blogs !== null && blogs !== undefined) {
       this.blogChanged.emit(blogs[0]?.id);

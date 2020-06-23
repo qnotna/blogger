@@ -4,7 +4,7 @@ import { PostDetailviewComponent } from './post-detailview.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MockRoute } from 'src/app/testing/mock-route.stub';
+import { mockRoute } from 'src/app/testing/mock-route.stub';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -14,10 +14,10 @@ describe('PostDetailviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostDetailviewComponent ],
-      imports: [ MatProgressSpinnerModule, RouterTestingModule, HttpClientModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      providers: [ {provide: ActivatedRoute, useValue: MockRoute } ]
+      declarations: [PostDetailviewComponent],
+      imports: [MatProgressSpinnerModule, RouterTestingModule, HttpClientModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [{ provide: ActivatedRoute, useValue: mockRoute }],
     })
     .compileComponents();
   }));

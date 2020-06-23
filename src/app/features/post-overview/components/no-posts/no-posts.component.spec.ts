@@ -9,8 +9,8 @@ describe('NoPostsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoPostsComponent ],
-      imports: [ HttpClientModule ],
+      declarations: [NoPostsComponent],
+      imports: [HttpClientModule],
     })
     .compileComponents();
   }));
