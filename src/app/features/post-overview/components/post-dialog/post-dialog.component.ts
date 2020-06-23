@@ -43,6 +43,7 @@ export class PostDialogComponent implements OnInit {
     }
     this.dialogRef.close(body);
   }
+
   onCancel(): void {
     this.dialogRef.close();
   }

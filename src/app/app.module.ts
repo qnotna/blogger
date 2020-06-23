@@ -37,7 +37,7 @@ import {
 import {
   BlogOverviewItemComponent,
 } from './features/header/components/blog-overview-item/blog-overview-item.component';
-import { ParticleComponent } from './features/login/particle/particle.component';
+import { ParticleComponent } from './features/login/components/particle/particle.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { NoBlogsComponent } from './features/main/components/no-blogs/no-blogs.component';
 

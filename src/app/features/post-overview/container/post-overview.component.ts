@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { Post } from '../../../models/posts.model';
-import { PostOverviewService } from '../services/post-overview.service';
+import { PostService } from '../services/post-overview.service';
 import { DeleteRequestBody, PostRequestBody } from 'src/app/models/post-request-body.model';
 import { ActivatedRoute } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
@@ -23,7 +23,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   private blogId: string;
 
   constructor(
-    private service: PostOverviewService,
+    private postService: PostService,
     private currentRoute: ActivatedRoute,
   ) {}
 
@@ -32,10 +32,10 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
    * Can be subscribed to and both params are accessible in one Subscription
    */
   ngOnInit(): void {
-    this.isLoading$ = this.service.isLoading$;
-    this.noContent$ = this.service.noContent$;
-    this.noResults$ = this.service.noResults$;
-    this.onSearchPage$ = this.service.onSearchPage$;
+    this.isLoading$ = this.postService.isLoading$;
+    this.noContent$ = this.postService.noContent$;
+    this.noResults$ = this.postService.noResults$;
+    this.onSearchPage$ = this.postService.onSearchPage$;
     combineLatest([
       this.currentRoute.params,
       this.currentRoute.queryParams,
@@ -44,27 +44,27 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
     .subscribe(([params, query]) => {
       this.blogId = params.blogId;
       if (query.q !== undefined) {
-        this.posts$ = this.service.searchPosts(params.blogId, query.q);
+        this.posts$ = this.postService.searchPosts(params.blogId, query.q);
       } else {
-        this.posts$ = this.service.getPosts(params.blogId);
+        this.posts$ = this.postService.getPosts(params.blogId);
       }
     });
 
   }
 
   onShowDetail(postId: string): void {
-    this.service.handleShowDetail(this.blogId, postId);
+    this.postService.handleShowDetail(this.blogId, postId);
   }
 
   removePostFrom(body: DeleteRequestBody): void {
-    this.service.removePostFrom(body.blogId, body.postId).subscribe(_ => this.fetchPosts());
+    this.postService.removePostFrom(body.blogId, body.postId).subscribe(_ => this.fetchPosts());
   }
 
   onOpenEdit(post: Post): void {
-    this.dialogRef = this.service.openDialog(post);
+    this.dialogRef = this.postService.openDialog(post);
     this.dialogRef.afterClosed().subscribe((body: PostRequestBody) => {
       if (body) {
-        this.service.editPost(this.blogId, body)
+        this.postService.editPost(this.blogId, body)
           .pipe(untilDestroyed(this))
           .subscribe((editedPost: Post) => this.fetchPosts());
       }
@@ -72,12 +72,12 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   }
 
   onPostingPost(): void {
-    this.dialogRef = this.service.openDialog(this.blogId);
+    this.dialogRef = this.postService.openDialog(this.blogId);
     this.dialogRef.afterClosed()
       .pipe(untilDestroyed(this))
       .subscribe((body: PostRequestBody) => {
         if (body) {
-          this.service.createPost(this.blogId, body)
+          this.postService.createPost(this.blogId, body)
             .pipe(untilDestroyed(this))
             .subscribe((editedPost: Post) => this.fetchPosts());
         }
@@ -85,12 +85,12 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
   }
 
   fetchPosts(): void {
-    this.posts$ = this.service.getPosts(this.blogId);
+    this.posts$ = this.postService.getPosts(this.blogId);
   }
 
   reloadAfterSearch(): void {
     this.noResults$.next(false);
-    this.service.navigateTo(`/home/blogs/${this.blogId}/posts`);
+    this.postService.navigateTo(`/home/blogs/${this.blogId}/posts`);
   }
 
   ngOnDestroy(): void {

@@ -15,9 +15,9 @@ export class MainService {
     private router: Router,
     private errorService: ErrorHandlerService) {}
 
-    /**
-     * GET - Retrieves and returns Blogs wrapped in Observable
-     */
+  /**
+   * GET - Retrieves and returns Blogs wrapped in Observable
+   */
   getBlogs(): Observable<Blog[]> {
     return this.api.getBlogsByUser().pipe(
             map((blogs: Blog[]) => {
@@ -32,29 +32,29 @@ export class MainService {
         );
   }
 
-    /**
-     * GET - Retrieves and returns Blog wrapped in Observable
-     * @param blogId blog id
-     */
+  /**
+   * GET - Retrieves and returns Blog wrapped in Observable
+   * @param blogId blog id
+   */
   getBlogById(blogId: string): Observable<Blog> {
     return this.api.getBlogById(blogId).pipe(
             catchError(err => this.errorService.handleError(err)),
         );
   }
 
-    /**
-     * Routes to post overview
-     * @param blogId blog id
-     */
+  /**
+   * Routes to post overview
+   * @param blogId blog id
+   */
   handleBlogChange(blogId: string): void {
     this.router.navigate([`home/blogs/${blogId}/posts`]);
   }
 
-    /**
-     * Routes to post overview displaying either posts or search results depending on passed query
-     * @param blogId blog id
-     * @param query search term
-     */
+  /**
+   * Routes to post overview displaying either posts or search results depending on passed query
+   * @param blogId blog id
+   * @param query search term
+   */
   handleSearch(blogId: string, query: string): void {
     if (query !== '') {
       this.router.navigate([`home/blogs/${blogId}/posts/search`], { queryParams: { q: query } });

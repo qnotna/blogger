@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Post } from '../../../../models/posts.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { PostOverviewService } from '../../services/post-overview.service';
+import { PostService } from '../../services/post-overview.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
 import { untilDestroyed } from 'ngx-take-until-destroy';
@@ -20,15 +20,15 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private currentRoute: ActivatedRoute,
-    private postOverviewService: PostOverviewService,
+    private postService: PostService,
   ) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.postOverviewService.isLoading$;
+    this.isLoading$ = this.postService.isLoading$;
     this.currentRoute.params
       .pipe(untilDestroyed(this))
       .subscribe((params: Params) => {
-        this.post$ = this.postOverviewService.getPostById(
+        this.post$ = this.postService.getPostById(
           params.postId,
           params.blogId,
         );
@@ -40,26 +40,31 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
   }
 
   onDelete(post: Post): void {
-    this.postOverviewService
+    this.postService
       .removePostFrom(post.blog.id, post.id)
       .pipe(untilDestroyed(this))
       .subscribe(_ =>
-        this.postOverviewService.navigateTo(`/home/blogs/${post.blog.id}/posts`),
+        this.postService.navigateTo(`/home/blogs/${post.blog.id}/posts`),
       );
   }
 
+  /**
+   * Opens dialog and subscribes its to closing event, retrieving data to be patched
+   * and making related API-call
+   * @param post post to be edited
+   */
   onEdit(post: Post): void {
-    this.dialogRef = this.postOverviewService.openDialog(post);
+    this.dialogRef = this.postService.openDialog(post);
     this.dialogRef.afterClosed()
       .pipe(untilDestroyed(this))
       .subscribe((body: PostRequestBody) => {
         if (body) {
-          this.postOverviewService
+          this.postService
             .editPost(post.blog.id, body)
             .pipe(untilDestroyed(this))
             .subscribe(
               (editedPost: Post) =>
-                (this.post$ = this.postOverviewService.getPostById(
+                (this.post$ = this.postService.getPostById(
                   post.id,
                   post.blog.id,
                 )),

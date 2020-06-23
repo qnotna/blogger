@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Location, Color, Particle } from '../models/particle.model';
-import particleSystemConfig from '../config/particle-system.config';
+import { Location, Color, Particle } from '../../../models/particle.model';
+import particleSystemConfig from './particle-system.config';
 
 @Injectable({ providedIn: 'root' })
 export class ParticleSystemService {

@@ -22,6 +22,8 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchBlogs();
     this.noBlogs$ = this.mainService.noBlogs$;
+
+    // Subscribes to parameter changes on blogId, updating select in blog-overview.component
     this.mainService.getRouteChange()
       .pipe(untilDestroyed(this))
       .subscribe(({ urlAfterRedirects }: NavigationEnd) => {

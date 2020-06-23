@@ -15,6 +15,10 @@ export class BlogOverviewComponent implements OnInit {
   matSelect: FormControl;
 
   @Input() noBlogs: boolean;
+
+  /**
+   * updates selected blog based on id in given selectBlogs, when navigating between blogs
+   */
   @Input() set blog(blog: Blog) {
     if (blog !== null) {
       this.currentBlog = blog;
@@ -23,6 +27,10 @@ export class BlogOverviewComponent implements OnInit {
     }
   }
 
+  /**
+   * emits first blog in retrieved blogs to trigger onBlogChange() in main.component,
+   * routing to post-overview.component
+   */
   @Input() set blogs(blogs: Blog[]) {
     if (blogs !== null && blogs !== undefined) {
       this.blogChanged.emit(blogs[0]?.id);

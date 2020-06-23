@@ -11,7 +11,7 @@ import { PostDialogComponent } from '../components/post-dialog/post-dialog.compo
 import { DialogData } from 'src/app/models/dialog-data.model';
 
 @Injectable({ providedIn: 'root' })
-export class PostOverviewService {
+export class PostService {
   isLoading$ = new BehaviorSubject<boolean>(true);
   noContent$ = new BehaviorSubject<boolean>(false);
   noResults$ = new BehaviorSubject<boolean>(false);
