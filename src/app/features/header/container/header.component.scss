@@ -16,13 +16,13 @@
         align-items: center;
         
         .logout-btn {
-            margin-left: 1em;
+            margin-right: 1em;
         }
     }
 }
 
-@media only screen and (min-width: $md) {
+@media only screen and (max-width: $md) {
     .logout-btn {
-        margin-right: 1em;
+        margin-left: 1em;
     }
 }

@@ -9,11 +9,12 @@
         // pass 2nd argument for explicit color-value reflected in blogger-card-theme.scss
         background-color: mat-color($primary, 200);
 
-        .mat-card-header .mat-card-title .mat-flat-button {
-            background-color: mat-color($primary, 200);
-            color: mat-color($accent, 800);
-            white-space: unset;
-            width: auto;
+        .mat-card-header .mat-card-title h1{
+            min-height: 70px;
+        }
+
+        .mat-card-header-text{
+            margin:0;
         }
 
         img {
@@ -29,7 +30,7 @@
     }
     .mat-card-content {
         text-align: justify;
-
+        min-height: 100px;
     }
     .mat-button-wrapper {
         width: 100px;

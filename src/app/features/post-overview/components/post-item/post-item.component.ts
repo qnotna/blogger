@@ -24,8 +24,18 @@ export class PostItemComponent {
     } as DeleteRequestBody);
   }
 
-  onComment() {
-    alert("Don't touch this dude!");
+  /**
+   * parses html content and searches for img-tags, accessing and returning src attribute
+   * if no img is found a placeholder will be returned
+   * @param content string used to create a HTML Element in order to access html tags within
+   */
+  getFirstImgFromContent(content: string): string {
+    const div: HTMLElement = document.createElement('div');
+    div.innerHTML = content;
+    const images: HTMLCollection = div.getElementsByTagName('img');
+    return images[0] ?
+      (images[0] as HTMLImageElement).src
+    : '';
   }
 
 }
