@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Blog } from 'src/app/models/blogs.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({

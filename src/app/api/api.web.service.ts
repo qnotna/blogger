@@ -13,9 +13,8 @@ import { PostRequestBody } from '../models/post-request-body.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiWebService {
-  API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
-  basePath = 'https://www.googleapis.com';
-  headers: HttpHeaders = new HttpHeaders();
+  private API_KEY = 'AIzaSyD0YDZhEmlsFZ62Z8BwEcWakH4oX--W0nI';
+  private basePath = 'https://www.googleapis.com';
 
   constructor(
     private http: HttpClient,

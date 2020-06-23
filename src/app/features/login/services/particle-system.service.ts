@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import particleModel, { Location, Color } from '../models/particle.model';
+import { Location, Color, Particle } from '../models/particle.model';
 import particleSystemConfig from '../config/particle-system.config';
 
 @Injectable({ providedIn: 'root' })
@@ -68,7 +68,6 @@ export class ParticleSystemService {
   createParticle(minSize, maxSize): Particle {
     const { icons, colors } = particleSystemConfig;
     return {
-      // char: charset.charAt(Math.floor(Math.random() * charset.length)),
       src: icons[Math.floor(Math.random() * icons.length)],
       size: Math.floor(Math.random() * maxSize) + minSize,
       location: {

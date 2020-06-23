@@ -16,7 +16,7 @@ import { PostDialogComponent } from '../post-dialog/post-dialog.component';
 export class PostDetailviewComponent implements OnInit, OnDestroy {
   post$: Observable<Post>;
   isLoading$: BehaviorSubject<boolean>;
-  dialogRef: MatDialogRef<PostDialogComponent>;
+  private dialogRef: MatDialogRef<PostDialogComponent>;
 
   constructor(
     private currentRoute: ActivatedRoute,

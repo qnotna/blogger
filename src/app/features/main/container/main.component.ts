@@ -17,8 +17,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private blogId: string;
   noBlogs$: BehaviorSubject<boolean>;
 
-  constructor(private mainService: MainService, private authService: AuthService,
-    ) {}
+  constructor(private mainService: MainService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.fetchBlogs();

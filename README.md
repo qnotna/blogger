@@ -20,14 +20,13 @@
 - [Material](#material)
     - [Setup Custom Theme](#setup-custom-theme)
     - [Use Material in Project](#use-material-in-Project)
-- [Introduction to Blogger-API](#introduction-to-blogger-api)
+- [Blogger-API](#blogger-api)
+    - [License](#license)
 
 ## App Setup
 
 Clone the repository and run `npm i`.
-Run `npm run start` which will be run on port 4200 on default*. 
-
-*Note: if you want to run this on `another port`, you need to put your port into the `javascript origin domains` in the `OAuth-Client` in the Credentials page and use `port flag in package.json` when executing npm run start
+Run `npm run start` which will be run on port 4200 by default. 
 
 ### Credentials
 In order to `retrieve remote blogger data` from blogger-api, you need to sign in the following `google account` on the blogger-app `after running it in your browser`:
@@ -36,10 +35,7 @@ email: bobby.brown.baker@gmail.com
 
 pw: angular20
 
-For this google account are two credentials given
-- `OAuth-Client-Id`: 938430199904-pd8up38blda9839p5h6er0n2dk4afhi5.apps.googleusercontent.com
-
-`They are already used in our blogger-app, so no concern to do anything from here.`
+You can test it with your own google account, but you need to have already given blogger data which you can create at blogger.com.
 
 ## Angular
 ### Code scaffolding
@@ -328,7 +324,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ### Unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Jest](https://jestjs.io/).
 
 ### Further help
 
@@ -554,5 +550,8 @@ Use `color` attribute on mat-components and as value: `primary`, `accent` or `wa
 ```
 `But you need to read the related docs of the material modules on how to use it - there's many of it and some setups are pretty complex, some not.`
 
-## Introduction to Blogger-API
+### Blogger-API
 For working with blogs, posts, comments, ...  from blogger-api read doc [here](https://developers.google.com/blogger/docs/3.0/using#WorkingWithBlogs).
+
+## License
+We are using [Blogger API v3](https://developers.google.com/blogger) from Google.

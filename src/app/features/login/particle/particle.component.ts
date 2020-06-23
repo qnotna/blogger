@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import particleModel, { Color, Location, Style } from '../models/particle.model';
+import { Color, Location, Style, Particle } from '../models/particle.model';
 
 @Component({
   selector: 'app-particle',
@@ -51,7 +51,6 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
       this.style = {
         width: `${this.size}px`,
         height: `${this.size}px`,
-        // color: this.color.hex,
         opacity: this.color.alpha,
         left: `${this.location.x}px`,
         top: `${this.location.y}px`,

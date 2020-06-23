@@ -14,10 +14,10 @@ import { PostRequestBody } from 'src/app/models/post-request-body.model';
 export class PostDialogComponent implements OnInit {
   editor = ClassicEditor;
   config = editorConfig;
-  emptyPost = emptyPost;
   title: FormControl;
   content: FormControl;
-  editMode = false;
+  private emptyPost = emptyPost;
+  private editMode = false;
 
   constructor(
     public dialogRef: MatDialogRef<PostDialogComponent>,

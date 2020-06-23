@@ -5,18 +5,17 @@
 }
 
 .blog-overview-field {
-    font-size: $large-font-size;
+    font-size: $normal-font-size;
     margin-left: 1em;
     width: 100%;
+
+    @media only screen and (max-width: $md) {
+        width: 50%;
+        font-size: $large-font-size;
+    }
 }
 
 .mat-progress-spinner {
     margin: 0 auto;
 }
 
-@media only screen and (max-width: $md) {
-    .blog-overview-field {
-        width: 50%;
-        font-size: $normal-font-size;
-    }
-}

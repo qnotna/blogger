@@ -2,6 +2,8 @@
   .mat-toolbar {
     .mat-form-field-appearance-legacy {
       .mat-form-field-infix {
+        display: flex;
+        align-items: center;
         padding: 0;
         border-top: none;
         width: 250px;

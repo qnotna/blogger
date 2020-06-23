@@ -13,7 +13,7 @@ export class NoPostsComponent implements OnChanges {
   @Output() notifyParent = new EventEmitter<void>();
   config: NoPostsConfig;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     this.config = renderNoPostsConfig(this.noContent, this.noResults);
   }
 }

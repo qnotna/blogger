@@ -80,6 +80,6 @@ import { NoBlogsComponent } from './features/main/components/no-blogs/no-blogs.c
 })
 export class AppModule {
   constructor() {
-    registerLocaleData(localeDe, 'de-DE');
+    registerLocaleData(de, 'de-DE');
   }
 }

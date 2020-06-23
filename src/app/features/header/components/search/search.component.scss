@@ -16,7 +16,16 @@
     }
 
 
-    input::placeholder {
-        color: #fafafa;
+    input {
+        font-size: $normal-font-size;
+
+        &::placeholder {
+            color: #fafafa;
+        }
+
+        @media only screen and (max-width: $md) {
+            font-size: $large-font-size;
+        }
     }
 }
+
