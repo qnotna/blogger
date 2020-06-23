@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { Post } from '../../../models/posts.model';
 import { PostOverviewService } from '../services/post-overview.service';
-import { BehaviorSubject } from 'rxjs';
 import { DeleteRequestBody, PostRequestBody } from 'src/app/models/post-request-body.model';
 import { ActivatedRoute } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
@@ -25,7 +24,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: PostOverviewService,
-    private currentRoute: ActivatedRoute
+    private currentRoute: ActivatedRoute,
   ) {}
 
   /**
@@ -82,7 +81,7 @@ export class PostOverviewComponent implements OnInit, OnDestroy {
             .pipe(untilDestroyed(this))
             .subscribe((editedPost: Post) => this.fetchPosts());
         }
-    });
+      });
   }
 
   fetchPosts(): void {

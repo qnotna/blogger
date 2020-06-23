@@ -4,7 +4,9 @@ import { MainComponent } from './features/main/container/main.component';
 import { LoginComponent } from './features/login/container/login.component';
 import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { AuthGuard } from './services/auth.guard';
-import { PostDetailviewComponent } from './features/post-overview/components/post-detailview/post-detailview.component';
+import {
+  PostDetailviewComponent,
+} from './features/post-overview/components/post-detailview/post-detailview.component';
 
 const routes: Routes = [
   {
@@ -19,11 +21,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: MainComponent,
-    canActivate: [ AuthGuard ],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'blogs/:blogId',
-        redirectTo: 'blogs/:blogId/posts'
+        redirectTo: 'blogs/:blogId/posts',
       },
       {
         path: 'blogs/:blogId/posts',
@@ -36,7 +38,7 @@ const routes: Routes = [
       {
         path: 'blogs/:blogId/posts/:postId/detail',
         component: PostDetailviewComponent,
-      }
+      },
     ],
   },
   { path: '**', redirectTo: '' },

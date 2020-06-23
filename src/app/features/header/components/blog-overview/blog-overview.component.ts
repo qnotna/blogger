@@ -6,7 +6,7 @@ import { MatSelectChange } from '@angular/material/select';
 @Component({
   selector: 'app-blog-overview',
   templateUrl: './blog-overview.component.html',
-  styleUrls: ['./blog-overview.component.scss']
+  styleUrls: ['./blog-overview.component.scss'],
 })
 export class BlogOverviewComponent implements OnInit {
 

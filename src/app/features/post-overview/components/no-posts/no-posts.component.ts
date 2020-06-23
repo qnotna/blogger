@@ -4,7 +4,7 @@ import { renderNoPostsConfig, NoPostsConfig } from './no-posts.config';
 @Component({
   selector: 'app-no-posts',
   templateUrl: './no-posts.component.html',
-  styleUrls: ['./no-posts.component.scss']
+  styleUrls: ['./no-posts.component.scss'],
 })
 export class NoPostsComponent implements OnChanges {
   @Input() noContent: boolean;

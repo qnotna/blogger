@@ -6,63 +6,66 @@ import { catchError, filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class MainService {
-    noBlogs$ = new BehaviorSubject<boolean>(false);
+  noBlogs$ = new BehaviorSubject<boolean>(false);
 
-    constructor(private api: ApiWebService, private router: Router, private errorService: ErrorHandlerService) {}
+  constructor(
+    private api: ApiWebService,
+    private router: Router,
+    private errorService: ErrorHandlerService) {}
 
     /**
      * GET - Retrieves and returns Blogs wrapped in Observable
      */
-    getBlogs(): Observable<Blog[]> {
-        return this.api.getBlogsByUser().pipe(
+  getBlogs(): Observable<Blog[]> {
+    return this.api.getBlogsByUser().pipe(
             map((blogs: Blog[]) => {
-                this.noBlogs$.next(false);
-                if (!blogs) {
-                    this.noBlogs$.next(true);
-                    return [];
-                }
-                return blogs;
+              this.noBlogs$.next(false);
+              if (!blogs) {
+                this.noBlogs$.next(true);
+                return [];
+              }
+              return blogs;
             }),
-            catchError(err => this.errorService.handleError(err))
+            catchError(err => this.errorService.handleError(err)),
         );
-    }
+  }
 
     /**
      * GET - Retrieves and returns Blog wrapped in Observable
      * @param blogId blog id
      */
-    getBlogById(blogId: string): Observable<Blog> {
-        return this.api.getBlogById(blogId).pipe(
-            catchError(err => this.errorService.handleError(err))
+  getBlogById(blogId: string): Observable<Blog> {
+    return this.api.getBlogById(blogId).pipe(
+            catchError(err => this.errorService.handleError(err)),
         );
-    }
+  }
 
     /**
      * Routes to post overview
      * @param blogId blog id
      */
-    handleBlogChange(blogId: string): void {
-        this.router.navigate([`home/blogs/${blogId}/posts`]);
-    }
+  handleBlogChange(blogId: string): void {
+    this.router.navigate([`home/blogs/${blogId}/posts`]);
+  }
 
     /**
      * Routes to post overview displaying either posts or search results depending on passed query
      * @param blogId blog id
      * @param query search term
      */
-    handleSearch(blogId: string, query: string): void {
-        if (query !== '') {
-            this.router.navigate([`home/blogs/${blogId}/posts/search`], { queryParams: { q: query } });
-        }
-        if (query === '' && this.router.url.includes('q=')) {
-            this.router.navigate([`home/blogs/${blogId}/posts`]);
-        }
+  handleSearch(blogId: string, query: string): void {
+    if (query !== '') {
+      this.router.navigate([`home/blogs/${blogId}/posts/search`], { queryParams: { q: query } });
     }
+    if (query === '' && this.router.url.includes('q=')) {
+      this.router.navigate([`home/blogs/${blogId}/posts`]);
+    }
+  }
 
-    getRouteChange(): Observable<Event> {
-        return this.router.events
+  getRouteChange(): Observable<Event> {
+    return this.router.events
             .pipe(filter(event => event instanceof NavigationEnd));
-    }
+  }
 }

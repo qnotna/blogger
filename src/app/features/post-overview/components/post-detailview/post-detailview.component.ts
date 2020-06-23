@@ -20,7 +20,7 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private currentRoute: ActivatedRoute,
-    private postOverviewService: PostOverviewService
+    private postOverviewService: PostOverviewService,
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
       .subscribe((params: Params) => {
         this.post$ = this.postOverviewService.getPostById(
           params.postId,
-          params.blogId
+          params.blogId,
         );
       });
   }
@@ -43,8 +43,8 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
     this.postOverviewService
       .removePostFrom(post.blog.id, post.id)
       .pipe(untilDestroyed(this))
-      .subscribe((_) =>
-        this.postOverviewService.navigateTo(`/home/blogs/${post.blog.id}/posts`)
+      .subscribe(_ =>
+        this.postOverviewService.navigateTo(`/home/blogs/${post.blog.id}/posts`),
       );
   }
 
@@ -61,8 +61,8 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
               (editedPost: Post) =>
                 (this.post$ = this.postOverviewService.getPostById(
                   post.id,
-                  post.blog.id
-                ))
+                  post.blog.id,
+                )),
             );
         }
       });

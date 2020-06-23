@@ -8,7 +8,7 @@ describe('ParticleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParticleComponent ]
+      declarations: [ParticleComponent],
     })
     .compileComponents();
   }));

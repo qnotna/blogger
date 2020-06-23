@@ -5,7 +5,7 @@ import { DeleteRequestBody } from 'src/app/models/post-request-body.model';
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
-  styleUrls: ['./post-item.component.scss']
+  styleUrls: ['./post-item.component.scss'],
 })
 export class PostItemComponent {
   @Input() post: Post;
@@ -20,12 +20,12 @@ export class PostItemComponent {
   onDelete(): void {
     this.deletePost.emit({
       blogId: this.post.blog.id,
-      postId: this.post.id
+      postId: this.post.id,
     } as DeleteRequestBody);
   }
 
   onComment() {
-    alert(`Don't touch this dude!`);
+    alert("Don't touch this dude!");
   }
 
 }

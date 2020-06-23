@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Particle, { Location, Color } from '../models/particle.model';
+import particleModel, { Location, Color } from '../models/particle.model';
 import particleSystemConfig from '../config/particle-system.config';
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +17,7 @@ export class ParticleSystemService {
   onMouseMove(event: MouseEvent): void {
     const mouse = {
       x: event.clientX,
-      y: event.clientY
+      y: event.clientY,
     } as Location;
     this.delta(mouse);
   }
@@ -37,7 +37,7 @@ export class ParticleSystemService {
       this.mouseStack.splice(0, 1);
       this.deltaMouse = {
         x: previous.x - next.x,
-        y: previous.y - next.y
+        y: previous.y - next.y,
       } as Location;
     }
   }
@@ -49,7 +49,7 @@ export class ParticleSystemService {
    * @param maxSize maximum particle size in pt
    */
   initParticlesWithSize(amount: number, minSize: number, maxSize: number): void {
-    for (let i = 0; i < amount; i++) {
+    for (let i = 0; i < amount; i += 1) {
       this.particles.push(this.createParticle(minSize, maxSize));
     }
   }
@@ -73,12 +73,12 @@ export class ParticleSystemService {
       size: Math.floor(Math.random() * maxSize) + minSize,
       location: {
         x: Math.round(Math.random() * window.innerWidth - 50),
-        y: Math.round(Math.random() * window.innerHeight - 50)
+        y: Math.round(Math.random() * window.innerHeight - 50),
       } as Location,
       color: {
         hex: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() + 0.5
-      } as Color
+        alpha: Math.random() + 0.5,
+      } as Color,
     } as Particle;
   }
 

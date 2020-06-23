@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockRoute } from 'src/app/testing/mock-route.stub';
+import { mockRoute } from 'src/app/testing/mock-route.stub';
 
 class MockService {
   handleAuth() {}
@@ -21,17 +21,17 @@ describe('PostOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostOverviewComponent ],
+      declarations: [PostOverviewComponent],
       imports: [
         HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       providers: [
         ActivatedRoute,
         { provide: AuthService, useClass: MockService },
         { provide: Router, useClass: MockRouter },
-        { provide: ActivatedRoute, useValue: MockRoute }
-      ]
+        { provide: ActivatedRoute, useValue: mockRoute },
+      ],
     })
     .compileComponents();
   }));

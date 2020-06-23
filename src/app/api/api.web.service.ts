@@ -19,7 +19,7 @@ export class ApiWebService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   getBlogsByUser(): Observable<Blog[]> {
@@ -27,9 +27,9 @@ export class ApiWebService {
     return this.http
       .get<any>(`${this.basePath}/blogger/v3/users/self/blogs`, options)
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map((res) => res as GETBlogsResponse),
-        map((res) => res.items)
+        catchError(err => this.handleError(err)),
+        map(res => res as GETBlogsResponse),
+        map(res => res.items),
       );
   }
 
@@ -38,8 +38,8 @@ export class ApiWebService {
     return this.http
       .get<any>(`${this.basePath}/blogger/v3/blogs/${blogId}`, options)
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map((res) => res as Blog)
+        catchError(err => this.handleError(err)),
+        map(res => res as Blog),
       );
   }
 
@@ -48,9 +48,9 @@ export class ApiWebService {
     return this.http
       .get<any>(`${this.basePath}/blogger/v3/blogs/${blogId}/posts?key=${this.API_KEY}`, options)
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map((res) => res as GETPostsResponse),
-        map((res) => res.items)
+        catchError(err => this.handleError(err)),
+        map(res => res as GETPostsResponse),
+        map(res => res.items),
       );
   }
 
@@ -59,11 +59,11 @@ export class ApiWebService {
     return this.http
       .get<any>(
         `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`,
-        options
+        options,
       )
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map((res) => res as Post)
+        catchError(err => this.handleError(err)),
+        map(res => res as Post),
       );
   }
 
@@ -73,8 +73,8 @@ export class ApiWebService {
     return this.http
       .post(`${this.basePath}/blogger/v3/blogs/${blogId}/posts`, body, options)
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map(createdPost => createdPost as Post)
+        catchError(err => this.handleError(err)),
+        map(createdPost => createdPost as Post),
       );
   }
 
@@ -83,9 +83,9 @@ export class ApiWebService {
     return this.http
       .get(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/search?q=${q}`, options)
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map((res) => res as GETPostsResponse),
-        map((res) => res.items)
+        catchError(err => this.handleError(err)),
+        map(res => res as GETPostsResponse),
+        map(res => res.items),
       );
   }
 
@@ -95,8 +95,8 @@ export class ApiWebService {
     return this.http
       .patch(`${this.basePath}/blogger/v3/blogs/${blogId}/posts/${body.postId}`, body, options)
       .pipe(
-        catchError((err) => this.handleError(err)),
-        map(editedPost => editedPost as Post)
+        catchError(err => this.handleError(err)),
+        map(editedPost => editedPost as Post),
       );
   }
 
@@ -109,7 +109,7 @@ export class ApiWebService {
     const url = `${this.basePath}/blogger/v3/blogs/${blogId}/posts/${postId}?key=${this.API_KEY}`;
     const options = { headers: this.getHeaders() };
     return this.http.delete(url, options).pipe(
-      catchError((err) => this.handleError(err))
+      catchError(err => this.handleError(err)),
     );
   }
 

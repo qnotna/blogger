@@ -4,30 +4,30 @@ import { PostItemComponent } from './post-item.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Post } from 'src/app/models/posts.model';
 
-const FakePost: Post = {
-    kind: 'string',
-    blog: {
-      id: 'string',
-    },
-    updated: 'string',
-    url: 'string',
-    selflink: 'string',
+const fakePost: Post = {
+  kind: 'string',
+  blog: {
+    id: 'string',
+  },
+  updated: 'string',
+  url: 'string',
+  selflink: 'string',
+  id: 'id',
+  published: 'date',
+  title: 'title',
+  content: 'content',
+  author: {
     id: 'id',
-    published: 'date',
-    title: 'title',
-    content: 'content',
-    author: {
-      id: 'id',
-      displayName: 'name',
+    displayName: 'name',
+    url: 'url',
+    image: {
       url: 'url',
-      image: {
-        url: 'url',
-      },
     },
-    replies: {
-      totalItems: 'string',
-      selfLink: 'string',
-    }
+  },
+  replies: {
+    totalItems: 'string',
+    selfLink: 'string',
+  },
 };
 
 describe('PostItemComponent', () => {
@@ -36,14 +36,14 @@ describe('PostItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostItemComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA ]
+      declarations: [PostItemComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    component.post = FakePost;
+    component.post = fakePost;
     fixture = TestBed.createComponent(PostItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

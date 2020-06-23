@@ -8,7 +8,7 @@ describe('NoBlogsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoBlogsComponent ]
+      declarations: [NoBlogsComponent],
     })
     .compileComponents();
   }));

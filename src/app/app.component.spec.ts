@@ -13,14 +13,14 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
-        AppComponent
+        AppComponent,
       ],
       providers: [
-        { provide: AuthService, useClass: MockService }
-      ]
+        { provide: AuthService, useClass: MockService },
+      ],
     }).compileComponents();
   }));
 

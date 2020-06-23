@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import Particle, { Color, Location, Style } from '../models/particle.model';
+import particleModel, { Color, Location, Style } from '../models/particle.model';
 
 @Component({
   selector: 'app-particle',
   templateUrl: './particle.component.html',
-  styleUrls: ['./particle.component.scss']
+  styleUrls: ['./particle.component.scss'],
 })
 export class ParticleComponent implements Particle, OnInit, OnChanges {
   @Input() src: string;
@@ -16,7 +16,7 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
   @Input() deltaMouse: Location;
 
   ngOnInit(): void {
-    this.src = `https://img.icons8.com/${this.color.hex}/${this.src}`
+    this.src = `https://img.icons8.com/${this.color.hex}/${this.src}`;
     this.draw();
   }
 
@@ -54,7 +54,7 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
         // color: this.color.hex,
         opacity: this.color.alpha,
         left: `${this.location.x}px`,
-        top: `${this.location.y}px`
+        top: `${this.location.y}px`,
       } as Style;
     }
   }
@@ -64,7 +64,8 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
    * @returns whether the particle is visible on the x-Axis
    */
   private isVisibleX(): boolean {
-    return this.location.x + 2 * this.size > 0 && this.location.x - 2 * this.size < window.innerWidth;
+    return this.location.x +
+    2 * this.size > 0 && this.location.x - 2 * this.size < window.innerWidth;
   }
 
   /**
@@ -72,7 +73,8 @@ export class ParticleComponent implements Particle, OnInit, OnChanges {
    * @returns whether the particle is visible on the y-Axis
    */
   private isVisibleY(): boolean {
-    return this.location.y + 2 * this.size > 0 && this.location.y - 2 * this.size < window.innerHeight;
+    return this.location.y +
+    2 * this.size > 0 && this.location.y - 2 * this.size < window.innerHeight;
   }
 
   /**
