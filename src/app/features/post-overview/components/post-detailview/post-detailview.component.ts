@@ -1,23 +1,22 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Post } from "../../../../models/posts.model";
-import { ActivatedRoute, Params } from "@angular/router";
-import { PostOverviewService } from "../../services/post-overview.service";
-import { Observable, Subscription, BehaviorSubject } from "rxjs";
-import { PostRequestBody } from "src/app/models/post-request-body.model";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Post } from '../../../../models/posts.model';
+import { ActivatedRoute, Params } from '@angular/router';
+import { PostOverviewService } from '../../services/post-overview.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { PostRequestBody } from 'src/app/models/post-request-body.model';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { MatDialogRef } from '@angular/material/dialog';
+import { PostDialogComponent } from '../post-dialog/post-dialog.component';
 
 @Component({
-  selector: "app-post-detailview",
-  templateUrl: "./post-detailview.component.html",
-  styleUrls: ["./post-detailview.component.scss"],
+  selector: 'app-post-detailview',
+  templateUrl: './post-detailview.component.html',
+  styleUrls: ['./post-detailview.component.scss'],
 })
 export class PostDetailviewComponent implements OnInit, OnDestroy {
   post$: Observable<Post>;
   isLoading$: BehaviorSubject<boolean>;
-
-  routeSub: Subscription;
-  dialogSub: Subscription;
-  editPostSub: Subscription;
-  deleteSub: Subscription;
+  dialogRef: MatDialogRef<PostDialogComponent>;
 
   constructor(
     private currentRoute: ActivatedRoute,
@@ -26,19 +25,18 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading$ = this.postOverviewService.isLoading$;
-    this.routeSub = this.currentRoute.params.subscribe((params: Params) => {
-      this.post$ = this.postOverviewService.getPostById(
-        params.postId,
-        params.blogId
-      );
-    });
+    this.currentRoute.params
+      .pipe(untilDestroyed(this))
+      .subscribe((params: Params) => {
+        this.post$ = this.postOverviewService.getPostById(
+          params.postId,
+          params.blogId
+        );
+      });
   }
 
   ngOnDestroy(): void {
-    this.routeSub.unsubscribe();
-    this.dialogSub?.unsubscribe();
-    this.editPostSub?.unsubscribe();
-    this.deleteSub?.unsubscribe();
+    this.isLoading$.next(false);
   }
 
   onComment() {
@@ -46,21 +44,23 @@ export class PostDetailviewComponent implements OnInit, OnDestroy {
   }
 
   onDelete(post: Post): void {
-    this.deleteSub = this.postOverviewService
+    this.postOverviewService
       .removePostFrom(post.blog.id, post.id)
+      .pipe(untilDestroyed(this))
       .subscribe((_) =>
         this.postOverviewService.navigateTo(`/home/blogs/${post.blog.id}/posts`)
       );
   }
 
   onEdit(post: Post): void {
-    const dialogRef = this.postOverviewService.openDialog(post);
-    this.dialogSub = dialogRef
-      .afterClosed()
+    this.dialogRef = this.postOverviewService.openDialog(post);
+    this.dialogRef.afterClosed()
+      .pipe(untilDestroyed(this))
       .subscribe((body: PostRequestBody) => {
         if (body) {
-          this.editPostSub = this.postOverviewService
+          this.postOverviewService
             .editPost(post.blog.id, body)
+            .pipe(untilDestroyed(this))
             .subscribe(
               (editedPost: Post) =>
                 (this.post$ = this.postOverviewService.getPostById(

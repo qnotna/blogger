@@ -40,10 +40,9 @@
   align-items: center;
 }
 
-@media only screen and (min-width: $md) {
+@media only screen and (axn-width: $md) {
   .post-card {
-    width: 70%;
+    width: 100%;
     margin: auto;
-    margin-top: $large-margin;
   }
 }

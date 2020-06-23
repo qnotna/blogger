@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ApiWebService } from 'src/app/api/api.web.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
-import { catchError, filter } from 'rxjs/operators';
+import { catchError, filter, map } from 'rxjs/operators';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Injectable({ providedIn: 'root'})
 export class MainService {
+    noBlogs$ = new BehaviorSubject<boolean>(false);
+
     constructor(private api: ApiWebService, private router: Router, private errorService: ErrorHandlerService) {}
 
     /**
@@ -15,6 +17,14 @@ export class MainService {
      */
     getBlogs(): Observable<Blog[]> {
         return this.api.getBlogsByUser().pipe(
+            map((blogs: Blog[]) => {
+                this.noBlogs$.next(false);
+                if (!blogs) {
+                    this.noBlogs$.next(true);
+                    return [];
+                }
+                return blogs;
+            }),
             catchError(err => this.errorService.handleError(err))
         );
     }

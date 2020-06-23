@@ -1,14 +1,10 @@
 @import '~@angular/material/theming';
 
 :host {
-    margin: 20px auto;
+    margin: 20px 0;
     flex: 1 0 35%;
     padding: 0px 20px;
 }
-
-
-
-
 
 .post-card{
     box-shadow: 0 14px 28px rgba(0,0,0,0.47);
@@ -18,7 +14,6 @@
     }
 
 }
-
 
 .post-card-content{
     cursor: pointer;
@@ -43,10 +38,12 @@
 }
 
 .header-text{
-    padding-left: 4em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.mat-button{
-    margin: 0px !important;
-    padding: 0px !important;
+.mat-card-actions .mat-button {
+    margin: 0px;
+    padding: 0px;
 }

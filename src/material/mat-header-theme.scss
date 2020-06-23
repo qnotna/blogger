@@ -4,10 +4,13 @@
       .mat-form-field-infix {
         padding: 0;
         border-top: none;
+        width: 250px;
       }
       
       .mat-form-field-underline {
         background-color: #ffffff;
+
+        // Overwrite element style
         height: 0 !important;
       }
     
@@ -22,6 +25,7 @@
   }
 
   .mat-select-panel .mat-option {
+    // Overwrite element style
     line-height: unset !important;
   }
 }

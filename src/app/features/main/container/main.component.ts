@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { MainService } from '../services/main.service';
 import { NavigationEnd } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-main',
@@ -13,15 +14,17 @@ import { NavigationEnd } from '@angular/router';
 export class MainComponent implements OnInit, OnDestroy {
   blogs$: Observable<Blog[]>;
   blog$: Observable<Blog>;
-  blogId: string;
-  routeChangeSub: Subscription;
+  private blogId: string;
+  noBlogs$: BehaviorSubject<boolean>;
 
-  constructor(private service: MainService, private authService: AuthService
+  constructor(private mainService: MainService, private authService: AuthService
     ) {}
 
   ngOnInit(): void {
     this.fetchBlogs();
-    this.routeChangeSub = this.service.getRouteChange()
+    this.noBlogs$ = this.mainService.noBlogs$;
+    this.mainService.getRouteChange()
+      .pipe(untilDestroyed(this))
       .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
         const blogId = urlAfterRedirects.split('/')[3];
         this.fetchBlog(blogId);
@@ -29,20 +32,20 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   fetchBlogs(): void {
-    this.blogs$ = this.service.getBlogs();
+    this.blogs$ = this.mainService.getBlogs();
   }
 
   fetchBlog(blogId: string): void {
-    this.blog$ = this.service.getBlogById(blogId);
+    this.blog$ = this.mainService.getBlogById(blogId);
   }
 
   onBlogChange(selectedBlogId: string): void {
     this.blogId = selectedBlogId;
-    this.service.handleBlogChange(selectedBlogId);
+    this.mainService.handleBlogChange(selectedBlogId);
   }
 
   onSearchPost(query: string): void {
-    this.service.handleSearch(this.blogId, query);
+    this.mainService.handleSearch(this.blogId, query);
   }
 
   onLogout(): void {
@@ -50,7 +53,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeChangeSub.unsubscribe();
+    this.noBlogs$.next(false);
   }
 
 }
