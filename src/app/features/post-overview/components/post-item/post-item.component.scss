@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+
+:host {
+    margin: 20px 0;
+    flex: 1 0 35%;
+    padding: 0px 20px;
+}
+
+.post-card{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.47);
+    transition: .2s ease-in-out;
+    &:hover{
+        transform: translateY(-5px);
+    }
+
+}
+
+.post-card-content{
+    cursor: pointer;
+}
+
+.img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-image {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    float:left;
+}
+
+.header-text{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

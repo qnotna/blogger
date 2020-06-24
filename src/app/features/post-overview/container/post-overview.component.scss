@@ -1,0 +1,45 @@
+@import "global-utils";
+
+.mat-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+}
+
+@media only screen and (max-width: $lg){
+    .mat-list{
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.spinner {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-add-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 4em;
+    margin-right: 4em;
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width: $md) {
+        margin-bottom: 1em;
+        margin-right: 1em;
+    }
+}

@@ -1,0 +1,31 @@
+@import "global-utils";
+
+:host {
+    margin-left: auto;
+}
+
+.form {
+    transition: width .2s ease;
+    font-size: $large-font-size;
+    margin-right: 2em;
+    width: 0px;
+
+    &:focus-within {
+        transition: width .4s ease-in-out;
+        width: 200px;
+    }
+
+
+    input {
+        font-size: $normal-font-size;
+
+        &::placeholder {
+            color: #fafafa;
+        }
+
+        @media only screen and (max-width: $md) {
+            font-size: $large-font-size;
+        }
+    }
+}
+

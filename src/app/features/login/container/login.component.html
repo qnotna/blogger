@@ -1,0 +1,17 @@
+<div class="login_container" (mousemove)="onMouseMove($event)">
+  <div class="login_canvas">
+    <app-particle *ngFor="let particle of particleService.particles"
+      [src]="particle.src"
+      [size]="particle.size"
+      [color]="particle.color"
+      [location]="particle.location"
+      [deltaMouse]="particleService.deltaMouse"
+    ></app-particle>
+  </div>
+  <mat-card class="login_card">
+    <img alt="Login to Blogger" src="https://img.icons8.com/fluent/96/000000/lock-2.png" />
+    <h1>Willkommen zu Blogger!</h1>
+    <p>Log dich mit deinem Google Account ein, um fortzufahren.</p>
+    <button mat-flat-button color="accent" (click)="signIn()">Einloggen</button>
+  </mat-card>
+</div>

@@ -1,5 +1,9 @@
 @import '~@angular/material/theming';
 @import 'blogger-color-palette.scss';
+@import 'mat-card-theme.scss';
+@import 'mat-modal-theme.scss';
+@import 'mat-header-theme.scss';
+@import 'mat-general-theme.scss';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -14,7 +18,7 @@ $blogger-app-primary: mat-palette($mat-blogger);
 $blogger-app-accent:  mat-palette($mat-blogger-accent);
 
 // The warn palette is optional (defaults to red).
-$blogger-app-warn:    mat-palette($mat-red);
+$blogger-app-warn:    mat-palette($mat-blogger-warn);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $blogger-app-theme: mat-light-theme($blogger-app-primary, $blogger-app-accent, $blogger-app-warn);
@@ -24,5 +28,10 @@ $blogger-app-theme: mat-light-theme($blogger-app-primary, $blogger-app-accent, $
 // that you are using.
 @include angular-material-theme($blogger-app-theme);
 
-$mat-typography: mat-typography-config($font-family: "Lato");
+$mat-typography: mat-typography-config($font-family: 'sans-serif, Lato');
 @include angular-material-typography($mat-typography);
+
+@include mat-card($blogger-app-theme);
+@include mat-header($blogger-app-theme);
+@include mat-modal($blogger-app-theme);
+@include mat-general($blogger-app-theme);

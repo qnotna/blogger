@@ -1,0 +1,22 @@
+<div class="modal-wrapper">
+    <button mat-button class="close-btn" (click)="onCancel()"><mat-icon>close</mat-icon></button>
+    <form #form>
+        <!-- Title -->
+        <mat-form-field class="title-form-field">
+            <mat-label>Titel</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                name="title" 
+                [formControl]="title"
+            />
+        </mat-form-field>
+    
+        <!-- Content -->
+        <ckeditor [formControl]="content" [editor]="editor" [config]="config"></ckeditor>
+
+        <!-- Actions -->
+        <button mat-raised-button class="save-btn" color="accent" (click)="onSave()">Speichern</button>
+    </form>
+
+</div>

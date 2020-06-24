@@ -1,7 +1,13 @@
-<img src="assets/look_into_hand.jpg" alt="gotcha!" width="1000" height="400"/>
-<h3>Blogs</h3>
-<div *ngIf="(blogs$ | async) as blogs">
-    <div *ngFor="let blog of blogs">{{ blog.name }}</div>
-</div>
-<button mat-flat-button color="warn" (click)="fetchBlogs()">Refresh</button>
-<button mat-flat-button color="warn" (click)="logout()">Logout</button>
+<app-header
+  (blogChanged)="onBlogChange($event)"
+  (searchPosts)="onSearchPost($event)"
+  (logout)="onLogout()"
+  [blogs]="blogs$ | async"
+  [blog]="blog$ | async"
+  [noBlogs]="noBlogs$ | async"
+></app-header>
+
+<app-no-blogs [noBlogs]="noBlogs$ | async"></app-no-blogs>
+
+<router-outlet></router-outlet>
+

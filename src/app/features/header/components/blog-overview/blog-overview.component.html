@@ -1,0 +1,18 @@
+<mat-form-field *ngIf="loadedBlogs" class="blog-overview-field">
+  <mat-select [formControl]="matSelect" (selectionChange)="onBlogChange($event)">
+
+    <!-- Selected blog -->
+    <mat-select-trigger>
+      <app-blog-overview-item [blogName]="currentBlog.name" [blogUpdated]="currentBlog.updated"></app-blog-overview-item>
+    </mat-select-trigger>
+
+    <!-- Possible options -->
+    <mat-option [value]="blog" *ngFor="let blog of selectBlogs">
+      <app-blog-overview-item [blogName]="blog.name" [blogUpdated]="blog.updated"></app-blog-overview-item>
+    </mat-option>
+    
+  </mat-select>
+</mat-form-field>
+
+<div class="no-blogs-error" *ngIf="noBlogs"> Keine Blogs verfügbar </div>
+<mat-progress-spinner strokeWitdh=5 diameter=50 mode="indeterminate" color="accent" *ngIf="!(loadedBlogs) && !noBlogs"></mat-progress-spinner>

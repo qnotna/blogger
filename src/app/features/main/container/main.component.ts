@@ -1,34 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Blog } from 'src/app/models/blogs.model';
-import { ApiWebService } from 'src/app/api/api.web.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { MainService } from '../services/main.service';
+import { NavigationEnd } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   blogs$: Observable<Blog[]>;
-  blogs: Blog[];
+  blog$: Observable<Blog>;
+  private blogId: string;
+  noBlogs$: BehaviorSubject<boolean>;
 
-  constructor(private api: ApiWebService, private authService: AuthService) {}
+  constructor(private mainService: MainService, private authService: AuthService) {}
 
-  ngOnInit() {
-    // this.api.getBlogsByUser().subscribe((res: Blog[]) => {
-    //   console.log(res);
-    //   this.blogs = res;
-    // });
+  ngOnInit(): void {
+    this.fetchBlogs();
+    this.noBlogs$ = this.mainService.noBlogs$;
 
-    this.blogs$ = this.api.getBlogsByUser();
+    // Subscribes to parameter changes on blogId, updating select in blog-overview.component
+    this.mainService.getRouteChange()
+      .pipe(untilDestroyed(this))
+      .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
+        const blogId = urlAfterRedirects.split('/')[3];
+        this.fetchBlog(blogId);
+      });
   }
 
-  fetchBlogs() {
-    this.blogs$ = this.api.getBlogsByUser();
+  fetchBlogs(): void {
+    this.blogs$ = this.mainService.getBlogs();
   }
 
-  logout() {
+  fetchBlog(blogId: string): void {
+    this.blog$ = this.mainService.getBlogById(blogId);
+  }
+
+  onBlogChange(selectedBlogId: string): void {
+    this.blogId = selectedBlogId;
+    this.mainService.handleBlogChange(selectedBlogId);
+  }
+
+  onSearchPost(query: string): void {
+    this.mainService.handleSearch(this.blogId, query);
+  }
+
+  onLogout(): void {
     this.authService.handleAuth();
   }
+
+  ngOnDestroy(): void {
+    this.noBlogs$.next(false);
+  }
+
 }

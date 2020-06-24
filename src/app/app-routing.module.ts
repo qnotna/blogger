@@ -1,26 +1,51 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './features/main/container/main.component';
+import { LoginComponent } from './features/login/container/login.component';
+import { PostOverviewComponent } from './features/post-overview/container/post-overview.component';
 import { AuthGuard } from './services/auth.guard';
-import { LoginComponent } from './features/login/login.component';
-
+import {
+  PostDetailviewComponent,
+} from './features/post-overview/components/post-detailview/post-detailview.component';
 
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
+  },
+  {
+    path: 'login',
     component: LoginComponent,
-    pathMatch: 'full'
   },
   {
     path: 'home',
     component: MainComponent,
-    canActivate: [ AuthGuard ]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'blogs/:blogId',
+        redirectTo: 'blogs/:blogId/posts',
+      },
+      {
+        path: 'blogs/:blogId/posts',
+        component: PostOverviewComponent,
+      },
+      {
+        path: 'blogs/:blogId/posts/search',
+        component: PostOverviewComponent,
+      },
+      {
+        path: 'blogs/:blogId/posts/:postId/detail',
+        component: PostDetailviewComponent,
+      },
+    ],
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

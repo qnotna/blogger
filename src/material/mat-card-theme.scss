@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+
+@mixin mat-card($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    .mat-card {
+        // pass 2nd argument for explicit color-value reflected in blogger-card-theme.scss
+        background-color: mat-color($primary, 200);
+
+        .mat-card-header .mat-card-title h1{
+            min-height: 70px;
+        }
+
+        .mat-card-header-text{
+            margin:0;
+        }
+
+        img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            height: auto;
+        }
+
+        .mat-card-subtitle {
+                color: #fafafa;
+        }
+    }
+    .mat-card-content {
+        text-align: justify;
+        min-height: 100px;
+    }
+    .mat-button-wrapper {
+        width: 100px;
+    }
+    .mat-card-actions .mat-button {
+        margin: 0px;
+        padding: 0px;
+    }
+}
