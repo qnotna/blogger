@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Color, Location, Style, Particle } from '../models/particle.model';
+import { Color, Location, Style, Particle } from '../../../../models/particle.model';
 
 @Component({
   selector: 'app-particle',

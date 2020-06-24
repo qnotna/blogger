@@ -3,7 +3,7 @@
     <button mat-icon-button matPrefix (focus)="onFocus()" [disabled]="noBlogs">
         <mat-icon>search</mat-icon>
     </button>
-    <input matInput #input [formControl]="searchInput" (keyup.enter)="onSearch()" placeholder="Search...">
+    <input matInput #input [formControl]="searchInput" (keyup.enter)="onSearch()" placeholder="Suche...">
     <button mat-icon-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchInput.setValue('')">
         <mat-icon matSuffix>close</mat-icon>
     </button>

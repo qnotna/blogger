@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Post } from '../../../../models/posts.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { PostService } from '../../services/post-overview.service';
+import { PostService } from '../../services/post.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { PostRequestBody } from 'src/app/models/post-request-body.model';
 import { untilDestroyed } from 'ngx-take-until-destroy';
