@@ -3,7 +3,7 @@
     <form #form>
         <!-- Title -->
         <mat-form-field class="title-form-field">
-            <mat-label>Title</mat-label>
+            <mat-label>Titel</mat-label>
             <input 
                 matInput 
                 type="text" 
@@ -16,7 +16,7 @@
         <ckeditor [formControl]="content" [editor]="editor" [config]="config"></ckeditor>
 
         <!-- Actions -->
-        <button mat-raised-button class="save-btn" color="accent" (click)="onSave()">Save</button>
+        <button mat-raised-button class="save-btn" color="accent" (click)="onSave()">Speichern</button>
     </form>
 
 </div>

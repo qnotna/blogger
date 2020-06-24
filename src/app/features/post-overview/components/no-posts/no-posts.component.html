@@ -6,7 +6,7 @@
     mat-flat-button
     *ngIf="config.showButton"
     (click)="notifyParent.emit($event)"
-  >Weiterlesen</button>
+  >{{ config.buttonText }}</button>
 </div>
 
 <div class="back-to-posts" *ngIf="!(noContent || noResults) && onSearchPage">

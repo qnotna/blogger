@@ -1,4 +1,10 @@
+@import 'global-utils';
+
 @mixin mat-header($theme) {
+  .mat-toolbar-row, .mat-toolbar-single-row {
+    // Overwrite element style
+    padding: 0 $large-padding !important;
+  }
   .mat-toolbar {
     .mat-form-field-appearance-legacy {
       .mat-form-field-infix {

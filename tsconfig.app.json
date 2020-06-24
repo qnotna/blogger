@@ -8,10 +8,6 @@
     "src/main.ts",
     "src/polyfills.ts"
   ],
-  "include": [
-    // commentted to get rid of warning when compiling
-    // "src/**/*.ts"
-  ],
   "exclude": [
     "src/test.ts",
     "src/**/*.spec.ts",

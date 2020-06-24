@@ -1,5 +1,5 @@
 export const editorConfig = {
-  placeholder: 'What do you want to talk about?',
+  placeholder: 'Worüber willst Du bloggen?',
   ckfinder: {
     uploadUrl:
         // tslint:disable-next-line: max-line-length
@@ -8,6 +8,6 @@ export const editorConfig = {
 };
 
 export const emptyPost = {
-  title: '[No Title]',
-  content: '[No Content]',
+  title: '[Kein Titel]',
+  content: '[Kein Inhalt]',
 };
